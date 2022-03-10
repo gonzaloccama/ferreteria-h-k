@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\AskInformation;
 use App\Models\Sale;
 use App\Models\SettingSite;
+use Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Livewire\Component;
@@ -50,13 +51,12 @@ class CartComponent extends Component
 
     public function render()
     {
-        $page['website'] = SettingSite::find(1);
-        $page['title'] = 'Carrito de compras';
-
+        $data['title'] = 'Carrito de compras';
         $data['sale'] = Sale::find(1);
-//        $data['titlePage'] = 'Carrito de compras';
 
-        return view('livewire.cart-component', $data)->layout('layouts.frontend', $page);
+        $this->setAmountForCheckout();
+
+        return view('livewire.cart-component', $data)->layout('layouts.frontend');
     }
 
     public function refreshQuantity($rowId, $action = true)
@@ -81,6 +81,7 @@ class CartComponent extends Component
         Cart::instance('cart')->remove($rowId);
         Cart::instance('saveForLater')->add($item->id, $item->name, 1, $item->price)->associate('App\Models\Product');
         $this->emitTo('cart-count-component', 'refreshComponent');
+        $this->emit('saveForLater');
     }
 
     public function moveToCart($rowId)
@@ -115,27 +116,57 @@ class CartComponent extends Component
         $this->validateOnly($property);
     }
 
+    public function checkout()
+    {
+        if (Auth::check()) {
+            return redirect()->route('checkout');
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
+    public function setAmountForCheckout()
+    {
+        if (session()->has('coupon')) {
+            session()->put('checkout', [
+                'discount' => $this->discount,
+                'subtotal' => $this->subtotalAfterDiscount,
+                'tax' => $this->taxAfterDiscount,
+                'total' => $this->totalAfterDiscount,
+            ]);
+        } else {
+            session()->put('checkout', [
+                'discount' => 0,
+                'subtotal' => Cart::instance('cart')->subtotal(),
+                'tax' => Cart::instance('cart')->tax(),
+                'total' => Cart::instance('cart')->total(),
+            ]);
+        }
+    }
+
     public function ask_information()
     {
         $this->validate();
 
-        $askInformation = new AskInformation();
+        if (Cart::instance('cart')->count() > 0) {
+            $askInformation = new AskInformation();
 
-        $askInformation->info_names = $this->info_names;
-        $askInformation->info_email = $this->info_email;
-        $askInformation->info_celular = $this->info_celular;
-        $askInformation->info_whatsapp = $this->info_whatsapp;
-        $askInformation->info_message = $this->info_message;
-        $askInformation->info_products = $this->info_products;
-        $askInformation->info_subtotal = $this->info_subtotal;
-        $askInformation->info_total = $this->info_total;
+            $askInformation->info_names = $this->info_names;
+            $askInformation->info_email = $this->info_email;
+            $askInformation->info_celular = $this->info_celular;
+            $askInformation->info_whatsapp = $this->info_whatsapp;
+            $askInformation->info_message = $this->info_message;
+            $askInformation->info_products = $this->info_products;
+            $askInformation->info_subtotal = $this->info_subtotal;
+            $askInformation->info_total = $this->info_total;
 
-        $askInformation->save();
+            $askInformation->save();
 
-        $this->showModal = false;
-        $this->cleanError();
-        $this->emit('closeModal');
-        $this->emit('sendAlert');
+            $this->showModal = false;
+            $this->cleanError();
+            $this->emit('closeModal');
+            $this->emit('sendAlert');
+        }
     }
 
     public function show_modal()
@@ -143,8 +174,6 @@ class CartComponent extends Component
         $this->emit('cleanError');
         $sale = Sale::find(1);
         $products = [];
-
-//        dd(Cart::instance('cart')->content());
 
         if (Cart::instance('cart')->count() > 0) {
             $price_product = null;

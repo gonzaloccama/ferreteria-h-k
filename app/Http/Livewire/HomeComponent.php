@@ -21,20 +21,17 @@ class HomeComponent extends Component
         $category = HomeCategory::find(1);
         $cats = explode(',', $category->sel_categories);
 
-        $page['website'] = SettingSite::find(1);
-        $page['title'] = 'Inicio';
+        $data['title'] = 'Inicio';
 
-        $data = [
-            'sliders' => HomeSlider::where('status', 1)->get(),
-            'lproducts' => Product::orderBy('created_at', 'DESC')->get()->take(10),
-            'categories' => Category::whereIn('id', $cats)->get(),
-            'no_of_products' => $category->no_of_products,
-            'sproducts' => Product::where('sale_price', '>', 0)->inRandomOrder()->get()->take(8),
-            'sale' => Sale::find(1),
-            'brands' => Brand::where('status', '1')->get(),
-        ];
+        $data['sliders'] = HomeSlider::where('status', 1)->get();
+        $data['lproducts'] = Product::orderBy('created_at', 'DESC')->get()->take(10);
+        $data['categories'] = Category::whereIn('id', $cats)->get();
+        $data['no_of_products'] = $category->no_of_products;
+        $data['sproducts'] = Product::where('sale_price', '>', 0)->inRandomOrder()->get()->take(8);
+        $data['sale'] = Sale::find(1);
+        $data['brands'] = Brand::where('status', '1')->get();
 
-        return view('livewire.home-component', $data)->layout('layouts.frontend')->layoutData($page);
+        return view('livewire.home-component', $data)->layout('layouts.frontend');/*->layoutData($page);*/
     }
 
     public function store($product_id, $product_name, $product_price)
@@ -43,6 +40,7 @@ class HomeComponent extends Component
         session()->flash('success_message', 'Item added in Cart');
 
         $this->emitTo('cart-count-component', 'refreshComponent');
+        $this->emitTo('cart-count-responsive-component', 'refreshComponent');
 
         $this->emit('addCart');
 //        return redirect()->route('product.cart');

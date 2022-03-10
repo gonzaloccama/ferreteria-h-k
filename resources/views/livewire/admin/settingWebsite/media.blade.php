@@ -39,7 +39,7 @@
         <div class="form-group row">
             <label for="instagram" class="col-sm-3 col-form-label">INSTAGRAM</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="instagram" placeholder="Telegram" name="media_social[instagram]" wire:model="media_social.instagram">
+                <input type="text" class="form-control" id="instagram" placeholder="Instagram" name="media_social[instagram]" wire:model="media_social.instagram">
             </div>
         </div>
 

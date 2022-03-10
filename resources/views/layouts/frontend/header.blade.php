@@ -1,28 +1,46 @@
 <header class="header-area header-style-1 header-height-2">
 
+
     <div class="header-top header-top-ptb-1 d-none d-lg-block">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-xl-5 col-lg-5">
                     <div class="header-info">
                         <ul>
-                            <li><i class="fi-rs-smartphone"></i> <a href="tel:{{ $website->phone }}">+51 {{ $website->phone }}</a></li>
-                            <li><i class="fi-rs-marker"></i><a href="page-contact.html">{{ $website->address }}</a></li>
+                            <li><i class="fi-rs-smartphone"></i> <a
+                                    href="tel:{{ $website->phone }}">+51 {{ $website->phone }}</a></li>
+                            <li><i class="fi-rs-marker"></i><a href="javascript:;">{{ $website->address }}</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-xl-5 col-lg-5">
                     <div class="text-center">
-                        <div id="news-flash" class="d-inline-block">
-                            <ul>
-                                <li>Get great devices up to 50% off <a href="shop-grid-right.html">View details</a></li>
-                                <li>Supper Value Deals - Save more with coupons</li>
-                                <li>Trendy 25silver jewelry, save up 35% off today <a href="shop-grid-right.html">Shop
-                                        now</a></li>
-                            </ul>
+                        <?php
+                        $socials = json_decode($website->media_social);
+                        ?>
+                        <div class="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
+                            @foreach($socials as $key => $social)
+                                @if(isset($social) && !empty($social))
+                                    @if($key != 'whatsapp')
+                                        <a href="{{ $social }}">
+                                            <img
+                                                src="{{ asset('assets/frontend/imgs/theme/icons').'/icons-' . $key . '.svg' }}"
+                                                alt="{{ $key }}">
+                                        </a>
+                                    @else
+                                        <a href="https://api.whatsapp.com/send?phone={{ $social }}">
+                                            <img
+                                                src="{{ asset('assets/frontend/imgs/theme/icons').'/icons-' . $key . '.svg' }}"
+                                                alt="{{ $key }}">
+                                        </a>
+                                    @endif
+                                @endif
+                            @endforeach
+
                         </div>
                     </div>
                 </div>
+
                 <div class="col-xl-2 col-lg-2">
                     <div class="header-info header-info-right">
                         <ul>
@@ -120,7 +138,10 @@
         <div class="container">
             <div class="header-wrap">
                 <div class="logo logo-width-1">
-                    <a href="index.html"><img src="{{ asset('assets/frontend/imgs/theme/ferretools.png') }}" alt="logo"></a>
+                    <a href="{{ route('home') }}">
+                        <img src="{{ asset('assets/frontend/imgs/theme/ferretools.png') }}"
+                             alt="logo">
+                    </a>
                 </div>
                 <div class="header-right">
 
@@ -144,7 +165,7 @@
         <div class="container">
             <div class="header-wrap header-space-between position-relative">
                 <div class="logo logo-width-1 d-block d-lg-none">
-                    <a href="index.html">
+                    <a href="{{ route('home') }}">
                         <img src="{{ asset('assets/frontend/imgs/theme/ferretools.png') }}" alt="logo">
                     </a>
                 </div>
@@ -154,146 +175,52 @@
                             <span class="fi-rs-apps"></span> Categorias
                         </a>
                         <div class="categori-dropdown-wrap categori-dropdown-active-large">
-                            <ul>
-                                <li class="has-children">
-                                    <a href="shop-grid-right.html"><i class="evara-font-dress"></i>Women's Clothing</a>
-                                    <div class="dropdown-menu">
-                                        <ul class="mega-menu d-lg-flex">
-                                            <li class="mega-menu-col col-lg-7">
-                                                <ul class="d-lg-flex">
-                                                    <li class="mega-menu-col col-lg-6">
-                                                        <ul>
-                                                            <li>
-                                                                <span class="submenu-title">Hot & Trending</span>
-                                                            </li>
-                                                            <li>
-                                                                <a class="dropdown-item nav-link nav_item" href="#">Dresses</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="mega-menu-col col-lg-6">
-                                                        <ul>
-                                                            <li>
-                                                                <span class="submenu-title">Bottoms</span></li>
-                                                            <li>
-                                                                <a class="dropdown-item nav-link nav_item" href="#">Leggings</a>
-                                                            </li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="mega-menu-col col-lg-5">
-                                                <div class="header-banner2">
-                                                    <img
-                                                        src="{{ asset('assets/frontend/imgs/banner/menu-banner-2.jpg') }}"
-                                                        alt="menu_banner1">
-                                                    <div class="banne_info">
-                                                        <h6>10% Off</h6>
-                                                        <h4>New Arrival</h4>
-                                                        <a href="#">Shop now</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-
-
-                                <li><a href="shop-grid-right.html"><i class="evara-font-desktop"></i>Computer &
-                                        Office</a>
-                                </li>
-
-                                <li>
-                                    <ul class="more_slide_open" style="display: none;">
-                                        <li><a href="shop-grid-right.html"><i class="evara-font-desktop"></i>Beauty,
-                                                Health</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <div class="more_categories">Show more...</div>
+                            @livewire('product-category-header-component')
                         </div>
                     </div>
                     <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block">
+                        <?php
+                        $menus = \App\Models\SettingMenu::orderBy('order')->with('children', function ($query) {
+                            $query->orderBy('order');
+                        })->where('type', 'page')->where('parent', 0)->get();
+                        ?>
                         <nav>
                             <ul>
-                                <li>
-                                    <a class="{{ route('home') === url()->current()? 'active':'' }}"
-                                       href="{{ route('home') }}">Inicio</a>
-                                </li>
-
-                                <li>
-                                    <a href="#">Acerca de</a>
-                                </li>
-
-                                <li><a href="{{ route('shop') }}">Tienda<i class="fi-rs-angle-down"></i></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="{{ route('product.cart') }}">Lista de deseoas</a></li>
-                                        <li><a href="{{ route('product.wishlist') }}">Carrito de compras</a></li>
-                                        <li><a href="shop-checkout.html">Checkout</a></li>
-                                        <li><a href="shop-compare.html">Comparar</a></li>
-                                    </ul>
-                                </li>
-
-                                <li><a href="blog-category-grid.html">Blog</a></li>
-
-                                <li>
-                                    <a href="page-contact.html">Contáctenos</a>
-                                </li>
+                                @foreach($menus as $menu)
+                                    <li>
+                                        <a href="{{ $menu->is_route == '1' ? route($menu->route) : 'javascript:;' }}"
+                                           class="{{ route($menu->route) === url()->current()? 'active':'' }}">
+                                            {{ $menu->name }}
+                                            @if(count($menu->children))
+                                                <i class="fi-rs-angle-down"></i>
+                                            @endif
+                                        </a>
+                                        @if(count($menu->children))
+                                            <ul class="sub-menu">
+                                                @foreach($menu->children as $smenu)
+                                                    <li>
+                                                        <a href="{{ route($smenu->route) }}">{{ $smenu->name }}</a>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
+                                    </li>
+                                @endforeach
                             </ul>
                         </nav>
                     </div>
                 </div>
                 <div class="hotline d-none d-lg-block">
-                    <p><i class="fi-rs-headset"></i><span></span> +51 987 654 321 </p>
+                    <p><i class="fi-rs-headset"></i><span></span>
+                        <a href="tel:{{ $website->phone }}">+51 {{ $website->phone }}</a></p>
                 </div>
-                <p class="mobile-promotion">Happy <span class="text-brand">Mother's Day</span>. Big Sale Up to 40%
-                </p>
+
                 <div class="header-action-right d-block d-lg-none">
                     <div class="header-action-2">
-                        <div class="header-action-icon-2">
-                            <a href="shop-wishlist.html">
-                                <img alt="Evara"
-                                     src="{{ asset('assets/frontend/imgs/theme/icons/icon-heart.svg') }}">
-                                <span class="pro-count white">4</span>
-                            </a>
-                        </div>
-                        <div class="header-action-icon-2">
-                            <a class="mini-cart-icon" href="shop-cart.html">
-                                <img alt="Evara"
-                                     src="{{ asset('assets/frontend/imgs/theme/icons/icon-cart.svg') }}">
-                                <span class="pro-count white">2</span>
-                            </a>
-                            <div class="cart-dropdown-wrap cart-dropdown-hm2">
-                                <ul>
+                        @livewire('wishlist-count-component')
 
-                                    <li>
-                                        <div class="shopping-cart-img">
-                                            <a href="shop-product-right.html">
-                                                <img alt="Evara"
-                                                     src="{{ asset('assets/frontend/imgs/shop/thumbnail-3.jpg') }}">
-                                            </a>
-                                        </div>
-                                        <div class="shopping-cart-title">
-                                            <h4><a href="shop-product-right.html">Plain Striola Shirts</a></h4>
-                                            <h3><span>1 × </span>$800.00</h3>
-                                        </div>
-                                        <div class="shopping-cart-delete">
-                                            <a href="#"><i class="fi-rs-cross-small"></i></a>
-                                        </div>
-                                    </li>
+                        @livewire('cart-count-responsive-component')
 
-                                </ul>
-                                <div class="shopping-cart-footer">
-                                    <div class="shopping-cart-total">
-                                        <h4>Total <span>$383.00</span></h4>
-                                    </div>
-                                    <div class="shopping-cart-button">
-                                        <a href="shop-cart.html">View cart</a>
-                                        <a href="shop-checkout.html">Checkout</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="header-action-icon-2 d-block d-lg-none">
                             <div class="burger-icon burger-icon-white">
                                 <span class="burger-icon-top"></span>

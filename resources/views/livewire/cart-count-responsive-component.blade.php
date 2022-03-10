@@ -1,31 +1,19 @@
-{{--<div class="wrap-icon-section minicart">--}}
-{{--    <a href="{{ route('product.cart') }}" class="link-direction">--}}
-{{--        <i class="fa fa-shopping-basket" aria-hidden="true"></i>--}}
-{{--        <div class="left-info">--}}
-{{--            <span class="index">--}}
-{{--                {{ Cart::instance('cart')->count() > 0 ? Cart::instance('cart')->count() : 0 }} items--}}
-{{--            </span>--}}
-{{--            <span class="title">CART</span>--}}
-{{--        </div>--}}
-{{--    </a>--}}
-{{--</div>--}}
-
 <div class="header-action-icon-2">
     <a class="mini-cart-icon" href="javascript:;">
         <img alt="cart"
              src="{{ asset('assets/frontend/imgs/theme/icons/icon-cart.svg') }}">
-        <span
-            class="pro-count blue">{{ Cart::instance('cart')->count() > 0 ? Cart::instance('cart')->count() : 0 }}</span>
+        <span class="pro-count blue">
+            {{ Cart::instance('cart')->count() > 0 ? Cart::instance('cart')->count() : 0 }}
+        </span>
     </a>
-    <div class="cart-dropdown-wrap cart-dropdown-hm2" style="min-height: 320px; max-height: 520px; overflow-y: auto;">
+    <div class="cart-dropdown-wrap cart-dropdown-hm2">
         @if(Cart::instance('cart')->count() > 0)
             <ul>
                 @foreach(Cart::instance('cart')->content() as $item)
                     <li>
                         <div class="shopping-cart-img">
                             <a href="{{ route('product.details', ['slug' => $item->model->slug]) }}">
-                                <img alt="{{ $item->model->name }}" class="border"
-                                     src="{{ asset('assets/images/products/').'/'.$item->model->image }}">
+                                <img alt="Evara" src="{{ asset('assets/images/products/').'/'.$item->model->image }}">
                             </a>
                         </div>
                         <div class="shopping-cart-title" style="width: 150px">

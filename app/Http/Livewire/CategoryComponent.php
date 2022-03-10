@@ -39,24 +39,34 @@ class CategoryComponent extends Component
         $data['category_name'] = $category->name;
 
         if ($this->sorting === 'date') {
-            $data['products'] = Product::where('category_id', $category_id)->orderBy('created_at', 'DESC')->paginate($this->page_size);
+            $data['products'] = Product::where('category_id', $category_id)
+                ->whereBetween('regular_price', [$this->min_price, $this->max_price])
+                ->orderBy('created_at', 'DESC')
+                ->paginate($this->page_size);
         } elseif ($this->sorting === 'price') {
-            $data['products'] = Product::where('category_id', $category_id)->orderBy('regular_price', 'ASC')->paginate($this->page_size);
+            $data['products'] = Product::where('category_id', $category_id)
+                ->whereBetween('regular_price', [$this->min_price, $this->max_price])
+                ->orderBy('regular_price', 'ASC')
+                ->paginate($this->page_size);
         } elseif ($this->sorting === 'price-desc') {
-            $data['products'] = Product::where('category_id', $category_id)->orderBy('regular_price', 'DESC')->paginate($this->page_size);
+            $data['products'] = Product::where('category_id', $category_id)
+                ->whereBetween('regular_price', [$this->min_price, $this->max_price])
+                ->orderBy('regular_price', 'DESC')
+                ->paginate($this->page_size);
         } else {
-            $data['products'] = Product::where('category_id', $category_id)->orderBy('name')->paginate($this->page_size);
+            $data['products'] = Product::where('category_id', $category_id)
+                ->whereBetween('regular_price', [$this->min_price, $this->max_price])
+                ->orderBy('name')
+                ->paginate($this->page_size);
         }
 
-        $page['website'] = SettingSite::find(1);
-        $page['title'] = 'Categorias';
+        $data['title'] = 'Categorias';
 
         $data['categories'] = Category::all();
-//        $data['titlePage'] = 'Categorias';
         $data['sale'] = Sale::find(1);
         $data['lproducts'] = Product::orderBy('created_at', 'DESC')->get()->take(5);
 
-        return view('livewire.category-component', $data)->layout('layouts.frontend', $page);
+        return view('livewire.category-component', $data)->layout('layouts.frontend');
     }
 
     public function store($product_id, $product_name, $product_price)

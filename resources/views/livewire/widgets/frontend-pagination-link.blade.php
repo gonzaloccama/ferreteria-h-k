@@ -1,16 +1,3 @@
-{{--<div class="pagination-area mt-15 mb-sm-5 mb-lg-0">--}}
-{{--    <nav aria-label="Page navigation example">--}}
-{{--        <ul class="pagination justify-content-start">--}}
-{{--            <li class="page-item active"><a class="page-link" href="#">01</a></li>--}}
-{{--            <li class="page-item"><a class="page-link" href="#">02</a></li>--}}
-{{--            <li class="page-item"><a class="page-link" href="#">03</a></li>--}}
-{{--            <li class="page-item"><a class="page-link dot" href="#">...</a></li>--}}
-{{--            <li class="page-item"><a class="page-link" href="#">16</a></li>--}}
-{{--            <li class="page-item"><a class="page-link" href="#"><i--}}
-{{--                        class="fi-rs-angle-double-small-right"></i></a></li>--}}
-{{--        </ul>--}}
-{{--    </nav>--}}
-{{--</div>--}}
 
 <div class="pagination-area mt-15 mb-sm-5 mb-lg-0 row">
     <nav class="Page navigation example col-md-7">
@@ -90,19 +77,8 @@
     </nav>
 
     <div class="text-end col-md-5">
-        <p> Mostramos <strong class="text-brand">{{ $paginator->firstItem() }} a {{ $paginator->lastItem() }}
-                de {{ $paginator->total() }}</strong> artículos para ti!</p>
+        <p> Mostrando <strong class="text-brand">{{ $paginator->firstItem() }} a {{ $paginator->lastItem() }}
+                de {{ $paginator->total() }}</strong> artículos.</p>
 
     </div>
-    {{--    <div class="text-right mt-4 col-md-6">--}}
-
-    {{--        <span>{!! __('Motrando') !!}</span>--}}
-    {{--        <span class="font-medium">{{ $paginator->firstItem() }}</span>--}}
-    {{--        <span>{!! __('a') !!}</span>--}}
-    {{--        <span class="font-medium">{{ $paginator->lastItem() }}</span>--}}
-    {{--        <span>{!! __('de') !!}</span>--}}
-    {{--        <span class="font-medium">{{ $paginator->total() }}</span>--}}
-    {{--        <span>{!! __('resultados') !!}</span>--}}
-
-    {{--    </div>--}}
 </div>

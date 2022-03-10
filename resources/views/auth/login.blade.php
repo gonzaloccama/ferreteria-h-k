@@ -16,6 +16,18 @@
         @include('layouts.frontend.footer')
     @endpush
 
+    @push('styles')
+        <style>
+            input.form-control,
+            textarea.form-control{
+                border-radius: 0 !important;
+            }
+            button, .btn{
+                border-radius: 0 !important;
+            }
+        </style>
+    @endpush
+
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
@@ -41,16 +53,30 @@
                                 <x-jet-validation-errors class="mb-4"/>
                                 <form name="frm-login" method="post" action="{{ route('login') }}">
                                     @csrf
-                                    <fieldset class="form-group">
-                                        <label for="frm-login-uname">EMAIL:</label>
-                                        <input type="text" id="frm-login-uname" name="email" placeholder="Correo"
+{{--                                    <fieldset class="form-group">--}}
+{{--                                        <label for="frm-login-uname">EMAIL:</label>--}}
+{{--                                        <input type="text" id="frm-login-uname" name="email" placeholder="Correo"--}}
+{{--                                               :value="old('email')" required autofocus>--}}
+{{--                                    </fieldset>--}}
+
+                                    <fieldset class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="frm-login-uname" name="email" placeholder="Correo"
                                                :value="old('email')" required autofocus>
+                                        <label for="frm-login-uname">EMAIL: </label>
+                                        @error('email') <span class="error text-danger fst-italic pl-5 mt-1">{!! $message !!}</span> @enderror
                                     </fieldset>
 
-                                    <fieldset class="form-group">
-                                        <label for="frm-login-pass">CONTRASEÑA:</label>
-                                        <input type="password" id="frm-login-pass" name="password"
+{{--                                    <fieldset class="form-group">--}}
+{{--                                        <label for="frm-login-pass">CONTRASEÑA:</label>--}}
+{{--                                        <input type="password" id="frm-login-pass" name="password"--}}
+{{--                                               placeholder="Contraseña" required autocomplete="current-password">--}}
+{{--                                    </fieldset>--}}
+
+                                    <fieldset class="form-floating mb-3">
+                                        <input type="password" class="form-control" id="frm-login-pass" name="password"
                                                placeholder="Contraseña" required autocomplete="current-password">
+                                        <label for="frm-login-pass">CONTRASEÑA:</label>
+                                        @error('password') <span class="error text-danger fst-italic pl-5 mt-1">{!! $message !!}</span> @enderror
                                     </fieldset>
 
 

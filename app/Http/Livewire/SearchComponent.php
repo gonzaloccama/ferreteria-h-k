@@ -38,21 +38,25 @@ class SearchComponent extends Component
     {
         if ($this->sorting === 'date') {
             $data['products'] = Product::where('name', 'like', '%' . $this->search . '%')
+                ->whereBetween('regular_price', [$this->min_price, $this->max_price])
                 ->where('category_id', 'like', '%' . $this->product_cat_id . '%')
                 ->orderBy('created_at', 'DESC')
                 ->paginate($this->page_size);
         } elseif ($this->sorting === 'price') {
             $data['products'] = Product::where('name', 'like', '%' . $this->search . '%')
+                ->whereBetween('regular_price', [$this->min_price, $this->max_price])
                 ->where('category_id', 'like', '%' . $this->product_cat_id . '%')
                 ->orderBy('regular_price', 'ASC')
                 ->paginate($this->page_size);
         } elseif ($this->sorting === 'price-desc') {
             $data['products'] = Product::where('name', 'like', '%' . $this->search . '%')
+                ->whereBetween('regular_price', [$this->min_price, $this->max_price])
                 ->where('category_id', 'like', '%' . $this->product_cat_id . '%')
                 ->orderBy('regular_price', 'DESC')
                 ->paginate($this->page_size);
         } else {
             $data['products'] = Product::where('name', 'like', '%' . $this->search . '%')
+                ->whereBetween('regular_price', [$this->min_price, $this->max_price])
                 ->where('category_id', 'like', '%' . $this->product_cat_id . '%')
                 ->orderBy('name')
                 ->paginate($this->page_size);
@@ -62,10 +66,9 @@ class SearchComponent extends Component
         $data['lproducts'] = Product::orderBy('created_at', 'DESC')->get()->take(5);
         $data['sale'] = Sale::find(1);
 
-        $page['website'] = SettingSite::find(1);
-        $page['title'] = 'Inicio';
+        $data['title'] = $this->search;
 
-        return view('livewire.search-component', $data)->layout('layouts.frontend', $page);
+        return view('livewire.search-component', $data)->layout('layouts.frontend');
     }
 
     public function store($product_id, $product_name, $product_price)

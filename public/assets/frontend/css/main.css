@@ -5763,17 +5763,17 @@ h6.post-title {
   display: inline-block;
   font-size: 14px;
   color: #ffffff;
-  border-radius: 4px;
+  border-radius: 0px;
   line-height: 1;
   padding: 10px 20px;
   background-color: #088178;
   font-family: "Spartan", sans-serif;
-  border: 2px solid #088178;
+  border: 1px solid #088178;
 }
 
 .cart-dropdown-wrap .shopping-cart-footer .shopping-cart-button a.outline {
   background-color: transparent;
-  border: 2px solid #088178;
+  border: 1px solid #088178;
   color: #088178;
 }
 

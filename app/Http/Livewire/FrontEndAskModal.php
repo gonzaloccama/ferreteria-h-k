@@ -32,7 +32,7 @@ class FrontEndAskModal extends Component
     public function render()
     {
         $data['sale'] = Sale::find(1);
-        return view('livewire.front-end-ask-modal', $data);
+        return view('livewire.frontend.front-end-ask-modal', $data);
     }
 
     public function store()

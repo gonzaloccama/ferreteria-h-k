@@ -1,45 +1,83 @@
 <div class="">
-{{--    @push('title') {{ $titlePage }} @endpush--}}
+        @push('title') {{ $title }} @endpush
     @php
         $_sale = $sale->status === 1 && $sale->sale_date > Carbon\Carbon::now();
         $witems = Cart::instance('wishlist')->content()->pluck('id');
     @endphp
+    @if(0)
+        <section class="home-slider position-relative mb-30" style="background-color: rgb(18,42,69);" wire:ignore>
 
-    <section class="home-slider position-relative mb-30" style="background-color: rgb(18,42,69);" wire:ignore>
-
-        <div class="home-slide-cover mt-0">
-            <div class="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1">
-                @foreach($sliders as $slider)
-                    <div class="single-hero-slider single-animation-wrap">
-                        <div class="container">
-                            <div class="row align-items-center slider-animated-1">
-                                <div class="col-lg-5 col-md-6">
-                                    <div class="hero-slider-content-2">
-                                        <h3 class="animated fw-900 text-white">{!! $slider->title !!}</h3>
-                                        <h4 class="animated text-white">{!! $slider->subtitle !!}</h4>
-                                        <h2 class="animated pt-1 pb-1 fw-900 text-7-a">
-                                            S/ {!! $slider->price !!}</h2>
-                                        {{--                                    <p class="animated">Save more with coupons & up to 70% off</p>--}}
-                                        <a class="animated btn btn-brush btn-brush-2 text-white"
-                                           href="{{ URL::to('/').'/'.$slider->link }}" tabindex="0"> Compra ahora </a>
+            <div class="home-slide-cover mt-0">
+                <div class="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1">
+                    @foreach($sliders as $slider)
+                        <div class="single-hero-slider single-animation-wrap">
+                            <div class="container">
+                                <div class="row align-items-center slider-animated-1">
+                                    <div class="col-lg-5 col-md-6">
+                                        <div class="hero-slider-content-2">
+                                            <h3 class="animated fw-900 text-white">{!! $slider->title !!}</h3>
+                                            <h4 class="animated text-white">{!! $slider->subtitle !!}</h4>
+                                            <h2 class="animated pt-1 pb-1 fw-900 text-7-a">
+                                                S/ {!! $slider->price !!}</h2>
+                                            <p class="animated">Save more with coupons & up to 70% off</p>
+                                            <a class="animated btn btn-brush btn-brush-2 text-white"
+                                               href="{{ URL::to('/').'/'.$slider->link }}" tabindex="0"> Compra
+                                                ahora </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-7 col-md-6">
-                                    <div class="single-slider-img single-slider-img-1 pt-1 pb-5">
-                                        <img class="animated slider-page"
-                                             src="{{ asset('assets/images/sliders/').'/'.$slider->image }}"
-                                             alt="">
+                                    <div class="col-lg-7 col-md-6">
+                                        <div class="single-slider-img single-slider-img-1 pt-1 pb-5">
+                                            <img class="animated slider-page"
+                                                 src="{{ asset('assets/images/sliders/').'/'.$slider->image }}"
+                                                 alt="">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
 
+                </div>
+                <div class="slider-arrow hero-slider-1-arrow"></div>
             </div>
-            <div class="slider-arrow hero-slider-1-arrow"></div>
-        </div>
 
+        </section>
+    @endif
+
+    <section class="home-slider position-relative mb-30 mt-0 pt-0" wire:ignore>
+        <div class="container">
+            <div class="home-slide-cover  mt-0" style="background-color: rgb(18,42,69);">
+                <div class="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1">
+                    @foreach($sliders as $slider)
+                        <div class="single-hero-slider single-animation-wrap">
+                            <div class="container">
+                                <div class="row align-items-center slider-animated-1">
+                                    <div class="col-lg-5 col-md-6">
+                                        <div class="hero-slider-content-2">
+                                            <h4 class="animated text-white">{!! $slider->title !!}</h4>
+                                            <h3 class="animated fw-900 text-white">{!! $slider->subtitle !!}</h3>
+                                            <h2 class="animated pt-1 pb-1 fw-900 text-7-a">
+                                                S/ {!! $slider->price !!}</h2></h2>
+                                            {{--                                            <p class="animated">Save more with coupons & up to 70% off</p>--}}
+                                            <a class="animated btn btn-brush btn-brush-2 pb-4 text-white"
+                                               href="{{ URL::to('/').'/'.$slider->link }}"
+                                               tabindex="0"> Comprar </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7 col-md-6">
+                                        <div class="single-slider-img single-slider-img-1">
+                                            <img class="animated"
+                                                 src="{{ asset('assets/images/sliders/').'/'.$slider->image }}" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                <div class="slider-arrow hero-slider-1-arrow"></div>
+            </div>
+        </div>
     </section>
 
     <!--On Sale-->

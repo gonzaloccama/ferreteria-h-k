@@ -13,6 +13,12 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
+        <style>
+            input,
+            textarea {
+                border-radius: 0;
+            }
+        </style>
 
         @livewireStyles
 

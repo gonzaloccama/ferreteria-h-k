@@ -2,7 +2,9 @@
     <div class="mobile-header-wrapper-inner">
         <div class="mobile-header-top">
             <div class="mobile-header-logo">
-                <a href="index.html"><img src="{{ asset('assets/frontend/imgs/theme/ferretools.png') }}" alt="logo"></a>
+                <a href="{{ route('home') }}">
+                    <img src="{{ asset('assets/frontend/imgs/theme/ferretools.png') }}" alt="logo">
+                </a>
             </div>
             <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
                 <button class="close-style search-close">
@@ -14,7 +16,7 @@
         <div class="mobile-header-content-area">
             <div class="mobile-search search-style-3 mobile-header-border">
                 <form action="#">
-                    <input type="text" placeholder="Search for items…">
+                    <input type="text" placeholder="Buscar…">
                     <button type="submit"><i class="fi-rs-search"></i></button>
                 </form>
             </div>
@@ -33,24 +35,31 @@
                 </div>
                 <!-- mobile menu start -->
                 <nav>
+                    <?php
+                    $menus = \App\Models\SettingMenu::orderBy('order')->with('children', function ($query) {
+                        $query->orderBy('order');
+                    })->where('type', 'page')->where('parent', 0)->get();
+                    ?>
                     <ul class="mobile-menu">
-                        <li class="menu-item-has-children">
-                            <a href="{{ route('home') }}">Inicio</a>
-                        </li>
-                        <li class="menu-item-has-children"><a href="page-about.html">Acerca de</a></li>
-                        <li class="menu-item-has-children"><span class="menu-expand"></span><a
-                                href="shop-grid-right.html">Tienda</a>
-                            <ul class="dropdown">
-{{--                                <li><a href="shop-filter.html">Shop – Filter</a></li>--}}
-                                <li><a href="shop-wishlist.html">Lista de deseos</a></li>
-                                <li><a href="shop-cart.html">Carrito de compras</a></li>
-                                <li><a href="shop-checkout.html">Checkout</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item-has-children"><a
-                                href="blog-category-fullwidth.html">Blog</a>
-                        </li>
-                        <li class="menu-item-has-children"><a href="page-contact.html">Contáctenos</a></li>
+                        @foreach($menus as $menu)
+                            <li class="menu-item-has-children">
+                                @if(count($menu->children))
+                                    <span class="menu-expand"></span>
+                                @endif
+                                <a href="{{ $menu->is_route == '1' ? route($menu->route) : 'javascript:;' }}">
+                                    {{ $menu->name }}
+                                </a>
+                                @if(count($menu->children))
+                                    <ul class="dropdown">
+                                        @foreach($menu->children as $smenu)
+                                            <li>
+                                                <a href="{{ route($smenu->route) }}">{{ $smenu->name }}</a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </li>
+                        @endforeach
                         {{--<li class="menu-item-has-children"><span class="menu-expand"></span><a href="#">Language</a>
                             <ul class="dropdown">
                                 <li><a href="#">English</a></li>
@@ -92,16 +101,29 @@
                     @endif
                 </div>
                 <div class="single-mobile-header-info">
-                    <a href="tel:+51923456789">+51 923 456 789</a>
+                    <a href="tel:{{ $website->phone }}">+51 {{ $website->phone }}</a>
                 </div>
             </div>
             <div class="mobile-social-icon">
-                <h5 class="mb-15 text-grey-4">Follow Us</h5>
-                <a href="#"><img src="{{ asset('assets/frontend/imgs/theme/icons/icon-facebook.svg') }}" alt=""></a>
-                <a href="#"><img src="{{ asset('assets/frontend/imgs/theme/icons/icon-twitter.svg') }}" alt=""></a>
-                <a href="#"><img src="{{ asset('assets/frontend/imgs/theme/icons/icon-instagram.svg') }}" alt=""></a>
-                <a href="#"><img src="{{ asset('assets/frontend/imgs/theme/icons/icon-pinterest.svg') }}" alt=""></a>
-                <a href="#"><img src="{{ asset('assets/frontend/imgs/theme/icons/icon-youtube.svg') }}" alt=""></a>
+                <h5 class="mb-15 text-grey-4">Síguenos</h5>
+                <?php
+                $socials = json_decode($website->media_social);
+                ?>
+                @foreach($socials as $key => $social)
+                    @if(isset($social) && !empty($social))
+                        @if($key != 'whatsapp')
+                            <a href="{{ $social }}">
+                                <img src="{{ asset('assets/frontend/imgs/theme/icons/icons-' . $key . '.svg') }}"
+                                     alt="{{ $key }}">
+                            </a>
+                        @else
+                            <a href="https://api.whatsapp.com/send?phone={{ $social }}">
+                                <img src="{{ asset('assets/frontend/imgs/theme/icons/icons-' . $key . '.svg') }}"
+                                     alt="{{ $key }}">
+                            </a>
+                        @endif
+                    @endif
+                @endforeach
             </div>
         </div>
     </div>

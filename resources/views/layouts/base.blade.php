@@ -22,6 +22,8 @@
 
     @livewireStyles
 
+
+
     @stack('styles')
 </head>
 <body class="home-page home-01 ">

@@ -28,9 +28,9 @@
         <input type="hidden" name="product_cat_id" value="{{ $product_cat_id }}" id="product_cat_id">
 
         <select class="select-active" name="product_cat_id">
-            <option>{{ $product_cat }}</option>
+            <option value="">Categoría</option>
             @foreach($categories as $category)
-                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                <option value="{{ $category->id }}">{{ $product_cat = $category->name }}</option>
             @endforeach
         </select>
         <input type="text" name="search" value="{{ $search }}" placeholder="Buscar artículos...">

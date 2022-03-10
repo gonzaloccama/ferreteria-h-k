@@ -22,7 +22,7 @@ class FrontEndModal extends Component
 
     public function render()
     {
-        return view('livewire.front-end-modal');
+        return view('livewire.frontend.front-end-modal');
     }
 
     public function quickViews($product_id)

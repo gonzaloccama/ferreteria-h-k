@@ -23,18 +23,14 @@ class DetailsComponent extends Component
     {
         $product = Product::where('slug', $this->slug)->first();
 
-        $page['website'] = SettingSite::find(1);
-        $page['title'] = $product->name;
+        $data['title'] = $product->name;
 
-        $data = [
-            'product' => $product,
-            'popular_product' => Product::inRandomOrder()->limit(4)->get(),
-            'related_product' => Product::where('category_id', $product->category_id)->inRandomOrder()->limit(4)->get(),
-            'sale' => Sale::find(1),
-            'titlePage' => 'Detalles',
-        ];
+        $data['product'] = $product;
+        $data['popular_product'] = Product::inRandomOrder()->limit(4)->get();
+        $data['related_product'] = Product::where('category_id', $product->category_id)->inRandomOrder()->limit(4)->get();
+        $data['sale'] = Sale::find(1);
 
-        return view('livewire.details-component', $data)->layout('layouts.frontend', $page);
+        return view('livewire.details-component', $data)->layout('layouts.frontend');
     }
 
     public function store($product_id, $product_name, $product_price)

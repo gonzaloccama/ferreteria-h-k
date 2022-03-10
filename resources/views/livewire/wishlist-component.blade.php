@@ -1,14 +1,9 @@
 <main class="main">
 {{--    @push('title'){{ $titlePage }}@endpush--}}
-    <div class="page-header breadcrumb-wrap">
-        <div class="container">
-            <div class="breadcrumb">
-                <a href="{{ route('home') }}" rel="nofollow">Inicio</a>
-                <span></span> Shop
-                <span></span> Lista de deseos
-            </div>
-        </div>
-    </div>
+    <?php
+    $up_page = ['page' => 'Tienda', 'route' => route('shop')];
+    ?>
+    @include('livewire.widgets.breadcrumb')
     <section class="mt-50 mb-50">
         <div class="container">
             <div class="row">

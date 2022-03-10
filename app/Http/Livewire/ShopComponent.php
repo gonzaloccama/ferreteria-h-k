@@ -45,15 +45,13 @@ class ShopComponent extends Component
                 ->orderBy('name')->paginate($this->page_size);
         }
 
-        $page['website'] = SettingSite::find(1);
-        $page['title'] = 'Tienda';
+        $data['title'] = 'Tienda';
 
         $data['categories'] = Category::all();
         $data['lproducts'] = Product::orderBy('created_at', 'DESC')->get()->take(5);
         $data['sale'] = Sale::find(1);
-//        $data['titlePage'] = 'Shop';
 
-        return view('livewire.shop-component', $data)->layout('layouts.frontend', $page);
+        return view('livewire.shop-component', $data)->layout('layouts.frontend');
     }
 
     public function store($product_id, $product_name, $product_price)
@@ -61,6 +59,7 @@ class ShopComponent extends Component
         Cart::instance('cart')->add($product_id, $product_name, 1, $product_price)->associate('App\Models\Product');
         session()->flash('success_message', 'Item added in Cart');
         $this->emitTo('cart-count-component', 'refreshComponent');
+        $this->emitTo('cart-count-responsive-component', 'refreshComponent');
 //        return redirect()->route('product.cart');
         $this->emit('addCart');
     }

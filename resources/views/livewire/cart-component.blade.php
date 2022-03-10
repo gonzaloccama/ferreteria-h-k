@@ -1,17 +1,12 @@
 <div class="main">
+    <?php
+    $up_page = ['page' => 'Tienda', 'route' => route('shop')];
+    ?>
+    @include('livewire.widgets.breadcrumb')
     @php
         $_sale = $sale->status === 1 && $sale->sale_date > Carbon\Carbon::now();
     @endphp
-{{--    @push('title'){{ $titlePage }}@endpush--}}
-    <div class="page-header breadcrumb-wrap">
-        <div class="container">
-            <div class="breadcrumb">
-                <a href="{{ route('home') }}" rel="nofollow">Inicio</a>
-                <span></span> Shop
-                <span></span> Carrito de compras
-            </div>
-        </div>
-    </div>
+
     <section class="mt-50 mb-50">
         <div class="container">
             <div class="row">
@@ -52,6 +47,7 @@
                                                     <span>S/ {{ $item->model->regular_price }}</span>
                                                 @endif
                                             </div>
+
                                         </td>
                                         <td class="text-center" data-title="Stock">
 
@@ -72,6 +68,11 @@
                                             <span>S/ {{ $item->subtotal }}</span>
                                         </td>
                                         <td class="action" data-title="Remove">
+                                            {{--                                            <a href="#" class="text-primary"--}}
+                                            {{--                                               wire:click.prevent="switchToSaveForLater('{{ $item->rowId }}')">--}}
+                                            {{--                                                <i class="fi-rs-disk"></i>--}}
+                                            {{--                                            </a>--}}
+                                            {{--                                            <i class="fi-rs-menu-dots-vertical"></i>--}}
                                             <a href="#" class="text-muted"
                                                wire:click.prevent="destroy('{{ $item->rowId }}')">
                                                 <i class="fi-rs-trash"></i>
@@ -82,10 +83,12 @@
                             @else
                                 <tr>
                                     <td colspan="6">
-                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                            <strong>¡Ningún!</strong> artículo en el carrito.
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        <div class="alert alert-info alert-dismissible fade show pt-30" role="alert">
+                                            <h3><strong>¡Ningún!</strong> artículo en el carrito.</h3>
+                                            <p>agregar de la tienda</p>
+                                            <button type="button" class="btn-close " data-bs-dismiss="alert"
                                                     aria-label="Close"></button>
+                                            <a href="{{ route('shop') }}" class="btn btn-primary mt-20 mb-20">Ir a la Tienda</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -101,8 +104,8 @@
                     </div>
                     <div class="cart-action text-end">
                         {{--                        <a class="btn  mr-10 mb-sm-15"><i class="fi-rs-shuffle mr-10"></i>Update Cart</a>--}}
-                        <a class="btn " href="{{ route('shop') }}"><i class="fi-rs-shopping-bag mr-10"></i>Seguir
-                            comprando</a>
+                        <a class="btn " href="{{ route('shop') }}">
+                            <i class="fi-rs-shopping-bag mr-10"></i>Seguir comprando</a>
                     </div>
                     <div class="divider center_icon mt-50 mb-50"><i class="fi-rs-fingerprint"></i></div>
                     <div class="row mb-50">
@@ -445,7 +448,9 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <a href="#" class="btn "> <i class="fi-rs-box-alt mr-10"></i> Proceder a pagar</a>
+                                <a href="#" class="btn "                                   wire:click.prevent="checkout">
+                                    <i class="fi-rs-box-alt mr-10"></i> Proceder a pagar
+                                </a>
                                 <a href="#" class="btn "
                                    wire:click.prevent="show_modal"
                                     {{--                                   data-bs-toggle="modal" data-bs-target="#askInformation"--}}
@@ -459,14 +464,19 @@
             </div>
         </div>
     </section>
+
     @if($showModal)
-        @include('livewire.front-end-ask-modal')
+        @include('livewire.frontend.front-end-ask-modal')
     @endif
 </div>
 
 @push('scripts')
     <script type="text/javascript">
         $(document).ready(function () {
+            window.livewire.on('saveForLater', () => {
+                notificationSwal(`¡Se guardó exitoamente <b class="fst-italic">para mas tarde</b>!`, 'rgba(8,129,120,0.9)');
+            });
+
             window.livewire.on('deleteCart', () => {
                 notificationSwal(`¡Se eliminó extosamente del <b class="fst-italic">Carrito de compras</b>!`, 'rgba(224,0,33,0.79)');
             });
@@ -475,7 +485,7 @@
                 notificationSwal(`¡Se vació todo el<b class="fst-italic">Carrito de compras</b>!`, 'rgba(224,0,33,0.79)');
             });
 
-            window.livewire.on('sendAlert', ()=>{
+            window.livewire.on('sendAlert', () => {
                 notificationSwal(`¡Se envió exitosamente <b class="fst-italic">su solicitud de compra</b>!`, 'rgba(8,129,120,0.9)');
             });
 

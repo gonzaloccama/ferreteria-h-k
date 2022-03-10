@@ -10,12 +10,9 @@ class WishlistComponent extends Component
 {
     public function render()
     {
-//        $data['titlePage'] = 'Lista de deseos';
+        $data['title'] = 'Lista de deseos';
 
-        $page['website'] = SettingSite::find(1);
-        $page['title'] = 'Lista de deseos';
-
-        return view('livewire.wishlist-component')->layout('layouts.frontend', $page);
+        return view('livewire.wishlist-component', $data)->layout('layouts.frontend');
     }
 
     public function moveProductFromWishlistToCart($rowId)

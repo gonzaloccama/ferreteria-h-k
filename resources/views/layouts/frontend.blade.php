@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>{{ $title }} | Ferrotools</title>
+    <title>@stack('title') | Ferrotools</title>
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,7 +36,14 @@
             border-radius: 0;
         }
 
+        input.form-control,
+        textarea.form-control {
+            border-radius: 0 !important;
+        }
 
+        button, .btn {
+            border-radius: 0 !important;
+        }
     </style>
 
 </head>
@@ -84,9 +91,12 @@
 <!-- Quick view -->
 
 
-    @livewire('front-end-modal')
+@livewire('front-end-modal')
 
 <!--  Header  -->
+<?php
+$website = App\Models\SettingSite::find(1);
+?>
 @include('layouts.frontend.header')
 
 <!--  Header responsive  -->
@@ -95,7 +105,7 @@
 <main class="main">
     {{--    content    --}}
     {{ $slot }}
-{{--    @yield('content')--}}
+    {{--    @yield('content')--}}
 </main>
 
 {{--    footer    --}}
