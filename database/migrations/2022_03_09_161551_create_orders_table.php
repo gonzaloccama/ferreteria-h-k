@@ -28,6 +28,7 @@ class CreateOrdersTable extends Migration
             $table->string('line2')->nullable();
             $table->string('city');
             $table->string('province');
+            $table->integer('region')->nullable();
             $table->string('country');
             $table->string('zipcode');
             $table->enum('status', ['ordered', 'delivered', 'canceled'])->default('ordered');

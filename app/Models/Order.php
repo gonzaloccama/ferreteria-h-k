@@ -30,4 +30,9 @@ class Order extends Model
     {
         return $this->hasOne(Transaction::class);
     }
+
+    public function orRegion()
+    {
+        return $this->belongsTo(Region::class, 'region');
+    }
 }

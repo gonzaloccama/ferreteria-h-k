@@ -27,6 +27,11 @@ class CartComponent extends Component
 
     public $showModal = false;
 
+    public $discount;
+    public $subtotalAfterDiscount;
+    public $taxAfterDiscount;
+    public $totalAfterDiscount;
+
     protected $rules = [
         'info_names' => 'required|min:3|max:126',
         'info_email' => 'required|email',
@@ -119,6 +124,7 @@ class CartComponent extends Component
     public function checkout()
     {
         if (Auth::check()) {
+            $this->setAmountForCheckout();
             return redirect()->route('checkout');
         } else {
             return redirect()->route('login');
@@ -127,20 +133,24 @@ class CartComponent extends Component
 
     public function setAmountForCheckout()
     {
-        if (session()->has('coupon')) {
-            session()->put('checkout', [
-                'discount' => $this->discount,
-                'subtotal' => $this->subtotalAfterDiscount,
-                'tax' => $this->taxAfterDiscount,
-                'total' => $this->totalAfterDiscount,
-            ]);
-        } else {
-            session()->put('checkout', [
-                'discount' => 0,
-                'subtotal' => Cart::instance('cart')->subtotal(),
-                'tax' => Cart::instance('cart')->tax(),
-                'total' => Cart::instance('cart')->total(),
-            ]);
+        if (Cart::instance('cart')->count() > 0) {
+            if (session()->has('coupon')) {
+                session()->put('checkout', [
+                    'discount' => $this->discount,
+                    'subtotal' => $this->subtotalAfterDiscount,
+                    'tax' => $this->taxAfterDiscount,
+                    'total' => $this->totalAfterDiscount,
+                ]);
+            } else {
+                session()->put('checkout', [
+                    'discount' => 0,
+                    'subtotal' => Cart::instance('cart')->subtotal(),
+                    'tax' => Cart::instance('cart')->tax(),
+                    'total' => Cart::instance('cart')->total(),
+                ]);
+            }
+        }else{
+            session()->forget('checkout');
         }
     }
 

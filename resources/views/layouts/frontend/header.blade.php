@@ -161,7 +161,7 @@
         </div>
     </div>
 
-    <div class="header-bottom header-bottom-bg-color sticky-bar">
+    <div class="header-bottom header-bottom-bg-color sticky-bar" style="background-color: rgba(18,42,69,0.98)">
         <div class="container">
             <div class="header-wrap header-space-between position-relative">
                 <div class="logo logo-width-1 d-block d-lg-none">
@@ -171,8 +171,8 @@
                 </div>
                 <div class="header-nav d-none d-lg-flex">
                     <div class="main-categori-wrap d-none d-lg-block">
-                        <a class="categori-button-active" href="#">
-                            <span class="fi-rs-apps"></span> Categorias
+                        <a class="categori-button-active text-white" href="#">
+                            <span class="fi-rs-apps text-white"></span> Categorias
                         </a>
                         <div class="categori-dropdown-wrap categori-dropdown-active-large">
                             @livewire('product-category-header-component')
@@ -189,7 +189,7 @@
                                 @foreach($menus as $menu)
                                     <li>
                                         <a href="{{ $menu->is_route == '1' ? route($menu->route) : 'javascript:;' }}"
-                                           class="{{ route($menu->route) === url()->current()? 'active':'' }}">
+                                           class="{{ route($menu->route) === url()->current()? 'active':'' }} text-white">
                                             {{ $menu->name }}
                                             @if(count($menu->children))
                                                 <i class="fi-rs-angle-down"></i>
@@ -211,8 +211,8 @@
                     </div>
                 </div>
                 <div class="hotline d-none d-lg-block">
-                    <p><i class="fi-rs-headset"></i><span></span>
-                        <a href="tel:{{ $website->phone }}">+51 {{ $website->phone }}</a></p>
+                    <p><i class="fi-rs-headset text-white"></i><span></span>
+                        <a href="tel:{{ $website->phone }}" class="text-white">+51 {{ $website->phone }}</a></p>
                 </div>
 
                 <div class="header-action-right d-block d-lg-none">

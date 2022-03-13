@@ -36,6 +36,10 @@
             border-radius: 0;
         }
 
+        .error{
+            font-size: 11px;
+        }
+
         input.form-control,
         textarea.form-control {
             border-radius: 0 !important;
@@ -44,6 +48,28 @@
         button, .btn {
             border-radius: 0 !important;
         }
+
+        .text-uppercase {
+            text-transform: uppercase !important;
+        }
+
+        .font-13 {
+            font-size: 13px !important;
+        }
+
+        .font-12 {
+            font-size: 12px !important;
+        }
+
+        /*** forms required messages  ***/
+        .required-form {
+            font-size: 8px !important;
+            position: absolute !important;
+            padding-top: 6px !important;
+            margin-left: 4px !important;
+        }
+
+
     </style>
 
 </head>
@@ -174,6 +200,10 @@ $website = App\Models\SettingSite::find(1);
             background: stl,
             iconColor: '#efefef',
         })
+    }
+    function uppercaseText(string) {
+        // return string.charAt(0).toUpperCase() + string.slice(1);
+        return string.toUpperCase();
     }
 </script>
 

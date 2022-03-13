@@ -17,7 +17,7 @@
         <span
             class="pro-count blue">{{ Cart::instance('cart')->count() > 0 ? Cart::instance('cart')->count() : 0 }}</span>
     </a>
-    <div class="cart-dropdown-wrap cart-dropdown-hm2" style="min-height: 320px; max-height: 520px; overflow-y: auto;">
+    <div class="cart-dropdown-wrap cart-dropdown-hm2" style="min-height: auto; max-height: 520px; overflow-y: auto;">
         @if(Cart::instance('cart')->count() > 0)
             <ul>
                 @foreach(Cart::instance('cart')->content() as $item)
@@ -53,7 +53,8 @@
             </div>
             <div class="shopping-cart-button">
                 <a href="{{ route('product.cart') }}" class="outline">Ver carrito</a>
-                <a href="shop-checkout.html">Checkout</a>
+                <a href="{{ route('checkout') }}">Checkout</a>
+{{--                <a href="{{ route('product.cart') }}">Ver carrito</a>--}}
             </div>
         </div>
     </div>

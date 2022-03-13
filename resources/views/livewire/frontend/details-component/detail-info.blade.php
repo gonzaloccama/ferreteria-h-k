@@ -3,7 +3,9 @@
         <h2 class="title-detail">{{ $product->name }}</h2>
         <div class="product-detail-rating">
             <div class="pro-details-brand">
+                @if(isset($product->brand->name) && !empty($product->brand->name))
                 <span> Marca: <a href="javascript:;">{{ $product->brand->name }}</a></span>
+                @endif
             </div>
             <div class="product-rate-cover text-end">
                 <div class="product-rate d-inline-block">
