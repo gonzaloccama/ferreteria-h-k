@@ -15,11 +15,8 @@ class AdminHomeCategoryComponent extends Component
 
     public function render()
     {
-        $data = [
-            'categories' => Category::all(),
-            'pageTitle' => 'Categoías del inicio',
-            '_title' => 'Adminitrar categoria de inicio',
-        ];
+        $data['categories'] = Category::all();
+        $data['_title'] = 'Categoías del inicio';
 
         $this->emit('refreshDropdown');
 

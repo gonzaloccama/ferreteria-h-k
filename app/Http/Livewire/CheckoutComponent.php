@@ -8,7 +8,10 @@ use App\Models\Shipping;
 use App\Models\Transaction;
 use Auth;
 use Cart;
+use Exception;
+use Illuminate\Database\Eloquent\Model;
 use Livewire\Component;
+use Stripe;
 
 class CheckoutComponent extends Component
 {
@@ -36,6 +39,11 @@ class CheckoutComponent extends Component
     public $s_region;
     public $s_country;
     public $s_zipcode;
+
+    public $card_number;
+    public $exp_month;
+    public $exp_year;
+    public $cvc;
 
     public $paymentMode;
 
@@ -82,6 +90,13 @@ class CheckoutComponent extends Component
         'paymentMode' => 'required',
     ];
 
+    protected $cardRules = [
+        'card_number' => 'required|numeric|digits:16',
+        'exp_month' => 'required|numeric',
+        'exp_year' => 'required|numeric',
+        'cvc' => 'required|numeric',
+    ];
+
     protected $shippingRules = [
         's_firstname' => 'required|min:3',
         's_lastname' => 'required|min:3',
@@ -120,14 +135,14 @@ class CheckoutComponent extends Component
     {
         if (!Auth::check()) {
             return redirect()->route('login');
-        }  elseif (session()->get('checkout')['total'] == .0) {
+        } elseif (session()->get('checkout')['total'] == .0) {
             return redirect()->route('product.cart');
         }
     }
 
     public function updated($property)
     {
-        $this->validateOnly($property, array_merge($this->rules, $this->shippingRules), [], $this->attributes);
+        $this->validateOnly($property, array_merge($this->rules, $this->shippingRules, $this->cardRules), [], $this->attributes);
     }
 
     public function updatePayment($mode)
@@ -138,9 +153,13 @@ class CheckoutComponent extends Component
     public function placeOrder()
     {
         if ($this->is_shipping_different) {
-            $this->validate(array_merge($this->rules, $this->shippingRules), [], $this->attributes);
+            $this->validateFields(['shipping']);
+        } elseif ($this->paymentMode == 'card' && $this->is_shipping_different) {
+            $this->validateFields(['shipping', 'card']);
+        } elseif ($this->paymentMode == 'card') {
+            $this->validateFields(['card']);
         } else {
-            $this->validate($this->rules, [], $this->attributes);
+            $this->validateFields([]);
         }
 
 //        dd(session()->get('checkout'));
@@ -202,21 +221,111 @@ class CheckoutComponent extends Component
         }
 
         if (in_array($this->paymentMode, ['bankTranfer', 'digitalWallet'])) {
-            $transaction = new Transaction();
+            $this->makeTransaction($order->id, 'pending');
+            $this->resetCart();
+        } elseif ($this->paymentMode == 'card') {
+            $stripe = Stripe::make(env('STRIPE_KEY'));
 
-            $transaction->user_id = auth()->user()->id;
-            $transaction->order_id = $order->id;
-            $transaction->mode = $this->paymentMode;
-            $transaction->status = 'pending';
+            try {
+                $token = $stripe->tokens()->create([
+                    'card' => [
+                        'number' => $this->card_number,
+                        'exp_month' => $this->exp_month,
+                        'exp_year' => $this->exp_year,
+                        'cvc' => $this->cvc,
+                    ],
+                ]);
 
-            $transaction->save();
+                if (!isset($token['id']) && empty($token['id'])) {
+                    session()->flash('stripe_error', '¡El token de Stripe no se generó correctamente!');
+                    $this->frame = 1;
+                }
+
+                $customer = $stripe->customers()->create([
+                    'name' => $this->firstname . ' ' . $this->lastname,
+                    'email' => $this->email,
+                    'phone' => $this->mobile,
+                    'address' => [
+                        'line1' => $this->line1,
+                        'postal_code' => $this->zipcode,
+                        'city' => $this->city,
+                        'state' => $this->region,
+                        'country' => $this->country,
+                    ],
+                    'shipping' => [
+                        'name' => $this->firstname . ' ' . $this->lastname,
+                        'address' => [
+                            'line1' => $this->s_line1,
+                            'postal_code' => $this->s_zipcode,
+                            'city' => $this->s_city,
+                            'state' => $this->s_region,
+                            'country' => $this->s_country,
+                        ],
+                    ],
+                    'source' => $token['id'],
+                ]);
+
+                $charge = $stripe->charges()->create([
+                    'customer' => $customer['id'],
+                    'currency' => 'PEN',
+                    'amount' => session()->get('checkout')['total'],
+                    'description' => 'Payment for order number ' . $order->id,
+                ]);
+
+                if ($charge['status'] == 'succeeded') {
+                    $this->makeTransaction($order->id, 'approved');
+                    $this->resetCart();
+                } else {
+                    session()->flash('stripe_error', 'Error en Transacción');
+                    $this->frame = 1;
+                }
+            } catch (Exception $e) {
+                session()->flash('stripe_error', $e->getMessage());
+                $this->frame = 1;
+            }
         }
-
-        Cart::instance('cart')->destroy();
-        session()->forget('checkout');
 
         $this->emitTo('cart-count-component', 'refreshComponent');
         $this->emitTo('cart-count-responsive-component', 'refreshComponent');
+    }
+
+    private function validateFields($mode = null)
+    {
+        if (in_array('shipping', $mode)) {
+            $this->validate(
+                array_merge($this->rules, $this->shippingRules),
+                [],
+                $this->attributes
+            );
+        } elseif (in_array(['shipping', 'card'], $mode)) {
+            $this->validate(
+                array_merge($this->rules, $this->shippingRules, $this->cardRules),
+                [],
+                $this->attributes
+            );
+        } elseif (in_array('card', $mode)) {
+            $this->validate(array_merge($this->rules, $this->cardRules), [], $this->attributes);
+        } else {
+            $this->validate($this->rules, [], $this->attributes);
+        }
+    }
+
+    private function resetCart()
+    {
+        Cart::instance('cart')->destroy();
+        session()->forget('checkout');
         $this->frame = 0;
+    }
+
+    private function makeTransaction($order_id, $status)
+    {
+        $transaction = new Transaction();
+
+        $transaction->user_id = auth()->user()->id;
+        $transaction->order_id = $order_id;
+        $transaction->mode = $this->paymentMode;
+        $transaction->status = $status;
+
+        $transaction->save();
     }
 }

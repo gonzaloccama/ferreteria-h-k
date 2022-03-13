@@ -60,7 +60,6 @@ class AdminAskInformationComponent extends Component
             ->orWhere('created_at', 'LIKE', $keyWord)
             ->paginate($this->limit);
 
-        $data['pageTitle'] = 'Solicitudes';
         $data['_title'] = 'Solicitudes de compra';
 
         $this->emit('refreshF');

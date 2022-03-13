@@ -118,8 +118,7 @@ class AdminProductComponent extends Component
             ->orWhere('category_id', 'LIKE', $keyWord)
             ->paginate($this->limit);
 
-        $data['pageTitle'] = 'Productos';
-        $data['title'] = 'Productos';
+        $data['_title'] = 'Productos';
 
         $this->emit('refreshF');
 

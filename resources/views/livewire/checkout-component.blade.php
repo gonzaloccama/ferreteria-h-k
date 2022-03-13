@@ -5,6 +5,14 @@
     @include('livewire.widgets.breadcrumb')
     <section class="mt-50 mb-50">
         <div class="container">
+            @if(Session::has('stripe_error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="btn-close " data-bs-dismiss="alert"
+                            aria-label="Close"></button>
+                    <strong>Mensaje:</strong>  {{ Session::get('stripe_error') }}
+                </div>
+            @endif
+
             @if($frame)
                 @include('livewire.frontend.checkout-component.login-and-code')
                 <div class="row">

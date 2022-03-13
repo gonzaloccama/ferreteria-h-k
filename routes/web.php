@@ -12,6 +12,7 @@ use App\Http\Livewire\Admin\AdminEditHomeSliderComponent;
 use App\Http\Livewire\Admin\AdminEditProductComponent;
 use App\Http\Livewire\Admin\AdminHomeCategoryComponent;
 use App\Http\Livewire\Admin\AdminHomeSliderComponent;
+use App\Http\Livewire\Admin\AdminOrderComponent;
 use App\Http\Livewire\Admin\AdminProductComponent;
 use App\Http\Livewire\Admin\AdminSaleComponent;
 use App\Http\Livewire\Admin\AdminSettingWebSite;
@@ -92,4 +93,7 @@ Route::middleware(['auth:sanctum', 'verified', 'authadmin'])->group(function () 
     Route::get('/admin/sale', AdminSaleComponent::class)->name('admin.sale');
 
     Route::get('/admin/setting-website', AdminSettingWebSite::class)->name('admin.website');
+
+
+    Route::get('/admin/orders', AdminOrderComponent::class)->name('admin.orders');
 });

@@ -1,21 +1,11 @@
 <div class="row">
     <div class="col-12">
-        <div class="mb-3 title-page">
-            <h1>{{ $_title }} @push('title') {{ $pageTitle }} @endpush</h1>
+        <?php
+        $buttons = ['is_add' => false];
+        ?>
 
-            <nav class="breadcrumb-container d-none d-sm-block d-lg-inline-block" aria-label="breadcrumb">
-                <ol class="breadcrumb pt-0">
-                    <li class="breadcrumb-item">
-                        <a href="#">Home</a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a href="#">Library</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">Data</li>
-                </ol>
-            </nav>
+        @include('livewire.widgets.admin.title-page')
 
-        </div>
         <div class="separator mb-5"></div>
     </div>
 

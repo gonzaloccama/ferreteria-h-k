@@ -58,8 +58,7 @@ class AdminCategoryComponent extends Component
             ->orWhere('id', 'LIKE', $keyWord)
             ->paginate($this->limit);
 
-        $data['pageTitle'] = 'Categorías';
-        $data['title'] = 'Categorías';
+        $data['_title'] = 'Categorías';
 
         $this->emit('refreshF');
         $this->emit('refreshDropdown');

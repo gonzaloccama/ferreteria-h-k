@@ -10,6 +10,7 @@
             'checkPayment' => 'Cheque de pago',
             'paypal' => 'Paypal',
             'digitalWallet' => 'Billetera digital',
+            'card' => 'Tarjeta de crédito / debito',
         ];
         $mssgs = [
             'cash' => 'Realizar pago con Dinero en efectivo',
@@ -17,6 +18,7 @@
             'checkPayment' => 'Envíe su cheque al nombre de la tienda, calle de la tienda, ciudad de la tienda, estado/condado de la tienda, código postal de la tienda.',
             'paypal' => 'Pagar a través de PayPal; puede pagar con su tarjeta de crédito si no tiene una cuenta de PayPal.',
             'digitalWallet' => 'Pagar a través de Yape, Bim',
+            'card' => '',
         ];
         ?>
         @foreach($payments as $key => $payment)

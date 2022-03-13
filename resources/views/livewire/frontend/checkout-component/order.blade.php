@@ -54,7 +54,18 @@
             </div>
             <div class="bt-1 border-color-1 mt-30 mb-30"></div>
             @include('livewire.frontend.checkout-component.payment-mode')
-            <input type="submit" class="btn btn-fill-out btn-block mt-30" value="Realizar pedido" wire:click.prevent="placeOrder">
+            @if($paymentMode == 'card')
+                @include('livewire.frontend.checkout-component.credit-cart')
+            @endif
+            <input type="submit" class="btn btn-fill-out btn-block mt-30" value="Realizar pedido"
+                   wire:click.prevent="placeOrder">
+            @if(Session::has('stripe_error'))
+                <div class="alert alert-danger alert-dismissible fade show mt-30" role="alert">
+                    <button type="button" class="btn-close " data-bs-dismiss="alert"
+                            aria-label="Close"></button>
+                    <strong>Mensaje:</strong> {{ Session::get('stripe_error') }}
+                </div>
+            @endif
         </div>
     @endif
 </div>
