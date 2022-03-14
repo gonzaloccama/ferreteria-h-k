@@ -2,15 +2,14 @@
     <div class="col-md-12">
         <?php
         $buttons = ['is_add' => false];
-
-        $items = [
-            'id' => 'ID',
-            'name' => 'Nombre',
-            'website' => 'Sitio Web',
-            'status' => 'Estado',
-            'created_at' => 'Fecha de Creación',
-        ];
         $mode = 'list';
+
+        $actions = [
+            'view' => 'Detalles',
+            'edit' => null,
+            'go' => null,
+            'delete' => 'Eliminar',
+        ];
         ?>
 
         @include('livewire.widgets.admin.title-page')
@@ -20,13 +19,7 @@
 
     <div class="col-md-12 list">
 
+        @include('livewire.widgets.admin.table-basic')
 
-        @foreach($orders as $order)
-
-        @endforeach
-
-        <div class="wrap-pagination-info">
-{{--            {{ $brands->links('livewire.widgets.admin-pagination-link') }}--}}
-        </div>
     </div>
 </div>

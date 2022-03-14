@@ -15,14 +15,14 @@ class CreateAskInformationTable extends Migration
     {
         Schema::create('ask_information', function (Blueprint $table) {
             $table->id();
-            $table->string('info_names');
-            $table->string('info_email');
-            $table->string('info_celular')->nullable();
-            $table->string('info_whatsapp');
-            $table->text('info_message');
-            $table->text('info_products');
-            $table->decimal('info_subtotal');
-            $table->decimal('info_total');
+            $table->string('names');
+            $table->string('email');
+            $table->string('phone')->nullable();
+            $table->string('whatsapp');
+            $table->text('message');
+            $table->text('products');
+            $table->decimal('subtotal');
+            $table->decimal('total');
             $table->timestamps();
         });
     }

@@ -5,7 +5,7 @@ namespace App\Http\Livewire\Admin;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Livewire\Component;
-use livewire\WithPagination;
+use Livewire\WithPagination;
 
 class AdminCategoryComponent extends Component
 {
@@ -24,6 +24,14 @@ class AdminCategoryComponent extends Component
     public $keyWord;
 
     public $deleteId;
+
+    public $headers = [
+        'id' => 'ID',
+        'name' => 'Nombres',
+        'slug' => 'Slug',
+        'parent' => 'Categoria padre',
+        'not' => '',
+    ];
 
     protected $rules = [
         'name' => 'required|min:6',
@@ -52,10 +60,21 @@ class AdminCategoryComponent extends Component
 
         $data['allCategories'] = Category::all();
 
-        $data['categories'] = Category::orderBy($this->orderBy, $this->sort)
-            ->orWhere('name', 'LIKE', $keyWord)
-            ->orWhere('slug', 'LIKE', $keyWord)
-            ->orWhere('id', 'LIKE', $keyWord)
+        $rFormat = array_diff(array_keys($this->headers), array('not'));
+        $findIn = [];
+        $table = 'categories';
+
+        foreach ($rFormat as $item) {
+            $findIn[] = $table . '.' . $item;
+        }
+
+        $data['results'] = Category::orderBy($this->orderBy, $this->sort)
+            ->orWhere(function ($query) use ($findIn) {
+                foreach ($findIn as $in) {
+                    $query->orWhere($in, 'LIKE', '%' . $this->keyWord . '%');
+                }
+
+            })
             ->paginate($this->limit);
 
         $data['_title'] = 'Categorías';

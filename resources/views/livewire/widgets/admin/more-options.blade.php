@@ -45,9 +45,12 @@
                 </button>
 
                 <div class="dropdown-menu">
-                    @foreach($items as $key => $item)
-                        <a class="dropdown-item {{ $orderBy===$key?'active':'' }}"
-                           wire:click.prevent="updateOrderBy('{{ $key }}','{{ $sort }}')" href="#">{{ $item }}</a>
+                    @foreach($headers as $key => $item)
+                        @if(!($key == 'not'))
+                            <a class="dropdown-item {{ $orderBy === $key ? 'active' : '' }}"
+                               wire:click.prevent="updateOrderBy('{{ $key }}','{{ $sort }}')"
+                               href="javascript:;">{{ $item }}</a>
+                        @endif
                     @endforeach
                 </div>
             </div>

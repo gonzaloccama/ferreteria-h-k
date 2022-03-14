@@ -33,6 +33,17 @@ class AdminBrandComponent extends Component
     public $image_edit;
     public $newimage;
 
+    public $path;
+
+    public $headers = [
+        'image' => 'Imagen',
+        'name' => 'Nombres',
+        'website' => 'Sitio Web',
+        'status' => 'Estado',
+        'created_at' => 'Creado',
+        'not' => '',
+    ];
+
     protected $rules = [
         'name' => 'required|min:2|max:126',
         'image' => 'required|mimes:jpeg,jpg,png|max:1024',
@@ -61,22 +72,27 @@ class AdminBrandComponent extends Component
         $this->modeUpdate = false;
 
         $this->status = 0;
+        $this->path = 'assets/images/brands';
     }
 
     public function render()
     {
-        $keyWord = '%' . $this->keyWord . '%';
+        $rFormat = array_diff(array_keys($this->headers), array('not'));
+        $findIn = [];
+        $table = 'brands';
 
-        $data['brands'] = Brand::orderBy($this->orderBy, $this->sort)
-            ->orWhere('id', 'LIKE', $keyWord)
-            ->orWhere('name', 'LIKE', $keyWord)
-            ->orWhere('image', 'LIKE', $keyWord)
-            ->orWhere('website', 'LIKE', $keyWord)
-            ->orWhere('status', 'LIKE', $keyWord)
-            ->orWhere('created_at', 'LIKE', $keyWord)
+        foreach ($rFormat as $item) {
+            $findIn[] = $table . '.' . $item;
+        }
+
+        $data['results'] = Brand::orderBy($this->orderBy, $this->sort)
+            ->orWhere(function ($query) use ($findIn) {
+                foreach ($findIn as $in) {
+                    $query->orWhere($in, 'LIKE', '%' . $this->keyWord . '%');
+                }
+            })
             ->paginate($this->limit);
 
-        $data['pageTitle'] = 'Marcas';
         $data['_title'] = 'Marcas de producto';
 
         return view('livewire.admin.admin-brand-component', $data)->layout('layouts.admin');

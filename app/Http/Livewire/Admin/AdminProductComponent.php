@@ -46,6 +46,19 @@ class AdminProductComponent extends Component
     public $image_edit;
     public $newimage;
 
+
+    public $headers = [
+        'id' => 'ID',
+        'name' => 'Producto',
+        'regular_price' => 'Precio',
+        'sale_price' => 'Percio rebaja',
+        'stock_status' => 'Stock',
+        'created_at' => 'Fecha de creación',
+        'category_id' => 'Categoria',
+
+        'not' => '',
+    ];
+
     protected $rules = [
         'name' => 'required|min:4',
         'slug' => 'required|unique:products',

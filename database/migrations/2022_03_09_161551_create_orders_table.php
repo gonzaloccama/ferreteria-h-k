@@ -31,7 +31,7 @@ class CreateOrdersTable extends Migration
             $table->integer('region')->nullable();
             $table->string('country');
             $table->string('zipcode');
-            $table->enum('status', ['ordered', 'delivered', 'canceled'])->default('ordered');
+            $table->enum('status', ['ordered', 'delivered', 'canceled', 'completed'])->default('ordered');
             $table->boolean('is_shipping_different')->default(false);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

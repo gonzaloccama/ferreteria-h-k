@@ -27,6 +27,9 @@
     @stack('styles')
 
     <style>
+
+
+
         .product-wish {
             background-color: #088178 !important;
             color: #eeecec !important;

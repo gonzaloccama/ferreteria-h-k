@@ -3,14 +3,6 @@
         <?php
         $buttons = ['is_add' => true];
 
-        $items = [
-            'id' => 'ID',
-            'name' => 'Nombre',
-            'regular_price' => 'Precio Regular',
-            'sale_price' => 'Precio Venta',
-            'stock_status' => 'Estado',
-            'created_at' => 'Fecha de Creación',
-        ];
         $mode = 'square';
         ?>
 

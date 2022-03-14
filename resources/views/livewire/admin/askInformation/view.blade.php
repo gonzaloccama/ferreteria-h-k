@@ -20,26 +20,26 @@
                         <div class="card border border-light">
                             <div class="card-body pt-4 pb-3 d-flex flex-column">
                                 <div class="text-center">
-                                    <h5 class="mb-0 font-weight-semibold color-theme-1 mb-4 text-uppercase">{{ $info_names }}</h5>
+                                    <h5 class="mb-0 font-weight-semibold color-theme-1 mb-4 text-uppercase">{{ $names }}</h5>
                                 </div>
                                 <div class="pl-3 pr-3 pt-3 pb-0 d-flex flex-column flex-grow-1">
                                     <h5 class="color-theme-1">Correo electrónico</h5>
                                     <p class="text-muted mb-4">
-                                        <a href="mailto:{{ $info_email }}">{{ $info_email }}</a>
+                                        <a href="mailto:{{ $email }}">{{ $email }}</a>
                                     </p>
                                     <h5 class="color-theme-1">Celular</h5>
                                     <p class="text-muted mb-4">
-                                        <a href="tel:{{ $info_celular }}">{{ $info_celular }}</a>
+                                        <a href="tel:{{ $celular }}">{{ $celular }}</a>
                                     </p>
-                                    @if(isset($info_whatsapp) && !empty($info_whatsapp) && $info_whatsapp != '')
+                                    @if(isset($whatsapp) && !empty($whatsapp) && $whatsapp != '')
                                         <h5 class="color-theme-1">Whatsapp</h5>
                                         <p class="text-muted mb-4">
-                                            <a href="https://api.whatsapp.com/send?phone=51{{ $info_whatsapp }}&text=Saludos"
-                                               target="_blank">51{{ $info_whatsapp }}</a>
+                                            <a href="https://api.whatsapp.com/send?phone=51{{ $whatsapp }}&text=Saludos"
+                                               target="_blank">51{{ $whatsapp }}</a>
                                         </p>
                                     @endif
                                     <h5 class="color-theme-1">Mensaje</h5>
-                                    <p class="text-muted mb-4">{{ $info_message }}</p>
+                                    <p class="text-muted mb-4">{{ $message }}</p>
                                 </div>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @php $order_products = json_decode($info_products) @endphp
+                                                    @php $order_products = json_decode($products) @endphp
                                                     @foreach($order_products as $product)
                                                         <tr>
                                                             <td>
@@ -110,7 +110,7 @@
                                                 <p class="list-item-heading color-theme-1">Subtotal</p>
                                             </td>
                                             <td>
-                                                <p class="list-item-heading">S/ {{ $info_subtotal }}</p>
+                                                <p class="list-item-heading">S/ {{ $subtotal }}</p>
                                             </td>
                                         </tr>
                                         <tr>
@@ -118,7 +118,7 @@
                                                 <p class="list-item-heading color-theme-1">Total</p>
                                             </td>
                                             <td>
-                                                <p class="list-item-heading">S/ {{ $info_total }}</p>
+                                                <p class="list-item-heading">S/ {{ $total }}</p>
                                             </td>
                                         </tr>
 

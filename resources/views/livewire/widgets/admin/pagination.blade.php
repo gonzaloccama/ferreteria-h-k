@@ -6,7 +6,7 @@
                 {{-- First Page Link --}}
                 <li class="page-item text-center">
                     <a href="javascript:;" class="page-link first" wire:click="gotoPage(1)">
-                        <i class="fe-chevrons-left"></i>
+                        <i class="fas fa-chevron-left"></i>
                     </a>
                 </li>
                 @if($paginator->currentPage() > 2)

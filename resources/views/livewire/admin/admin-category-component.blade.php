@@ -2,13 +2,14 @@
     <div class="col-md-12">
         <?php
         $buttons = ['is_add' => true];
-
-        $items = [
-            'id' => 'ID',
-            'name' => 'Nombre',
-            'created_at' => 'Fecha de Creación',
-        ];
         $mode = 'list';
+
+        $actions = [
+            'view' => null,
+            'edit' => 'Editar',
+            'go' => null,
+            'delete' => 'Eliminar',
+        ];
         ?>
 
         @include('livewire.widgets.admin.title-page')
@@ -24,44 +25,7 @@
     <div class="col-md-12 list">
 
 
-        @foreach($categories as $category)
-            <div class="card d-flex flex-row mb-3">
-                <a class="d-flex" href="Pages.Product.Detail.html">
-                    <img src="{{ asset('assets/admin/img/products/fat-rascal-thumb.jpg') }}" alt="Fat Rascal"
-                         class="list-thumbnail responsive border-0 card-img-left"/>
-                </a>
-                <div class="pl-0 d-flex flex-grow-1 min-width-zero">
-                    <div
-                        class="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
-                        <a href="Pages.Product.Detail.html" class="w-30 w-sm-100 ml-0 mr-0 pl-0 pr-0">
-                            <p class="list-item-heading mb-0 truncate">{{ $category->name }}</p>
-                        </a>
-                        <p class="mb-0 text-muted w-15 w-sm-100">{{ $category->slug }}</p>
-                        <p class="mb-0 text-muted w-15 w-sm-100">{{ $category->parent }}</p>
-                        <div class="w-15 w-sm-100">
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                                <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip"
-                                        data-placement="top" title="Ver"><i class="fas fa-eye"></i>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip"
-                                        wire:click.prevent="edit({{ $category->id }})"
-                                        data-placement="top" title="Editar"><i class="fas fa-pen-alt"></i>
-                                </button>
-                                <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip"
-                                        wire:click.prevent="deleteConfirm({{ $category->id }})"
-                                        data-placement="top" title="Eliminar"><i class="fas fa-times-circle"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        @endforeach
-
-        <div class="wrap-pagination-info">
-            {{ $categories->links('livewire.widgets.admin-pagination-link') }}
-        </div>
+        @include('livewire.widgets.admin.table-basic')
     </div>
 </div>
 

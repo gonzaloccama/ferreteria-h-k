@@ -21,17 +21,26 @@ class AdminAskInformationComponent extends Component
 
     public $info_id;
 
-    public $info_names;
-    public $info_email;
-    public $info_celular;
-    public $info_whatsapp;
-    public $info_message;
-    public $info_products;
-    public $info_subtotal;
-    public $info_total;
+    public $names;
+    public $email;
+    public $phone;
+    public $whatsapp;
+    public $message;
+    public $products;
+    public $subtotal;
+    public $total;
     public $created_at;
 
     public $deleteId;
+
+    public $headers = [
+        'names' => 'Nombres',
+        'email' => 'Correo',
+        'phone' => 'Celular',
+        'whatsapp' => 'WhatsApp',
+        'created_at' => 'Recibido',
+        'not' => '',
+    ];
 
     public function mount()
     {
@@ -45,19 +54,21 @@ class AdminAskInformationComponent extends Component
 
     public function render()
     {
-        $keyWord = '%' . $this->keyWord . '%';
+        $rFormat = array_diff(array_keys($this->headers), ['not']);
+        $findIn = [];
+        $table = 'ask_information';
 
-        $data['asks'] = AskInformation::orderBy($this->orderBy, $this->sort)
-            ->orWhere('id', 'LIKE', $keyWord)
-            ->orWhere('info_names', 'LIKE', $keyWord)
-            ->orWhere('info_email', 'LIKE', $keyWord)
-            ->orWhere('info_celular', 'LIKE', $keyWord)
-            ->orWhere('info_whatsapp', 'LIKE', $keyWord)
-            ->orWhere('info_message', 'LIKE', $keyWord)
-            ->orWhere('info_products', 'LIKE', $keyWord)
-            ->orWhere('info_subtotal', 'LIKE', $keyWord)
-            ->orWhere('info_total', 'LIKE', $keyWord)
-            ->orWhere('created_at', 'LIKE', $keyWord)
+        foreach ($rFormat as $item) {
+            $findIn[] = $table . '.' . $item;
+        }
+
+        $data['results'] = AskInformation::orderBy($this->orderBy, $this->sort)
+            ->orWhere(function ($query) use ($findIn) {
+                foreach ($findIn as $in) {
+                    $query->orWhere($in, 'LIKE', '%' . $this->keyWord . '%');
+                }
+            })
+
             ->paginate($this->limit);
 
         $data['_title'] = 'Solicitudes de compra';
@@ -73,14 +84,14 @@ class AdminAskInformationComponent extends Component
 
         $ask = AskInformation::where('id', $this->info_id)->first();
 
-        $this->info_names = $ask->info_names;
-        $this->info_email = $ask->info_email;
-        $this->info_celular = $ask->info_celular;
-        $this->info_whatsapp = $ask->info_whatsapp;
-        $this->info_message = $ask->info_message;
-        $this->info_products = $ask->info_products;
-        $this->info_subtotal = $ask->info_subtotal;
-        $this->info_total = $ask->info_total;
+        $this->names = $ask->names;
+        $this->email = $ask->email;
+        $this->celular = $ask->celular;
+        $this->whatsapp = $ask->whatsapp;
+        $this->message = $ask->message;
+        $this->products = $ask->products;
+        $this->subtotal = $ask->subtotal;
+        $this->total = $ask->total;
         $this->created_at = Carbon::parse($ask->created_at)->locale('es')->translatedFormat('l d \d\e F \d\e\l Y | g:i:s A');
 
         $this->modeUpdate = 'view';
@@ -100,14 +111,14 @@ class AdminAskInformationComponent extends Component
 
     public function closeModal()
     {
-        $this->info_names = null;
-        $this->info_email = null;
-        $this->info_celular = null;
-        $this->info_whatsapp = null;
-        $this->info_message = null;
-        $this->info_products = null;
-        $this->info_subtotal = null;
-        $this->info_total = null;
+        $this->names = null;
+        $this->email = null;
+        $this->phone = null;
+        $this->whatsapp = null;
+        $this->message = null;
+        $this->products = null;
+        $this->subtotal = null;
+        $this->total = null;
         $this->created_at = null;
 
         $this->modeUpdate = false;

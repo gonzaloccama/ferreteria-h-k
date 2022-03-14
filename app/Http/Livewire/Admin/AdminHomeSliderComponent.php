@@ -38,6 +38,18 @@ class AdminHomeSliderComponent extends Component
     public $image_edit;
     public $newimage;
 
+    public $path = 'assets/images/sliders';
+
+    public $headers = [
+        'image' => 'Imagen',
+        'title' => 'Título',
+        'price' => 'Precio',
+        'link' => 'Link',
+        'status' => 'Estado',
+        'created_at' => 'Creado',
+        'not' => '',
+    ];
+
     protected $rules = [
         'title' => 'required|min:12|max:126',
         'subtitle' => 'required|min:12|max:126',
@@ -82,17 +94,22 @@ class AdminHomeSliderComponent extends Component
     {
         $keyWord = '%' . $this->keyWord . '%';
 
-        $data['sliders'] = HomeSlider::orderBy($this->orderBy, $this->sort)
-            ->orWhere('id', 'LIKE', $keyWord)
-            ->orWhere('title', 'LIKE', $keyWord)
-            ->orWhere('subtitle', 'LIKE', $keyWord)
-            ->orWhere('price', 'LIKE', $keyWord)
-            ->orWhere('link', 'LIKE', $keyWord)
-            ->orWhere('status', 'LIKE', $keyWord)
-            ->orWhere('created_at', 'LIKE', $keyWord)
+        $rFormat = array_diff(array_keys($this->headers), array('not'));
+        $findIn = [];
+        $table = 'home_sliders';
+
+        foreach ($rFormat as $item) {
+            $findIn[] = $table . '.' . $item;
+        }
+
+        $data['results'] = HomeSlider::orderBy($this->orderBy, $this->sort)
+            ->orWhere(function ($query) use ($findIn) {
+                foreach ($findIn as $in) {
+                    $query->orWhere($in, 'LIKE', '%' . $this->keyWord . '%');
+                }
+            })
             ->paginate($this->limit);
 
-        $data['pageTitle'] = 'Home Slider';
         $data['_title'] = 'Home Sliders';
 
         $this->emit('refreshF');

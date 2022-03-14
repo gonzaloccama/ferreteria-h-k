@@ -23,6 +23,54 @@
     @livewireStyles
 
     <style>
+        .badge-success-1 {
+            border: 1px dashed #157045;
+            background-color: rgba(10, 52, 32, 0.15);
+            color: #157045;
+            padding: 5px;
+            margin: 0;
+        }
+
+        .badge-danger-1 {
+            border: 1px dashed #f63c44;
+            background-color: rgba(246, 60, 68, 0.15);
+            color: #f63c44;
+            padding: 5px;
+            margin: 0;
+        }
+
+        .ordered{
+            border: 1px dashed #568d15;
+            background-color: rgba(86, 141, 21, 0.15);
+            color: #568d15;
+            padding: 5px;
+            margin: 0;
+        }
+
+        .delivered{
+            border: 1px dashed #fc751c;
+            background-color: rgba(252, 117, 28, 0.15);
+            color: #fc751c;
+            padding: 5px;
+            margin: 0;
+        }
+
+        .canceled{
+            border: 1px dashed #f63c44;
+            background-color: rgba(246, 60, 68, 0.15);
+            color: #f63c44;
+            padding: 5px;
+            margin: 0;
+        }
+
+        .completed{
+            border: 1px dashed #0c4128;
+            background-color: rgba(10, 52, 32, 0.15);
+            color: #0c4128;
+            padding: 5px;
+            margin: 0;
+        }
+
         .modal .form-group label,
         .title-page h1,
         .content-settings .card-title,

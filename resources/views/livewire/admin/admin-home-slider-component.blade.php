@@ -2,15 +2,14 @@
     <div class="col-md-12">
         <?php
         $buttons = ['is_add' => true];
-
-        $items = [
-            'id' => 'ID',
-            'title' => 'Título',
-            'price' => 'Precio',
-            'status' => 'Estado',
-            'created_at' => 'Fecha de Creación',
-        ];
         $mode = 'list';
+
+        $actions = [
+            'view' => null,
+            'edit' => 'Editar',
+            'go' => null,
+            'delete' => 'Eliminar',
+        ];
         ?>
 
         @include('livewire.widgets.admin.title-page')
@@ -25,54 +24,7 @@
     @endif
 
     <div class="col-md-12 list">
-
-
-        @foreach($sliders as $slider)
-            <div class="card d-flex flex-row mb-3">
-                <a class="d-flex" href="Pages.Product.Detail.html">
-                    <img src="{{ asset('assets/images/sliders/').'/'.$slider->image }}" alt="{!! $slider->title !!}"
-                         class="list-thumbnail responsive border-0 card-img-left"/>
-                </a>
-                <div class="pl-0 d-flex flex-grow-1 min-width-zero">
-                    <div
-                        class="card-body align-self-center d-flex flex-column flex-lg-row min-width-zero align-items-lg-center">
-                        <a href="Pages.Product.Detail.html" class="w-25 w-sm-100 ml-0 mr-0 pl-0 pr-0">
-                            <p class="list-item-heading mb-0 truncate">{!! $slider->title !!}</p>
-                        </a>
-
-                        <p class="mb-0 text-muted text-small w-40 w-sm-100">{!! $slider->subtitle !!}</p>
-                        <div class="mb-0 text-small w-10 w-sm-100">
-                            <span class="font-weight">S/ {!! $slider->price !!}</span>
-                        </div>
-                        <div class="mb-0 text-muted text-small w-10 w-sm-100">
-                            <span class="badge badge-outline-{{ $slider->status?'success':'danger' }}">
-                                {!! $slider->status?'Activo':'Inactivo' !!}
-                            </span>
-                        </div>
-                        <div class="w-15 w-sm-100">
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                                <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip"
-                                        data-placement="top" title="Ver"><i class="fas fa-eye"></i>
-                                </button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="tooltip"
-                                        wire:click.prevent="edit({{ $slider->id }})"
-                                        data-placement="top" title="Editar"><i class="fas fa-pen-alt"></i>
-                                </button>
-                                <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="tooltip"
-                                        wire:click.prevent="deleteConfirm({{ $slider->id }})"
-                                        data-placement="top" title="Eliminar"><i class="fas fa-times-circle"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        @endforeach
-
-        <div class="wrap-pagination-info">
-            {{ $sliders->links('livewire.widgets.admin-pagination-link') }}
-        </div>
+        @include('livewire.widgets.admin.table-basic')
     </div>
 </div>
 
