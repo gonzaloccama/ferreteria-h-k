@@ -191,11 +191,10 @@ class CheckoutComponent extends Component
                 $orderItem = new OrderItem();
                 $orderItem->product_id = $item->id;
                 $orderItem->order_id = $order->id;
-                $orderItem->price = $item->price;
+                $orderItem->price = (double)filter_var($item->price, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
                 $orderItem->quantity = $item->qty;
                 $orderItem->save();
             }
-            $this->emit('alertSave', 'LA ORDEN');
         }
 
         if ($this->is_shipping_different) {
@@ -285,6 +284,7 @@ class CheckoutComponent extends Component
             }
         }
 
+        $this->emit('alertSave', 'LA ORDEN');
         $this->emitTo('cart-count-component', 'refreshComponent');
         $this->emitTo('cart-count-responsive-component', 'refreshComponent');
     }

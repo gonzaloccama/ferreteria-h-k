@@ -8,10 +8,23 @@
         <div class="container">
             <div class="row flex-row-reverse">
                 <div class="col-lg-10 mt-40 mb-40">
-
+                    <?php
+                    $actions = [
+                        'view' => 'Detalles',
+                        'edit' => null,
+                        'go' => null,
+                        'delete' => null,
+                        'canceled' => 'Cancelar',
+                    ];
+                    ?>
                     <div class="col-md-12 list">
                         <h4 class="mt-10 mb-10 text-uppercase" style="font-weight: 200;">{{ $title }}</h4>
-
+                        @if($frame)
+                            @include('livewire.user.user-order-component.'.$frame)
+                        @else
+                            @include('livewire.widgets.user.more-options')
+                            @include('livewire.widgets.user.table-basic')
+                        @endif
                     </div>
                 </div>
                 <div class="col-lg-2 primary-sidebar sticky-sidebar">

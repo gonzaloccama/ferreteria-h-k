@@ -1,17 +1,14 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Http\Livewire\User;
 
 use App\Models\Order;
-use Carbon\Carbon;
 use DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class AdminOrderComponent extends Component
+class UserOrderComponent extends Component
 {
-    protected $listeners = ['activeConfirm' => 'delete'];
-
     use WithPagination;
 
     public $limit;
@@ -19,13 +16,11 @@ class AdminOrderComponent extends Component
     public $sort;
     public $keyWord;
 
-    public $deleteId;
-    public $itemId;
-
-    public $created_at;
     public $frame;
     public $path;
 
+    public $itemId;
+    public $deleteId;
     public $order;
 
     public $headers = [
@@ -41,7 +36,7 @@ class AdminOrderComponent extends Component
 
     public function mount()
     {
-        $this->limit = 8;
+        $this->limit = 2;
         $this->orderBy = 'created_at';
         $this->sort = 'DESC';
         $this->keyWord = '';
@@ -67,13 +62,15 @@ class AdminOrderComponent extends Component
                 }
                 $query->orWhere(DB::raw("CONCAT(firstname, ' ', lastname)"), 'LIKE', '%' . $this->keyWord . '%');
             })
+            ->where('user_id', auth()->user()->id)
             ->select($table . '.*')
             ->selectRaw('CONCAT(firstname," ",lastname) as fullname')
             ->paginate($this->limit);
 
-        $data['_title'] = 'Ordenes';
+        $data['is_user'] = true;
+        $data['title'] = 'Ordenes';
 
-        return view('livewire.admin.admin-order-component', $data)->layout('layouts.admin');
+        return view('livewire.user.user-order-component', $data)->layout('layouts.frontend');
     }
 
     public function updatePagination($size = 0)
@@ -87,63 +84,45 @@ class AdminOrderComponent extends Component
         $this->sort = $sort;
     }
 
-    public function openModal($id)
+    public function openView($id)
     {
         $this->itemId = $id;
         $this->frame = 'view';
 
         if ($this->itemId) {
-            $this->order = Order::find($this->itemId);
+            $this->order = Order::where('user_id', auth()->user()->id)->where('id', $this->itemId)->first();
         }
 
         $this->emit('showModalView');
     }
 
-    public function updateOrderStatus($id, $status)
+    public function canceled($id)
     {
         if ($id) {
             $order = Order::find($id);
-            $order->status = $status;
 
-            if ($status == 'delivered') {
-                $order->delivered_date = DB::raw('CURRENT_DATE');
-            } elseif ($status == 'completed') {
-                $order->completed_date = DB::raw('CURRENT_DATE');
-            } elseif ($status == 'canceled') {
+            if (!in_array($order->status, ['completed', 'canceled'])) {
+                $order->status = 'canceled';
                 $order->canceled_date = DB::raw('CURRENT_DATE');
-            }
 
-            if ($order->save()){
-                $this->emit('alertSave', 'Se cambió el estado correctamente');
+                if ($order->save()) {
+                    $this->emit('cancelAlert', 'Orden cancelada exitosamente');
+                }
             }
         }
     }
 
-    public function deleteConfirm($id)
+    public function closeFrame()
     {
-        $this->deleteId = $id;
-        $this->emit('deleteAlert');
-    }
-
-    public function delete()
-    {
-        $product = Order::find($this->deleteId);
-        $product->delete();
-    }
-
-    public function closeModal()
-    {
-        $this->frame = null;
         $this->cleanItems();
-        $this->emit('closeModalView');
     }
 
     public function cleanItems()
     {
-        $this->order = null;
+        $this->frame = null;
 
-        $this->deleteId = null;
         $this->itemId = null;
-        $this->created_at = null;
+        $this->deleteId = null;
+        $this->order = null;
     }
 }

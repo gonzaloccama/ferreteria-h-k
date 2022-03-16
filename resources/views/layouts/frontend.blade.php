@@ -29,7 +29,6 @@
     <style>
 
 
-
         .product-wish {
             background-color: #088178 !important;
             color: #eeecec !important;
@@ -39,7 +38,7 @@
             border-radius: 0;
         }
 
-        .error{
+        .error {
             font-size: 11px;
         }
 
@@ -73,6 +72,123 @@
         }
 
 
+    </style>
+
+    <style>
+
+        .nav-link {
+            border-radius: 0px !important;
+            transition: all 0.5s;
+
+            display: flex;
+            flex-direction: column
+        }
+
+        .nav-link small {
+            font-size: 12px
+        }
+
+        .nav-link:hover {
+            color: rgb(18, 42, 69) !important;
+            background-color: rgba(4, 57, 103, 0.25) !important
+        }
+
+        .nav-link .animation {
+            transition: all 1s;
+            font-size: 20px
+        }
+
+        .nav-link:hover .animation {
+            transform: rotate(360deg)
+        }
+
+        .active-1 {
+            color: #fff !important;
+            background-color: rgb(18, 42, 69) !important;
+        }
+
+        .bg-header {
+            color: rgba(255, 255, 255, 0.93) !important;
+            background-color: #41506B !important;
+            font-weight: 200 !important;
+        }
+
+        .active-filter,
+        .active-filter .page-link {
+            color: rgba(255, 255, 255, 0.93) !important;
+            background-color: #41506B !important;
+        }
+
+        .badge-success-1 {
+            border: 1px dashed #157045;
+            background-color: rgba(10, 52, 32, 0.15);
+            color: #157045;
+            padding: 5px;
+            margin: 0;
+        }
+
+        .badge-danger-1 {
+            border: 1px dashed #f63c44;
+            background-color: rgba(246, 60, 68, 0.15);
+            color: #f63c44;
+            padding: 5px;
+            margin: 0;
+        }
+
+        .ordered {
+            border: 1px dashed #568d15;
+            background-color: rgba(86, 141, 21, 0.15);
+            color: #568d15;
+            padding: 5px;
+            margin: 0;
+        }
+
+        .delivered {
+            border: 1px dashed #fc751c;
+            background-color: rgba(252, 117, 28, 0.15);
+            color: #fc751c;
+            padding: 5px;
+            margin: 0;
+        }
+
+        .canceled {
+            border: 1px dashed #f63c44;
+            background-color: rgba(246, 60, 68, 0.15);
+            color: #f63c44;
+            padding: 5px;
+            margin: 0;
+        }
+
+        .completed {
+            border: 1px dashed #0c4128;
+            background-color: rgba(10, 52, 32, 0.15);
+            color: #0c4128;
+            padding: 5px;
+            margin: 0;
+        }
+
+        .page-link {
+            border-radius: 0 !important;
+            color: #41506B !important;
+        }
+
+        /*** button extra small ***/
+        .btn.btn-extra-sm {
+            line-height: 1 !important;
+            padding: 5px 15px 3px 15px !important;
+            min-width: unset !important;
+            display: table !important;
+            border-radius: 15px !important;
+        }
+
+        input.search {
+            border: 1px solid rgba(65, 80, 107, 0.96) !important;
+            border-radius: 0;
+        }
+
+        input.search:focus{
+            border: 1px solid rgba(6, 58, 152, 0.96) !important;
+        }
     </style>
 
 </head>
@@ -204,6 +320,7 @@ $website = App\Models\SettingSite::find(1);
             iconColor: '#efefef',
         })
     }
+
     function uppercaseText(string) {
         // return string.charAt(0).toUpperCase() + string.slice(1);
         return string.toUpperCase();

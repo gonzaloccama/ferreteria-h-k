@@ -64,9 +64,9 @@
         }
 
         .completed{
-            border: 1px dashed #0c4128;
+            border: 1px dashed #328359;
             background-color: rgba(10, 52, 32, 0.15);
-            color: #0c4128;
+            color: #328359;
             padding: 5px;
             margin: 0;
         }
@@ -116,6 +116,67 @@
 <script src="{{ asset('assets/admin/js/scripts.js') }}"></script>
 <script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.all.js') }}"></script>
 
+<script type="text/javascript">
+    function notificationSwal(mssg, stl) {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+        Toast.fire({
+            icon: 'success',
+            title: `<div class="text-white font-sm">${mssg}</div>`,
+            background: stl,
+            iconColor: '#efefef',
+        })
+    }
+
+    function deleteSwal() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-primary ml-3',
+                cancelButton: 'btn btn-danger mr-3'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: '¿Estas seguro?',
+            text: "¡No podrás revertir esto esta acción!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, Eliminarlo!',
+            cancelButtonText: 'No, Cancelar!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                Livewire.emit('activeConfirm');
+
+                swalWithBootstrapButtons.fire(
+                    '¡Eliminado!',
+                    'El registro ha sido eliminado. <i class="far fa-dizzy text-danger"></i>',
+                    'success'
+                )
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    '¡Cancelado!',
+                    'Tu registro está a salvo <i class="far fa-smile-beam text-primary"></i>',
+                    'error'
+                )
+            }
+        })
+    }
+</script>
 
 </body>
 

@@ -15,4 +15,9 @@ class Shipping extends Model
     {
         return $this->belongsTo(Order::class);
     }
+
+    public function orRegion()
+    {
+        return $this->belongsTo(Region::class, 'region');
+    }
 }
