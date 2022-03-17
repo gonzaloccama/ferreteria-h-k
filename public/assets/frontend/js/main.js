@@ -26,7 +26,7 @@
 
     /*------ ScrollUp -------- */
     $.scrollUp({
-        scrollText: '<i class="fi-rs-arrow-up"></i>',
+        scrollText: '<i class="iconsminds-up"></i>',
         easingType: 'linear',
         scrollSpeed: 900,
         animation: 'fade'

@@ -15,6 +15,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/frontend/imgs/theme/favicon.svg') }}">
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('assets/admin/font/iconsmind-s/css/iconsminds.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/admin/font/simple-line-icons/css/simple-line-icons.css') }}"/>
 
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome/css/all.css') }}">
 
@@ -70,6 +71,68 @@
             padding-top: 6px !important;
             margin-left: 4px !important;
         }
+
+        /*** Menu header ***/
+        .menu-ecommerce a {
+            color: #e3e3e3 !important;
+            font-family: 'Rajdhani' !important;
+            font-size: 16px !important;
+            font-weight: 500 !important;
+        }
+
+        /*.menu-ecommerce a*/
+
+        /*.menu-ecommerce a {*/
+        /*    display: block;*/
+        /*    !*width: 150px;*!*/
+        /*    line-height: 40px;*/
+        /*    !*background: orangered;*!*/
+        /*    text-align: center;*/
+        /*    position: relative;*/
+        /*    text-decoration: none;*/
+        /*    color: #fff !important;*/
+        /*    font-family: 'Rajdhani' !important;*/
+        /*    font-size: 18px !important;*/
+        /*    font-weight: 500 !important;*/
+        /*    text-transform: uppercase;*/
+        /*    letter-spacing: 2px;*/
+        /*}*/
+
+        /*.menu-ecommerce a:hover{*/
+        /*    color: #cd2020 !important;*/
+        /*}*/
+
+        /*.menu-ecommerce a:before,*/
+        /*.menu-ecommerce a:after {*/
+        /*    position: absolute;*/
+        /*    content: "";*/
+        /*    transition: all .25s;*/
+        /*}*/
+
+        /*.menu-ecommerce a:before {*/
+        /*    border-bottom: 0px solid #fff;*/
+        /*    border-left: 2px solid #fff;*/
+
+        /*    height: 0%;*/
+        /*    left: -10px;*/
+
+        /*}*/
+
+        /*.menu-ecommerce a:after {*/
+        /*    border-top: 0px solid #fff;*/
+        /*    border-right: 2px solid #fff;*/
+
+        /*    height: 0%;*/
+
+        /*    right: -10px;*/
+        /*}*/
+
+        /*.menu-ecommerce a:hover:before,*/
+        /*.menu-ecommerce a:hover:after {*/
+        /*    border-left-color: #cd2020;*/
+        /*    border-right-color: #cd2020;*/
+        /*    height: calc(80px / 2);*/
+        /*}*/
 
 
     </style>
@@ -186,8 +249,52 @@
             border-radius: 0;
         }
 
-        input.search:focus{
+        input.search:focus {
             border: 1px solid rgba(6, 58, 152, 0.96) !important;
+        }
+    </style>
+
+    <style>
+        .rating-star {
+            color: #ED8A19 !important;
+        }
+
+        .rating {
+            font-size: 16px;
+            font-weight: 600;
+            color: #808080;
+        }
+
+        .rating-stars {
+            height: 50px;
+            padding: 2px;
+        }
+
+
+        .rating-stars div {
+            color: #ED8A19;
+            font-size: 18px;
+            font-family: sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .rating-stars input {
+            display: none;
+        }
+
+        .rating-stars input + label {
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .rating-stars input:checked + label ~ label {
+            color: #838383;
+        }
+
+        .rating-stars label:active {
+            transform: scale(0.8);
+            transition: 0.3s ease;
         }
     </style>
 

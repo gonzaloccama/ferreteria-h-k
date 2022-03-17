@@ -2,7 +2,7 @@
     <?php
     $money = ['price', 'total', 'subtotal'];
     $fld = ['not', 'status', 'image',];
-    $lnk = ['url', 'mobile', 'phone', 'email', 'whatsapp', 'website']
+    $lnk = ['url', 'link', 'mobile', 'phone', 'email', 'whatsapp', 'website']
     ?>
     <div class="card-body" style="overflow-x: auto">
         {{ $results->links('livewire.widgets.user.detail-pagination') }}
@@ -42,7 +42,7 @@
                                 <p>S/ {{ number_format($result[$header], 2, '.', ',') }}</p>
                             @elseif(in_array($header, ['mobile', 'phone']))
                                 <a href="tel:{{ $result[$header] }}">{{ $result[$header] }}</a>
-                            @elseif(in_array($header, ['website', 'url']))
+                            @elseif(in_array($header, ['website', 'url', 'link']))
                                 <a href="{{ $result[$header] }}">{{ $result[$header] }}</a>
                             @elseif(in_array($header, ['email']))
                                 <a href="mailto:{{ $result[$header] }}">{{ $result[$header] }}</a>

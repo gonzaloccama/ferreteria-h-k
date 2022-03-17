@@ -18,7 +18,7 @@
         <div class="card border shadow-none mb-3">
             <div class="card-body">
                 <div class="list-item-heading mb-4"><h6 class="text-uppercase">Detalles de la Orden</h6></div>
-                <table class="table table-hover responsive">
+                <table class="table table-hover clean">
                     <tbody>
                     <tr>
                         <th><p class="color-theme-1 text-uppercase">ID de la Orden: </p></th>
@@ -102,7 +102,7 @@
                 <div class="card-body">
                     <div class="mb-4 mt-1"><h6 class="text-uppercase">Productos</h6></div>
                     <div style="overflow-x: auto">
-                    <table class="table table-hover">
+                    <table class="table table-hover clean">
                         <thead class="bg-header">
                         <tr>
                             <th scope="col" class="text-uppercase">Imagen</th>
@@ -137,7 +137,7 @@
                                 </th>
                                 @if($order->status == 'delivered' && !$item->rstatus)
                                     <th class="align-middle text-right" scope="row">
-                                        <a href="">Escribir un comentario</a>
+                                        <a href="javascript:;" wire:click.prevent="openReview('{{ $item->id }}')">Escribir un comentario</a>
                                     </th>
                                 @endif
                             </tr>
@@ -150,7 +150,7 @@
             <div class="card border shadow-none mb-3">
                 <div class="card-body" style="overflow-x: auto">
                     <div class="list-item-heading mb-4"><h6 class="text-uppercase">Resumen de la Orden</h6></div>
-                    <table class="table table-hover">
+                    <table class="table table-hover clean">
                         <tbody>
                         <tr>
                             <td><p class="color-theme-1">Subtotal</p></td>
@@ -176,7 +176,7 @@
             <div class="card border shadow-none mb-3">
                 <div class="card-body" style="overflow-x: auto">
                     <div class="list-item-heading mb-4"><h6 class="text-uppercase">Detalles de la orden</h6></div>
-                    <table class="table table-hover responsive">
+                    <table class="table table-hover clean">
                         <tbody>
                         <tr>
                             <th><p class="color-theme-1 text-uppercase">Nombres: </p></th>
@@ -220,7 +220,7 @@
                 <div class="card border shadow-none mb-3">
                     <div class="card-body" style="overflow-x: auto">
                         <div class="list-item-heading mb-4"><h6 class="text-uppercase">Detalles de envio</h6></div>
-                        <table class="table table-hover responsive">
+                        <table class="table table-hover clean">
                             <tbody>
                             <tr>
                                 <th><p class="color-theme-1 text-uppercase">Nombres: </p></th>
@@ -265,7 +265,7 @@
             <div class="card border shadow-none mb-3">
                 <div class="card-body">
                     <div class="list-item-heading mb-4"><h6 class="text-uppercase">Transacción</h6></div>
-                    <table class="table table-hover responsive">
+                    <table class="table table-hover clean">
                         <tbody>
                         <tr>
                             <th><p class="color-theme-1 text-uppercase">Modo de transacción: </p></th>
@@ -290,5 +290,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end p-20">
+        <button class="btn btn-secondary btn-sm" wire:click.prevent="closeFrame"><i class="fas fa-arrow-left"></i> Regresar</button>
     </div>
 </div>

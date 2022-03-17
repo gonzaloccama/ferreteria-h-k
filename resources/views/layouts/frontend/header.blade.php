@@ -1,6 +1,4 @@
 <header class="header-area header-style-1 header-height-2">
-
-
     <div class="header-top header-top-ptb-1 d-none d-lg-block">
         <div class="container">
             <div class="row align-items-center">
@@ -139,7 +137,7 @@
             <div class="header-wrap">
                 <div class="logo logo-width-1">
                     <a href="{{ route('home') }}">
-                        <img src="{{ asset('assets/frontend/imgs/theme/ferretools.png') }}"
+                        <img src="{{ asset('assets/images/pages/logo.png') }}"
                              alt="logo">
                     </a>
                 </div>
@@ -166,7 +164,7 @@
             <div class="header-wrap header-space-between position-relative">
                 <div class="logo logo-width-1 d-block d-lg-none">
                     <a href="{{ route('home') }}">
-                        <img src="{{ asset('assets/frontend/imgs/theme/ferretools.png') }}" alt="logo">
+                        <img src="{{ asset('assets/images/pages/logo.png') }}" alt="logo">
                     </a>
                 </div>
                 <div class="header-nav d-none d-lg-flex">
@@ -187,19 +185,21 @@
                         <nav>
                             <ul>
                                 @foreach($menus as $menu)
-                                    <li>
-                                        <a href="{{ $menu->is_route == '1' ? route($menu->route) : 'javascript:;' }}"
-                                           class="{{ route($menu->route) === url()->current()? 'active':'' }} text-white">
+                                    <li class="menu-ecommerce">
+                                        <a href="{{ (int)$menu->is_route ? route($menu->route) : 'javascript:;' }}"
+                                           class="{{ (int)$menu->is_route ? route($menu->route) === url()->current()? 'active':'' : '' }}">
                                             {{ $menu->name }}
                                             @if(count($menu->children))
                                                 <i class="fi-rs-angle-down"></i>
                                             @endif
                                         </a>
                                         @if(count($menu->children))
-                                            <ul class="sub-menu">
+                                            <ul class="sub-menu"
+                                                style="background-color: rgba(18,42,69,0.98); border-radius: 0">
                                                 @foreach($menu->children as $smenu)
                                                     <li>
-                                                        <a href="{{ route($smenu->route) }}">{{ $smenu->name }}</a>
+                                                        <a class="text-white"
+                                                           href="{{ route($smenu->route) }}">{{ $smenu->name }}</a>
                                                     </li>
                                                 @endforeach
                                             </ul>

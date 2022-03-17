@@ -7,7 +7,7 @@ $lnk = ['url', 'mobile', 'phone', 'email', 'whatsapp', 'website']
     <div class="card-body">
         {{ $results->links('livewire.widgets.user.detail-pagination') }}
         <div style="overflow-x: auto">
-            <table class="table table-hover table-striped">
+            <table class="table table-hover table-striped clean">
                 <thead class="bg-header">
                 <tr>
                     @foreach($headers as $header)

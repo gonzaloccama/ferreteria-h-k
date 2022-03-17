@@ -42,5 +42,7 @@
                 notificationSwal(`¡${mssg}!`, 'rgba(8,129,120,0.9)');
             });
         });
+
+
     </script>
 @endpush

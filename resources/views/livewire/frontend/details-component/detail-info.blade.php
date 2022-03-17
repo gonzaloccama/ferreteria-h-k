@@ -1,29 +1,56 @@
 <div class="col-md-6 col-sm-12 col-xs-12">
     <div class="detail-info">
-        <h2 class="title-detail">{{ $product->name }}</h2>
+        <h2 class="title-detail">{{ ucfirst(mb_convert_case($product->name, MB_CASE_LOWER, "UTF-8")) }}</h2>
         <div class="product-detail-rating">
             <div class="pro-details-brand">
                 @if(isset($product->brand->name) && !empty($product->brand->name))
-                <span> Marca: <a href="javascript:;">{{ $product->brand->name }}</a></span>
+                    <span> Marca: <a href="javascript:;">{{ $product->brand->name }}</a></span>
                 @endif
             </div>
+            <?php
+            $avgrating = 0;
+            $averange = 0;
+
+            foreach ($cnt = $product->orderItems->where('rstatus', 1) as $orderItem) {
+                $avgrating += $orderItem->review->rating;
+            }
+
+            $averange = ($avgrating / $cnt->count()) * 100 / 5;
+            ?>
+            {{--{{ json_encode($cnt) }}--}}
+{{--            <div class="product-rate-cover">--}}
+{{--                @for($star = 1; $star < 6; $star++)--}}
+{{--                    @if($star <= $averange)--}}
+{{--                        <i class="simple-icon-star rating rating-star"></i>--}}
+{{--                    @else--}}
+{{--                        <i class="simple-icon-star rating"></i>--}}
+{{--                    @endif--}}
+{{--                @endfor--}}
+{{--            </div>--}}
             <div class="product-rate-cover text-end">
+
                 <div class="product-rate d-inline-block">
-                    <div class="product-rating" style="width:90%">
+                    <div class="product-rating" style="width:{{ $averange }}%">
                     </div>
                 </div>
-                <span class="font-small ml-5 text-muted"> (25 reviews)</span>
+
+                <span class="font-small ml-5 text-muted">
+                    ({{ $cnt->count() }} calificaciones)
+                </span>
             </div>
         </div>
         <div class="clearfix product-price-cover">
             <div class="product-price primary-color float-left">
                 @if($s=$product->sale_price > 0 && $sale->status === 1 && $sale->sale_date > Carbon\Carbon::now())
-                    <ins><span class="text-brand">S/ {{ $product->sale_price }}</span></ins>
-                    <ins><span
-                            class="old-price font-md ml-15">S/ {{ $product->regular_price }}</span>
+                    <ins><span class="text-brand">
+                            S/ {{ number_format($product->sale_price, 2, '.', ',') }}
+                        </span></ins>
+                    <ins><span class="old-price font-md ml-15">
+                            S/ {{ number_format( $product->regular_price, 2, '.', ',') }}
+                        </span>
                     </ins>
                 @else
-                    <ins><span class="text-brand">S/ {{ $product->regular_price }}</span>
+                    <ins><span class="text-brand">S/ {{ number_format( $product->regular_price, 2, '.', ',') }}</span>
                     </ins>
                 @endif
                 {{--                                            <span class="save-price  font-md color3 ml-15">25% Off</span>--}}
@@ -90,7 +117,7 @@
                         @else
                         wire:click.prevent="store({{ $product->id }}, '{{ $product->name }}', {{ $product->regular_price }})"
                     @endif >
-                    Add to cart
+                    Añadir al carrito
                 </button>
                 @if($witems->contains($product->id))
                     <a aria-label="Add To Wishlist" class="action-btn hover-up product-wish"

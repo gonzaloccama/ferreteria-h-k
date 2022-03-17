@@ -3,7 +3,7 @@
         <div class="mobile-header-top">
             <div class="mobile-header-logo">
                 <a href="{{ route('home') }}">
-                    <img src="{{ asset('assets/frontend/imgs/theme/ferretools.png') }}" alt="logo">
+                    <img src="{{ asset('assets/images/pages/logo.png') }}" alt="logo">
                 </a>
             </div>
             <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
@@ -46,7 +46,7 @@
                                 @if(count($menu->children))
                                     <span class="menu-expand"></span>
                                 @endif
-                                <a href="{{ $menu->is_route == '1' ? route($menu->route) : 'javascript:;' }}">
+                                <a href="{{ (int)$menu->is_route ? route($menu->route) : 'javascript:;' }}">
                                     {{ $menu->name }}
                                 </a>
                                 @if(count($menu->children))
