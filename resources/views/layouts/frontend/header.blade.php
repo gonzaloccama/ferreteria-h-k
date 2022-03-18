@@ -186,8 +186,8 @@
                             <ul>
                                 @foreach($menus as $menu)
                                     <li class="menu-ecommerce">
-                                        <a href="{{ (int)$menu->is_route ? route($menu->route) : 'javascript:;' }}"
-                                           class="{{ (int)$menu->is_route ? route($menu->route) === url()->current()? 'active':'' : '' }}">
+                                        <a href="{{ $menu->is_route == '1' ? route($menu->route) : 'javascript:;' }}"
+                                           class="{{ $menu->is_route == '1' ? route($menu->route) === url()->current()? 'active':'' : '' }}">
                                             {{ $menu->name }}
                                             @if(count($menu->children))
                                                 <i class="fi-rs-angle-down"></i>

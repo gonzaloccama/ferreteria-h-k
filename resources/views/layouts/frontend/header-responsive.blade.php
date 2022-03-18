@@ -46,7 +46,7 @@
                                 @if(count($menu->children))
                                     <span class="menu-expand"></span>
                                 @endif
-                                <a href="{{ (int)$menu->is_route ? route($menu->route) : 'javascript:;' }}">
+                                <a href="{{ $menu->is_route == '1' ? route($menu->route) : 'javascript:;' }}">
                                     {{ $menu->name }}
                                 </a>
                                 @if(count($menu->children))

@@ -10,23 +10,23 @@ class FrontEndAskModal extends Component
 {
     protected $listeners = ['refreshComponent' => '$refresh'];
 
-    public $info_names;
-    public $info_email;
-    public $info_celular;
-    public $info_message;
-    public $info_products;
-    public $info_subtotal;
-    public $info_total;
+    public $names;
+    public $email;
+    public $celular;
+    public $message;
+    public $products;
+    public $subtotal;
+    public $total;
 
     public function mount()
     {
-        $this->info_names = '';
-        $this->info_email = '';
-        $this->info_celular = '';
-        $this->info_message = '';
-        $this->info_products = [];
-        $this->info_subtotal = 0.00;
-        $this->info_total = 0.00;
+        $this->names = '';
+        $this->email = '';
+        $this->celular = '';
+        $this->message = '';
+        $this->products = [];
+        $this->subtotal = 0.00;
+        $this->total = 0.00;
     }
 
     public function render()
@@ -39,13 +39,13 @@ class FrontEndAskModal extends Component
     {
         $askInformation = new AskInformation();
 
-        $askInformation->info_names = $this->info_names;
-        $askInformation->info_email = $this->info_email;
-        $askInformation->info_celular = $this->info_celular;
-        $askInformation->info_message = $this->info_message;
-        $askInformation->info_products = $this->info_products;
-        $askInformation->info_subtotal = $this->info_subtotal;
-        $askInformation->info_total = $this->info_total;
+        $askInformation->names = $this->names;
+        $askInformation->email = $this->email;
+        $askInformation->celular = $this->celular;
+        $askInformation->message = $this->message;
+        $askInformation->products = $this->products;
+        $askInformation->subtotal = $this->subtotal;
+        $askInformation->total = $this->total;
 
         dd($askInformation);
     }

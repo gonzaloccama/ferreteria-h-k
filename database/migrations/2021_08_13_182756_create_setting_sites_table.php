@@ -20,6 +20,7 @@ class CreateSettingSitesTable extends Migration
             $table->text('email');
             $table->text('phone');
             $table->text('address');
+            $table->string('map', 500)->nullable();
             $table->string('attention');
             $table->integer('postal_code');
             $table->string('logo_dark')->nullable();

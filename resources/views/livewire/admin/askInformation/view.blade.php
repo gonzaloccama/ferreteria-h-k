@@ -1,6 +1,6 @@
 <div wire:ignore.self class="modal fade" id="viewModal" role="dialog"
      aria-labelledby="viewModal" aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">VER SOLICITUD DE COMPRA</h5>
@@ -10,13 +10,18 @@
             </div>
             <div class="modal-body">
                 <div class="alert alert-primary alert-dismissible fade show rounded mt-0 mb-3" role="alert">
-                    <strong>FECHA DE SOLICITUD:</strong> <span class="text-capitalize">{{ $created_at }}</span>
+                    <strong>FECHA DE SOLICITUD:</strong> <span>
+                        <?php
+                        echo ucfirst(Carbon\Carbon::parse($created_at)
+                            ->locale('es')->translatedFormat('l d \d\e F \d\e\l Y | g:i:s A'));
+                        ?>
+                    </span>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-6">
                         <div class="card border border-light">
                             <div class="card-body pt-4 pb-3 d-flex flex-column">
                                 <div class="text-center">
@@ -29,7 +34,7 @@
                                     </p>
                                     <h5 class="color-theme-1">Celular</h5>
                                     <p class="text-muted mb-4">
-                                        <a href="tel:{{ $celular }}">{{ $celular }}</a>
+                                        <a href="tel:{{ $phone }}">{{ $phone }}</a>
                                     </p>
                                     @if(isset($whatsapp) && !empty($whatsapp) && $whatsapp != '')
                                         <h5 class="color-theme-1">Whatsapp</h5>
@@ -45,7 +50,7 @@
                         </div>
 
                     </div>
-                    <div class="col-md-7">
+                    <div class="col-md-6">
                         <div class="card border border-4">
                             <div class="card-body pt-4 pb-4 d-flex flex-column">
                                 <div class="text-center">

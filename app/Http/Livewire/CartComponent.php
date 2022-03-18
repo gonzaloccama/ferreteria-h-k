@@ -15,15 +15,15 @@ class CartComponent extends Component
 {
     protected $listeners = ['hidden_modal' => 'hidden_modal'];
 
-    public $info_names;
-    public $info_email;
-    public $info_celular;
-    public $info_whatsapp;
-    public $info_message;
+    public $names;
+    public $email;
+    public $phone;
+    public $whatsapp;
+    public $message;
 
-    public $info_products;
-    public $info_subtotal;
-    public $info_total;
+    public $products;
+    public $subtotal;
+    public $total;
 
     public $showModal = false;
 
@@ -33,24 +33,24 @@ class CartComponent extends Component
     public $totalAfterDiscount;
 
     protected $rules = [
-        'info_names' => 'required|min:3|max:126',
-        'info_email' => 'required|email',
-        'info_celular' => 'required|digits:9|numeric',
-        'info_whatsapp' => 'digits:9|numeric',
-        'info_message' => 'nullable',
+        'names' => 'required|min:3|max:126',
+        'email' => 'required|email',
+        'phone' => 'required|digits:9|numeric',
+        'whatsapp' => 'digits:9|numeric',
+        'message' => 'nullable',
     ];
 
     protected $messages = [
-        'info_names.required' => 'El campo <b>nombre</b> es obligatorio.',
-        'info_names.min' => 'El campo deber contener como mínimo :min caracteres.',
-        'info_names.max' => 'El campo deber contener como máximo :max caracteres.',
-        'info_email.required' => 'El <b>email</b> es obligatorio.',
-        'info_email.email' => 'El <b>email</b> debe ser una dirección de email válida.',
-        'info_celular.required' => 'El <b>número de celular</b> es obligatorio.',
-        'info_celular.digits' => 'El <b>número de celular</b> debe ser exactamente de :digits dígitos.',
-        'info_celular.numeric' => 'El <b>número de celular</b> debe de tipo numérico.',
-        'info_whatsapp.digits' => 'El <b>número de whatsapp</b> debe ser exactamente de :digits dígitos.',
-        'info_whatsapp.numeric' => 'El <b>número de whatsapp</b> debe de tipo numérico.',
+        'names.required' => 'El campo <b>nombre</b> es obligatorio.',
+        'names.min' => 'El campo deber contener como mínimo :min caracteres.',
+        'names.max' => 'El campo deber contener como máximo :max caracteres.',
+        'email.required' => 'El <b>email</b> es obligatorio.',
+        'email.email' => 'El <b>email</b> debe ser una dirección de email válida.',
+        'phone.required' => 'El <b>número de celular</b> es obligatorio.',
+        'phone.digits' => 'El <b>número de celular</b> debe ser exactamente de :digits dígitos.',
+        'phone.numeric' => 'El <b>número de celular</b> debe de tipo numérico.',
+        'whatsapp.digits' => 'El <b>número de whatsapp</b> debe ser exactamente de :digits dígitos.',
+        'whatsapp.numeric' => 'El <b>número de whatsapp</b> debe de tipo numérico.',
     ];
 
 
@@ -161,14 +161,14 @@ class CartComponent extends Component
         if (Cart::instance('cart')->count() > 0) {
             $askInformation = new AskInformation();
 
-            $askInformation->info_names = $this->info_names;
-            $askInformation->info_email = $this->info_email;
-            $askInformation->info_celular = $this->info_celular;
-            $askInformation->info_whatsapp = $this->info_whatsapp;
-            $askInformation->info_message = $this->info_message;
-            $askInformation->info_products = $this->info_products;
-            $askInformation->info_subtotal = $this->info_subtotal;
-            $askInformation->info_total = $this->info_total;
+            $askInformation->names = $this->names;
+            $askInformation->email = $this->email;
+            $askInformation->phone = $this->phone;
+            $askInformation->whatsapp = $this->whatsapp;
+            $askInformation->message = $this->message;
+            $askInformation->products = $this->products;
+            $askInformation->subtotal = $this->subtotal;
+            $askInformation->total = $this->total;
 
             $askInformation->save();
 
@@ -203,14 +203,14 @@ class CartComponent extends Component
             }
         }
 
-        $this->info_names = '';
-        $this->info_email = '';
-        $this->info_celular = '';
-        $this->info_whatsapp = '';
-        $this->info_message = '';
-        $this->info_products = json_encode($products);
-        $this->info_subtotal = str_replace(",", "", Cart::instance('cart')->subtotal());
-        $this->info_total = str_replace(",", "", Cart::instance('cart')->total());
+        $this->names = '';
+        $this->email = '';
+        $this->phone = '';
+        $this->whatsapp = '';
+        $this->message = '';
+        $this->products = json_encode($products);
+        $this->subtotal = str_replace(",", "", Cart::instance('cart')->subtotal());
+        $this->total = str_replace(",", "", Cart::instance('cart')->total());
 
         $this->showModal = true;
         $this->emit('openModal');
@@ -225,9 +225,9 @@ class CartComponent extends Component
 
     public function cleanError()
     {
-        $this->info_names = '';
-        $this->info_email = '';
-        $this->info_celular = '';
-        $this->info_message = '';
+        $this->names = '';
+        $this->email = '';
+        $this->phone = '';
+        $this->message = '';
     }
 }

@@ -86,13 +86,13 @@ class AdminAskInformationComponent extends Component
 
         $this->names = $ask->names;
         $this->email = $ask->email;
-        $this->celular = $ask->celular;
+        $this->phone = $ask->phone;
         $this->whatsapp = $ask->whatsapp;
         $this->message = $ask->message;
         $this->products = $ask->products;
         $this->subtotal = $ask->subtotal;
         $this->total = $ask->total;
-        $this->created_at = Carbon::parse($ask->created_at)->locale('es')->translatedFormat('l d \d\e F \d\e\l Y | g:i:s A');
+        $this->created_at = $ask->created_at;
 
         $this->modeUpdate = 'view';
         $this->emit('showModalView');

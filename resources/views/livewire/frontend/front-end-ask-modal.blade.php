@@ -20,42 +20,57 @@
 
                         <div class="col-md-6">
 
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="names" placeholder="Nombres"
-                                       wire:model="info_names">
-                                <label for="info_names">NOMBRES</label>
-                                @error('info_names') <span class="error text-danger fst-italic pl-5 mt-1">{!! $message !!}</span> @enderror
-                            </div>
+                            <?php
+                            $dt = [
+                                'name' => 'names',
+                                'text' => 'Nombres',
+                                'required' => 1,
+                                'type' => 'text',
+                            ];
+                            ?>
+                            @include('livewire.widgets.form.shop-input', $dt)
 
 
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="email"
-                                       placeholder="Correo Electrónico" wire:model="info_email">
-                                <label for="email">EMAIL</label>
-                            @error('info_email') <span class="error text-danger fst-italic pl-5 mt-1">{!! $message !!}</span> @enderror
-                            </div>
+                            <?php
+                            $dt = [
+                                'name' => 'email',
+                                'text' => 'Correo Electrónico',
+                                'required' => 1,
+                                'type' => 'text',
+                            ];
+                            ?>
+                            @include('livewire.widgets.form.shop-input', $dt)
 
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="celular" placeholder="Celular"
-                                       wire:model="info_celular">
-                                <label for="celular">CELULAR</label>
-                            @error('info_celular') <span class="error text-danger fst-italic pl-5 mt-1">{!! $message !!}</span> @enderror
-                            </div>
+                            <?php
+                            $dt = [
+                                'name' => 'phone',
+                                'text' => 'Celular',
+                                'required' => 1,
+                                'type' => 'text',
+                            ];
+                            ?>
+                            @include('livewire.widgets.form.shop-input', $dt)
 
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="celular" placeholder="Número Whatsapp"
-                                       wire:model="info_whatsapp">
-                                <label for="celular" class="text-uppercase">Número Whatsapp</label>
-                                @error('info_whatsapp') <span class="error text-danger fst-italic pl-5 mt-1">{!! $message !!}</span> @enderror
-                            </div>
 
-                            <div class="form-floating">
-                                <textarea class="form-control" placeholder="Deja un comentario aqui"
-                                          wire:model="info_message"
-                                          id="message" style="height: 100px"></textarea>
-                                <label for="message">MENSAJE</label>
-                            @error('info_message') <span class="error text-danger fst-italic pl-5 mt-1">{!! $message !!}</span> @enderror
-                            </div>
+                            <?php
+                            $dt = [
+                                'name' => 'whatsapp',
+                                'text' => 'WhatsApp',
+                                'required' => 1,
+                                'type' => 'text',
+                            ];
+                            ?>
+                            @include('livewire.widgets.form.shop-input', $dt)
+
+                            <?php
+                            $dt = [
+                                'name' => 'message',
+                                'text' => 'Mensaje',
+                                'required' => 1,
+                            ];
+                            ?>
+                            @include('livewire.widgets.form.shop-textarea', $dt)
+
                         </div>
 
                         <div class="col-md-6">
@@ -134,7 +149,8 @@
                 <button type="button" class="btn btn-secondary btn-sm" wire:click.prevent="hidden_modal"
                         data-bs-dismiss="modal">Cancelar
                 </button>
-                <button type="button" class="btn btn-primary btn-sm" wire:click.prevent="ask_information">Solicitar pedido
+                <button type="button" class="btn btn-primary btn-sm" wire:click.prevent="ask_information">Solicitar
+                    pedido
                 </button>
             </div>
         </div>
