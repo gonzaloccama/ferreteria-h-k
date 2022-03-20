@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Mail\OrderMail;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Shipping;
@@ -11,6 +12,7 @@ use Cart;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Livewire\Component;
+use Mail;
 use Stripe;
 
 class CheckoutComponent extends Component
@@ -222,6 +224,9 @@ class CheckoutComponent extends Component
         if (in_array($this->paymentMode, ['bankTranfer', 'digitalWallet'])) {
             $this->makeTransaction($order->id, 'pending');
             $this->resetCart();
+        } elseif (in_array($this->paymentMode, ['cash', 'checkPayment'])) {
+            $this->makeTransaction($order->id, 'approved');
+            $this->resetCart();
         } elseif ($this->paymentMode == 'card') {
             $stripe = Stripe::make(env('STRIPE_KEY'));
 
@@ -284,6 +289,9 @@ class CheckoutComponent extends Component
             }
         }
 
+        /*** send mail ***/
+        $this->sendMail($order);
+
         $this->emit('alertSave', 'LA ORDEN');
         $this->emitTo('cart-count-component', 'refreshComponent');
         $this->emitTo('cart-count-responsive-component', 'refreshComponent');
@@ -327,5 +335,10 @@ class CheckoutComponent extends Component
         $transaction->status = $status;
 
         $transaction->save();
+    }
+
+    private function sendMail($order)
+    {
+        Mail::to($order->email)->send(new OrderMail($order));
     }
 }

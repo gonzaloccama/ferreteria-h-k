@@ -130,26 +130,39 @@
                             }
                         }
                         ?>
-{{--                        {{ json_encode($averange) }}--}}
+                        {{--                        {{ json_encode($averange) }}--}}
                         <div class="d-flex mb-30">
                             <div class="product-rate d-inline-block mr-15">
-                                <div class="product-rating" style="width:90%">
+                                <?php
+                                $percent = 100;
+                                if ($cnt->count()) {
+                                    $percent = ($avgrating / $cnt->count()) * 100 / 5;
+                                }
+                                ?>
+                                <div class="product-rating" style="width:{{ $percent }}%">
                                 </div>
                             </div>
-                            <h6>{{ round($avgrating / $cnt->count(), 2) }} de 5</h6>
+                            <h6>
+                                {{ $cnt->count() ? round($avgrating / $cnt->count(), 2) : '0' }} de 5
+                            </h6>
                         </div>
 
                         @foreach($averange as $key => $av)
+                            <?php
+                            $percent = 100;
+                            if ($cnt->count()) {
+                                $percent = round(($av / $cnt->count()) * 100 / ($avgrating / $cnt->count()), 2);
+                            }
+                            ?>
                             <div class="progress">
                                 <span>{{ str_replace('star_', '', $key) }} star</span>
                                 <div class="progress-bar" role="progressbar"
-                                     style="width: {{ $percent = round(($av / $cnt->count()) * 100 / ($avgrating / $cnt->count()), 2)  }}%;"
+                                     style="width: {{ $percent }}%;"
                                      aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
                                     {{ $percent }}%
                                 </div>
                             </div>
                         @endforeach
-
 
 
                     </div>

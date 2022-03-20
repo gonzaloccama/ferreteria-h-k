@@ -1,5 +1,5 @@
-<div wire:ignore.self class="modal fade" id="updateModal" role="dialog"
-     aria-labelledby="updateModal" aria-hidden="true" data-backdrop="static">
+<div wire:ignore.self class="modal fade" id="showModal" role="dialog"
+     aria-labelledby="showModal" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -26,8 +26,8 @@
 
                     <div class="form-group">
                         <label>Category</label>
-                        <select class="form-control select2-single parent"
-                                wire:model="parent" data-width="100%">
+                        <select class="form-control select2-single"
+                                wire:model="parent" data-width="100%" id="parent">
                             <option label="&nbsp;">&nbsp;Selecione una opcion</option>
                             @foreach($allCategories as $aCategory)
                                 @if($aCategory->id !== $category_id)

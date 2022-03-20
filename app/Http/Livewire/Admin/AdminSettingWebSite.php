@@ -114,7 +114,7 @@ class AdminSettingWebSite extends Component
 
             $setting->save();
 
-            $this->emit('alertSave');
+            $this->emit('notification', ['Las configuraciones se han actualizado']);
 
         } else {
 
@@ -129,7 +129,7 @@ class AdminSettingWebSite extends Component
                 $this->logo_dark = $setting->logo_dark;
                 $this->updated_at = $this->_str_date($setting->updated_at);
             } else {
-                $this->resetVar();
+                $this->resetItems();
             }
 
             $this->website = 'general';
@@ -151,7 +151,7 @@ class AdminSettingWebSite extends Component
 
             $setting->media_social = $this->media_social;
             $setting->save();
-            $this->emit('alertSave');
+            $this->emit('notification', ['Las configuraciones se han actualizado']);
 
         } else {
 
@@ -183,7 +183,7 @@ class AdminSettingWebSite extends Component
             $setting->vision = $this->vision;
 
             $setting->save();
-            $this->emit('alertSave');
+            $this->emit('notification', ['Las configuraciones se han actualizado']);
 
         } else {
 
@@ -213,7 +213,7 @@ class AdminSettingWebSite extends Component
 
             $setting->banner_top = $this->banner_top;
             $setting->save();
-            $this->emit('alertSave');
+            $this->emit('notification', ['Las configuraciones se han actualizado']);
 
         } else {
 
@@ -248,7 +248,7 @@ class AdminSettingWebSite extends Component
 
             $setting->logo_white = (isset($imageLogo_2) && !empty($imageLogo_2)) ? $imageLogo_2 : $this->logo_white;
             $setting->save();
-            $this->emit('alertSave');
+            $this->emit('notification', ['Las configuraciones se han actualizado']);
 
         } else {
 
@@ -268,7 +268,7 @@ class AdminSettingWebSite extends Component
 //        $this->validateOnly($property);
 //    }
 
-    public function resetVar()
+    public function resetItems()
     {
         $this->name = null;
         $this->down_name = null;

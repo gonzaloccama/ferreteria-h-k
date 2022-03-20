@@ -408,7 +408,7 @@ $website = App\Models\SettingSite::find(1);
 <script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
 
 <script type="text/javascript">
-    function notificationSwal(mssg, stl) {
+    function notificationSwal(mssg, stl = 'rgba(8,129,120,0.9)', stts = 'success') {
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -421,10 +421,50 @@ $website = App\Models\SettingSite::find(1);
             }
         })
         Toast.fire({
-            icon: 'success',
+            icon: stts,
             title: `<div class="text-white font-sm">${mssg}</div>`,
             background: stl,
             iconColor: '#efefef',
+        })
+    }
+
+    function deleteSwal() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-primary ml-3',
+                cancelButton: 'btn btn-danger mr-3'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: '¿Estas seguro?',
+            text: "¡No podrás revertir esto esta acción!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, Eliminarlo!',
+            cancelButtonText: 'No, Cancelar!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                Livewire.emit('activeConfirm');
+
+                swalWithBootstrapButtons.fire(
+                    '¡Eliminado!',
+                    'El registro ha sido eliminado. <i class="far fa-dizzy text-danger"></i>',
+                    'success'
+                )
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    '¡Cancelado!',
+                    'Tu registro está a salvo <i class="far fa-smile-beam text-primary"></i>',
+                    'error'
+                )
+            }
         })
     }
 
@@ -432,6 +472,8 @@ $website = App\Models\SettingSite::find(1);
         // return string.charAt(0).toUpperCase() + string.slice(1);
         return string.toUpperCase();
     }
+
+
 </script>
 
 @stack('scripts')

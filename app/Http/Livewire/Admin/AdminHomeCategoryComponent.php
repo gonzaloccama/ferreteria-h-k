@@ -18,7 +18,7 @@ class AdminHomeCategoryComponent extends Component
         $data['categories'] = Category::all();
         $data['_title'] = 'Categoías del inicio';
 
-        $this->emit('refreshDropdown');
+        $this->emit('refresh');
 
         return view('livewire.admin.admin-home-category-component', $data)->layout('layouts.admin');
     }
@@ -39,7 +39,7 @@ class AdminHomeCategoryComponent extends Component
 
         $category->save();
 
-        $this->emit('alertSuccess');
+        $this->emit('notification', ['Mostrar categorías actualizada exitosamente']);
 
     }
 

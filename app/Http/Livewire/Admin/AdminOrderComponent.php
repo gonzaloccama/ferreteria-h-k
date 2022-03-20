@@ -96,7 +96,7 @@ class AdminOrderComponent extends Component
             $this->order = Order::find($this->itemId);
         }
 
-        $this->emit('showModalView');
+        $this->emit('showModal');
     }
 
     public function updateOrderStatus($id, $status)
@@ -114,7 +114,7 @@ class AdminOrderComponent extends Component
             }
 
             if ($order->save()){
-                $this->emit('alertSave', 'Se cambió el estado correctamente');
+                $this->emit('notification', ['Se cambió el estado correctamente']);
             }
         }
     }
@@ -135,7 +135,7 @@ class AdminOrderComponent extends Component
     {
         $this->frame = null;
         $this->cleanItems();
-        $this->emit('closeModalView');
+        $this->emit('closeModal');
     }
 
     public function cleanItems()

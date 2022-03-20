@@ -1,20 +1,4 @@
-<x-guest-layout>
-
-    @php
-        $website = App\Models\SettingSite::find(1)
-    @endphp
-
-    @push('header')
-        @include('layouts.frontend.header')
-    @endpush
-
-    @push('header-responsive')
-        @include('layouts.frontend.header-responsive')
-    @endpush
-
-    @push('footer')
-        @include('layouts.frontend.footer')
-    @endpush
+<x-frontend-layout>
 
     @push('styles')
         <style>
@@ -33,7 +17,7 @@
             <div class="breadcrumb">
                 <a href="{{ URL::to('/') }}" rel="nofollow">Inicio</a>
                 {{--                    <span></span> Pages--}}
-                <span></span> Login @push('title'){{ __('Inicio de Sesión') }}@endpush
+                <span></span> Iniciar sesión @push('title'){{ __('Iniciar sesión') }}@endpush
             </div>
         </div>
     </div>
@@ -48,7 +32,7 @@
                             class="login_wrap widget-taber-content p-30 background-white border-radius-10 mb-md-5 mb-lg-0 mb-sm-5">
                             <div class="padding_eight_all bg-white">
                                 <div class="heading_s1">
-                                    <h3 class="mb-30">Login</h3>
+                                    <h3 class="mb-30">Iniciar sesión</h3>
                                 </div>
                                 <x-jet-validation-errors class="mb-4"/>
                                 <form name="frm-login" method="post" action="{{ route('login') }}">
@@ -89,8 +73,7 @@
                                                        for="exampleCheckbox1"><span>Recuérdame</span></label>
                                             </div>
                                         </div>
-                                        <a class="text-muted" href="{{ route('password.request') }}">¿Se te olvidó tu
-                                            contraseña?</a>
+                                        <a class="text-muted" href="{{ route('password.request') }}">¿Has olvidado tu contraseña?</a>
                                     </fieldset>
 
 
@@ -169,4 +152,4 @@
 
     {{--    </main>--}}
     {{--    <!--main area-->--}}
-</x-guest-layout>
+</x-frontend-layout>

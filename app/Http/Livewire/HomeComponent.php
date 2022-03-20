@@ -9,6 +9,7 @@ use App\Models\HomeSlider;
 use App\Models\Product;
 use App\Models\Sale;
 use App\Models\SettingSite;
+use Auth;
 use Livewire\Component;
 use Cart;
 
@@ -30,6 +31,11 @@ class HomeComponent extends Component
         $data['sproducts'] = Product::where('sale_price', '>', 0)->inRandomOrder()->get()->take(8);
         $data['sale'] = Sale::find(1);
         $data['brands'] = Brand::where('status', '1')->get();
+
+        if (Auth::check()) {
+            Cart::instance('cart')->restore(Auth::user()->email);
+            Cart::instance('wishlist')->restore(Auth::user()->email);
+        }
 
         return view('livewire.home-component', $data)->layout('layouts.frontend');/*->layoutData($page);*/
     }

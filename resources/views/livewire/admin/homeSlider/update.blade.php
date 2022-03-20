@@ -1,5 +1,5 @@
-<div wire:ignore.self class="modal fade" id="editModal" role="dialog"
-     aria-labelledby="editModal" aria-hidden="true" data-backdrop="static">
+<div wire:ignore.self class="modal fade" id="showModal" role="dialog"
+     aria-labelledby="showModal" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

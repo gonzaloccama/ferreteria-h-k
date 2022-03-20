@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/css/vendor/component-custom-switch.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('assets/admin/css/vendor/perfect-scrollbar.css') }}"/>
 
+
     @stack('styles')
 
     <link rel="stylesheet" href="{{ asset('assets/admin/css/main.css') }}"/>
@@ -23,6 +24,18 @@
     @livewireStyles
 
     <style>
+
+        .swal-modal {
+            border-radius: 0 !important;
+            box-shadow: 0 0px 5px 0px rgba(221, 221, 221, 0.31) !important;
+        }
+
+        .swal-modal-delete{
+            border-radius: 0 !important;
+            box-shadow: 0 0px 5px 0px rgba(221, 221, 221, 0.31) !important;
+            background-color: rgba(255, 255, 255, 0.94) !important;
+        }
+
         .badge-success-1 {
             border: 1px dashed #157045;
             background-color: rgba(10, 52, 32, 0.15);
@@ -117,20 +130,23 @@
 <script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.all.js') }}"></script>
 
 <script type="text/javascript">
-    function notificationSwal(mssg, stl) {
+    function notificationSwal(mssg, stl = 'rgba(8,129,120,0.9)', stts = 'success') {
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 4000,
             timerProgressBar: true,
+            customClass: {
+                popup: 'swal-modal'
+            },
             didOpen: (toast) => {
                 toast.addEventListener('mouseenter', Swal.stopTimer)
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
         Toast.fire({
-            icon: 'success',
+            icon: stts,
             title: `<div class="text-white font-sm">${mssg}</div>`,
             background: stl,
             iconColor: '#efefef',
@@ -141,7 +157,8 @@
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-primary ml-3',
-                cancelButton: 'btn btn-danger mr-3'
+                cancelButton: 'btn btn-danger mr-3',
+                popup: 'swal-modal-delete',
             },
             buttonsStyling: false
         })
@@ -153,7 +170,7 @@
             showCancelButton: true,
             confirmButtonText: 'Si, Eliminarlo!',
             cancelButtonText: 'No, Cancelar!',
-            reverseButtons: true
+            reverseButtons: true,
         }).then((result) => {
             if (result.isConfirmed) {
 

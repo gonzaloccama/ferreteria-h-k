@@ -1,21 +1,6 @@
 
 
-<x-guest-layout>
-    @php
-        $website = App\Models\SettingSite::find(1)
-    @endphp
-
-    @push('header')
-        @include('layouts.frontend.header')
-    @endpush
-
-    @push('header-responsive')
-        @include('layouts.frontend.header-responsive')
-    @endpush
-
-    @push('footer')
-        @include('layouts.frontend.footer')
-    @endpush
+<x-frontend-layout>
 
     <div class="page-header breadcrumb-wrap">
         <div class="container">
@@ -42,7 +27,7 @@
                                         nuestra política de privacidad.
                                     </p>
 
-                                    <x-jet-validation-errors class="mb-4"/>
+{{--                                    <x-jet-validation-errors class="mb-4"/>--}}
 
                                     <form class="form-stl" action="{{ route('register') }}" name="frm-login"
                                           method="POST">
@@ -50,34 +35,37 @@
 
                                         <h4 class="form-subtitle pb-4">Información personal</h4>
 
-
-                                        <fieldset class="form-group">
-                                            <label for="frm-reg-lname">NOMBRES*</label>
-                                            <input type="text" id="frm-reg-lname" name="name"
-                                                   placeholder="Nombre de usuario" :value="name" required autofocus
-                                                   autocomplete="name">
+                                        <fieldset class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="frm-reg-lname" name="name" placeholder="Nombre de usuario"
+                                                   :value="name" autocomplete="name" autofocus>
+                                            <label for="frm-reg-lname">NOMBRES <span class="text-danger">*</span></label>
+                                            @error('name') <span class="error text-danger fst-italic pl-5 mt-1">{!! $message !!}</span> @enderror
                                         </fieldset>
 
-                                        <fieldset class="form-group">
-                                            <label for="frm-reg-email">EMAIL*</label>
-                                            <input type="text" id="frm-reg-email" name="email"
-                                                   placeholder="Correo Electrónico" :value="email">
+                                        <fieldset class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="frm-login-uname" name="email" placeholder="Correo Electrónico"
+                                                   :value="email" autofocus>
+                                            <label for="frm-login-uname">EMAIL <span class="text-danger">*</span></label>
+                                            @error('email') <span class="error text-danger fst-italic pl-5 mt-1">{!! $message !!}</span> @enderror
                                         </fieldset>
 
                                         <h4 class="form-subtitle pt-4 pb-4">Información de inicio de sesión</h4>
 
-                                        <fieldset class="form-group">
-                                            <label for="frm-reg-pass">CONTRASEÑA*</label>
-                                            <input type="password" id="frm-reg-pass" name="password"
-                                                   placeholder="Contraseña" required autocomplete="new-password">
+                                        <fieldset class="form-floating mb-3">
+                                            <input type="password" class="form-control" id="frm-reg-pass" name="password"
+                                                   placeholder="Contraseña"  autocomplete="new-password">
+                                            <label for="frm-reg-pass">CONTRASEÑA <span class="text-danger">*</span></label>
+                                            @error('password') <span class="error text-danger fst-italic pl-5 mt-1">{!! $message !!}</span> @enderror
                                         </fieldset>
 
-                                        <fieldset class="form-group">
-                                            <label for="frm-reg-cfpass">CONFIRMAR CONTRASEÑA*</label>
-                                            <input type="password" id="frm-reg-cfpass" name="password_confirmation"
-                                                   placeholder="Confirmar contraseña" required
-                                                   autocomplete="new-password">
+                                        <fieldset class="form-floating mb-3">
+                                            <input type="password" class="form-control" id="frm-reg-cfpass" name="password_confirmation"
+                                                   placeholder="Contraseña"  autocomplete="new-password">
+                                            <label for="frm-reg-cfpass">CONFIRMAR CONTRASEÑA <span class="text-danger">*</span></label>
+                                            @error('password_confirmation') <span class="error text-danger fst-italic pl-5 mt-1">{!! $message !!}</span> @enderror
                                         </fieldset>
+
+
 {{--                                        <div class="login_footer form-group">--}}
 {{--                                            <div class="chek-form">--}}
 {{--                                                <div class="custome-checkbox">--}}
@@ -117,4 +105,4 @@
     </section>
 
 
-</x-guest-layout>
+</x-frontend-layout>
