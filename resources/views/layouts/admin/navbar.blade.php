@@ -21,20 +21,20 @@
             </svg>
         </a>
 
-{{--        <div class="search" data-search-path="Pages.Search.html?q=">--}}
-{{--            <input placeholder="Search...">--}}
-{{--            <span class="search-icon">--}}
-{{--                    <i class="simple-icon-magnifier"></i>--}}
-{{--                </span>--}}
-{{--        </div>--}}
+        {{--        <div class="search" data-search-path="Pages.Search.html?q=">--}}
+        {{--            <input placeholder="Search...">--}}
+        {{--            <span class="search-icon">--}}
+        {{--                    <i class="simple-icon-magnifier"></i>--}}
+        {{--                </span>--}}
+        {{--        </div>--}}
 
 
     </div>
 
 
     <a class="navbar-logo" href="Dashboard.Default.html">
-{{--        <span class="logo d-none d-xs-block"></span>--}}
-{{--        <span class="logo-mobile d-block d-xs-none"></span>--}}
+        {{--        <span class="logo d-none d-xs-block"></span>--}}
+        {{--        <span class="logo-mobile d-block d-xs-none"></span>--}}
     </a>
 
     <div class="navbar-right">
@@ -159,16 +159,26 @@
                     aria-expanded="false">
                 <span class="name">{{ Auth::user()->name }}</span>
                 <span>
-                        <img alt="Profile Picture" src="{{ asset('assets/admin/img/profiles/l-1.jpg') }}"/>
-                    </span>
+                    @if(isset(Auth::user()->profile->image) && !empty(Auth::user()->profile->image))
+                        <img alt="Profile Picture"
+                             src="{{ asset('assets/images/profile/').'/'.Auth::user()->profile->image }}"/>
+                    @else
+                        <img alt="Profile Picture" src="{{ asset('assets/images/profile/avatar.svg') }}"/>
+                    @endif
+                </span>
             </button>
 
             <div class="dropdown-menu dropdown-menu-right mt-3">
-                <a class="dropdown-item" href="#">Account</a>
-                <a class="dropdown-item" href="#">Features</a>
-                <a class="dropdown-item" href="#">History</a>
-                <a class="dropdown-item" href="#">Support</a>
-                <a class="dropdown-item" href="#">Sign out</a>
+                <a class="dropdown-item" target="_blank" href="{{ route('user.profile') }}">Mi Perfil</a>
+                {{--                <a class="dropdown-item" href="#">Features</a>--}}
+                {{--                <a class="dropdown-item" href="#">History</a>--}}
+                {{--                <a class="dropdown-item" href="#">Support</a>--}}
+                <a class="dropdown-item" href="{{ route('logout') }}"
+                   onclick="event.preventDefault(); document.getElementById('logout-form').submit()">
+                    Cerrar sesión
+                    <form method="POST" id="logout-form"
+                          action="{{ route('logout') }}">@csrf</form>
+                </a>
             </div>
         </div>
     </div>

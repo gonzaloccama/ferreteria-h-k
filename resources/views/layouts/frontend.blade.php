@@ -64,6 +64,34 @@
             font-size: 12px !important;
         }
 
+        .rajdhani {
+            font-family: 'Rajdhani' !important;
+        }
+
+        .weight-300 {
+            font-weight: 300;
+        }
+
+        .weight-400 {
+            font-weight: 400;
+        }
+
+        .weight-700 {
+            font-weight: 700;
+        }
+
+        .font-18 {
+            font-size: 18px
+        }
+
+        .font-14 {
+            font-size: 14px
+        }
+
+        .font-15 {
+            font-size: 15px
+        }
+
         /*** forms required messages  ***/
         .required-form {
             font-size: 8px !important;

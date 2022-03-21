@@ -9,16 +9,16 @@ $summaries = [
 <div class="row align-items-center mt-20">
     @foreach($summaries as $summary)
         <div class="col-md-6 col-lg-3">
-            <div class="hero-card box-shadow-outer-3 shadow wow fadeIn animated mb-30 hover-up d-flex">
+            <div class="hero-card box-shadow-outer-3 pl-10 shadow wow fadeIn animated mb-20 hover-up d-flex">
                 <div class="hero-card-icon icon-left-7 hover-up ">
                     <i class="iconsminds-{{ $summary->icon }}"></i>
                 </div>
-                <div class="pl-30">
-                    <h4 class="mb-5 fw-500">
-                        {{ $summary->amount }}
+                <div class="pl-20 mt-20">
+                    <h4 class="mb-5 fw-500 rajdhani">
+                        <nobr>{{ $summary->amount }}</nobr>
                     </h4>
-                    <p class="font-sm text-grey-5 text-uppercase">
-                        {{ $summary->title }}
+                    <p class="font-sm text-grey-5 text-uppercase rajdhani">
+                        <nobr>{{ $summary->title }}</nobr>
                     </p>
                 </div>
             </div>

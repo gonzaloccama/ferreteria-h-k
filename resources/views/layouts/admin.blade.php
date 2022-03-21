@@ -123,10 +123,6 @@
             font-size: 15px
         }
 
-        .tab-15{
-            tab-size: 15 !important;
-        }
-
     </style>
 
 </head>

@@ -73,7 +73,7 @@
                                                     <a href="{{ route('logout') }}"
                                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit()">
                                                         <i class="fi-rs-sign-in"></i>
-                                                        Logout
+                                                        Cerrar sesión
                                                         <form method="POST" id="logout-form"
                                                               action="{{ route('logout') }}">@csrf</form>
                                                     </a>
@@ -96,7 +96,7 @@
                                                     <a href="{{ route('logout') }}"
                                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit()">
                                                         <i class="fi-rs-sign-in"></i>
-                                                        Logout
+                                                        Cerrar sesión
                                                         <form method="POST" id="logout-form"
                                                               action="{{ route('logout') }}">@csrf</form>
                                                     </a>

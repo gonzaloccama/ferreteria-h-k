@@ -16,13 +16,12 @@ class AdminContactComponent extends Component
     public $orderBy;
     public $sort;
     public $keyWord;
-
-    public $contact;
+    public $frame;
 
     public $deleteId;
     public $itemId;
 
-    public $frame;
+    public $contact;
 
     public $headers = [
         'id' => 'ID',
