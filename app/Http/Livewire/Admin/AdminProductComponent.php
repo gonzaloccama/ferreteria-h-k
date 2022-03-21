@@ -156,9 +156,12 @@ class AdminProductComponent extends Component
 
     public function openModal()
     {
+<<<<<<< HEAD
 
         $this->SKU = 'KH-' .date('y'). str_pad(Product::next(), 4, '0', STR_PAD_LEFT);
 
+=======
+>>>>>>> d919df688e857e106130ff058414f5f9a0980d52
         $this->frame = 'create';
         $this->emit('showModal');
     }

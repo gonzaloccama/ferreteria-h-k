@@ -1,6 +1,10 @@
 <div wire:ignore.self class="modal fade" id="showModal" role="dialog"
      aria-labelledby="showModal" aria-hidden="true" data-backdrop="static">
+<<<<<<< HEAD
     <div class="modal-dialog modal-lg">
+=======
+    <div class="modal-dialog">
+>>>>>>> d919df688e857e106130ff058414f5f9a0980d52
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">ACTUALIZAR PRODUCTO</h5>
