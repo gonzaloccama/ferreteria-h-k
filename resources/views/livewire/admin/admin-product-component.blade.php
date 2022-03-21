@@ -30,31 +30,43 @@
                             class="badge badge-pill badge-secondary position-absolute badge-top-left-2">{{ $product->created_at }}</span>
                     </div>
                     <div class="card-header mt-2 pt-2 text-center"
-                         style="text-transform: uppercase; font-weight: bold;">
+                         style="text-transform: uppercase; font-weight: bold; height: 60px">
                         <h6>{{ $product->name }}</h6>
                     </div>
+                    <hr class="p-0 m-0 mb-2" style="background-color: #4f4f4f !important;">
                     <div class="card-body mt-0 pt-0 mb-2 pb-2">
                         <div class="row">
                             <div class="col-12">
                                 {{--                                <hr class="m-1 p-1">--}}
-                                <div class="mb-1"><b>STOCK:</b>
-                                    <span
-                                        class="badge badge-pill badge-outline-{{ $product->stock_status==='instock'?'success':'danger' }}">
-                                        {{ $product->stock_status }}
-                                    </span>
+                                <div class="mb-1"><abbr title="{{ $product->stock_status }}" class="weight-700">STOCK:</abbr>
+                                    <p class="badge p-0 m-0 r rajdhani font-15 weight-400">
+                                        {{ $product->stock_status }} <u class="weight-700">({{ $product->quantity }})</u>
+                                    </p>
                                 </div>
 
-                                <div class="text-muted mb-1 pt-1"><b>PRECIO:</b>
-                                    <span
-                                        class="badge badge-pill badge-outline-primary">S/ {{ $product->regular_price }}
-                                    </span>
+                                <div class="mb-1 pt-1">
+                                    <abbr title="{{ $product->regular_price }}" class="weight-700">PRECIO:</abbr>
+                                    <p class="badge p-0 m-0 r rajdhani font-15 weight-400">
+                                        S/ {{ $product->regular_price }}
+                                    </p>
                                 </div>
 
-                                <div class="text-muted mb-1 pt-1"><b>PRECIO:</b>
-                                    <span class="{{ $product->sale_price?'badge badge-pill badge-outline-danger':'' }}">
+                                <div class="mb-1 pt-1">
+                                    <abbr title="{{ $product->sale_price?'S/ '.$product->sale_price:'' }}"
+                                          class="weight-700">DESCUENTO:</abbr>
+                                    <p class="badge p-0 m-0 r rajdhani font-15 weight-400 text-primary">
                                         {{ $product->sale_price?'S/ '.$product->sale_price:'' }}
-                                    </span>
+                                    </p>
                                 </div>
+
+                                <div class="mb-1 pt-1">
+                                    <abbr title="{{ $product->SKU }}"
+                                          class="weight-700">SKU:</abbr>
+                                    <p class="badge p-0 m-0 r rajdhani font-15 weight-400">
+                                        {{ $product->SKU }}
+                                    </p>
+                                </div>
+
                             </div>
                         </div>
                     </div>

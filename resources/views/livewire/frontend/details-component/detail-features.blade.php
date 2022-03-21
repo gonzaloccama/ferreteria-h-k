@@ -72,9 +72,17 @@
                                 <div class="single-comment justify-content-between d-flex">
                                     <div class="user justify-content-between d-flex">
                                         <div class="thumb text-center">
-                                            <img
-                                                src="{{ asset('assets/frontend/imgs/page/avatar.svg') }}"
-                                                alt="">
+                                            @if(isset($orderItem->order->user->profile->image) && !empty($orderItem->order->user->profile->image))
+                                                <img
+                                                    src="{{ asset('assets/images/profile/').'/'.$orderItem->order->user->profile->image }}"
+                                                    alt="">
+                                            @else
+                                                <img
+                                                    src="{{ asset('assets/images/profile/avatar.svg') }}"
+                                                    alt="">
+                                            @endif
+
+
                                             <h6><a href="#">{{ $orderItem->order->user->name }}</a></h6>
                                             {{--                                            <p class="font-xxs">Since 2012</p>--}}
                                         </div>

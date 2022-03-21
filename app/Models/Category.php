@@ -13,10 +13,15 @@ class Category extends Model
 
     protected $table = 'categories';
 
-    protected $fillable = ['name','slug','parent'];
+    protected $fillable = ['name', 'slug', 'parent'];
 
     public function products()
     {
         return $this->hasMany('App\Models\Product', 'category_id', 'id');
+    }
+
+    public function _parent()
+    {
+        $this->belongsTo(Category::class, 'parent');
     }
 }

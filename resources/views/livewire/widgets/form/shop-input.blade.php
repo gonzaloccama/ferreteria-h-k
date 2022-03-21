@@ -4,7 +4,7 @@
     ?>
     <div class="form-floating mb-3">
         <input type="{{ $type }}" class="form-control" id="{{ $name }}" placeholder="{{ $text }}"
-               wire:model="{{ $name }}">
+               {{ isset($readonly) && !empty($readonly) ? 'readonly' : '' }} wire:model="{{ $name }}">
         <label for="{{ $name }}" class="text-uppercase font-12">
             {{ $text }}{!! $req !!}
         </label>

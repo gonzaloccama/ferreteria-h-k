@@ -1,7 +1,7 @@
 <div class="border">
     <?php
     $money = ['price', 'total', 'subtotal'];
-    $fld = ['not', 'status', 'image',];
+    $fld = ['not', 'status', 'image'];
     $lnk = ['url', 'link', 'mobile', 'phone', 'email', 'whatsapp', 'website']
     ?>
     <div class="card-body" style="overflow-x: auto">

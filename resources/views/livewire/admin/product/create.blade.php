@@ -1,6 +1,6 @@
 <div wire:ignore.self class="modal fade" id="showModal" role="dialog"
      aria-labelledby="showModal" aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">NUEVO PRODUCTO</h5>

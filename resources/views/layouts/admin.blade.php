@@ -30,7 +30,7 @@
             box-shadow: 0 0px 5px 0px rgba(221, 221, 221, 0.31) !important;
         }
 
-        .swal-modal-delete{
+        .swal-modal-delete {
             border-radius: 0 !important;
             box-shadow: 0 0px 5px 0px rgba(221, 221, 221, 0.31) !important;
             background-color: rgba(255, 255, 255, 0.94) !important;
@@ -52,7 +52,7 @@
             margin: 0;
         }
 
-        .ordered{
+        .ordered {
             border: 1px dashed #568d15;
             background-color: rgba(86, 141, 21, 0.15);
             color: #568d15;
@@ -60,7 +60,7 @@
             margin: 0;
         }
 
-        .delivered{
+        .delivered {
             border: 1px dashed #fc751c;
             background-color: rgba(252, 117, 28, 0.15);
             color: #fc751c;
@@ -68,7 +68,7 @@
             margin: 0;
         }
 
-        .canceled{
+        .canceled {
             border: 1px dashed #f63c44;
             background-color: rgba(246, 60, 68, 0.15);
             color: #f63c44;
@@ -76,7 +76,7 @@
             margin: 0;
         }
 
-        .completed{
+        .completed {
             border: 1px dashed #328359;
             background-color: rgba(10, 52, 32, 0.15);
             color: #328359;
@@ -89,6 +89,38 @@
         .content-settings .card-title,
         form .form-group label {
             text-transform: uppercase;
+        }
+
+        .rajdhani {
+            font-family: 'Rajdhani' !important;
+        }
+
+        .weight-300 {
+            font-weight: 300;
+        }
+
+        .weight-400 {
+            font-weight: 400;
+        }
+
+        .weight-700 {
+            font-weight: 700;
+        }
+
+        .font-18 {
+            font-size: 18px
+        }
+
+        .font-14 {
+            font-size: 14px
+        }
+
+        .font-15 {
+            font-size: 15px
+        }
+
+        .tab-15{
+            tab-size: 15 !important;
         }
 
     </style>

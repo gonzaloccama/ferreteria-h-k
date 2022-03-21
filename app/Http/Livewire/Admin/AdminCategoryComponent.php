@@ -51,7 +51,7 @@ class AdminCategoryComponent extends Component
     public function mount()
     {
         $this->limit = 5;
-        $this->orderBy = 'created_at';
+        $this->orderBy = 'categories.parent';
         $this->sort = 'DESC';
         $this->keyWord = '';
     }
@@ -75,8 +75,10 @@ class AdminCategoryComponent extends Component
                 foreach ($findIn as $in) {
                     $query->orWhere($in, 'LIKE', '%' . $this->keyWord . '%');
                 }
-
             })
+            ->select($table . '.*')
+            ->selectRaw('cat.name as parent')
+            ->leftJoin('categories as cat', 'cat.id', $table . '.parent')
             ->paginate($this->limit);
 
         $data['_title'] = 'Categorías';

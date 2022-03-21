@@ -29,7 +29,8 @@
                         </a>
                     </h3>
                     <div class="d-flex justify-content-between pt-10">
-                        <h3 style="font-weight: 200;">S/ {{ number_format( $review->product->regular_price, 2, '.', ',') }}</h3>
+                        <h3 style="font-weight: 200;">
+                            S/ {{ number_format( $review->product->regular_price, 2, '.', ',') }}</h3>
                     </div>
                 </div>
             </article>
@@ -49,13 +50,18 @@
                                     <div class="form-group">
                                         <textarea class="form-control w-100" id="comment" cols="30" rows="9"
                                                   wire:model="comment" placeholder="Escriba un comentario"></textarea>
-                                        @error('comment') <span class="error text-danger fst-italic ml-5 mt-1">{!! $message !!}</span> @enderror
+                                        @error('comment') <span
+                                            class="error text-danger fst-italic ml-5 mt-1">{!! $message !!}</span> @enderror
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <input type="button" class="btn btn-primary"
-                                        wire:click.prevent="addReview" value="Guardar">
+                            <div class="form-group row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="button" class="btn btn-primary px-4"
+                                            wire:click.prevent="addReview" value="Guardar">
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -65,6 +71,7 @@
 
     </div>
     <div id="sticky-footer" class="d-grid gap-2 d-md-flex justify-content-md-end p-20 flex-shrink-0">
+
         <button class="btn btn-secondary btn-sm" wire:click.prevent="goBack"><i class="fas fa-arrow-left"></i>
             Regresar
         </button>

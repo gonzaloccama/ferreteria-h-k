@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -51,7 +52,7 @@ class AdminProductComponent extends Component
 
 
     public $headers = [
-        'id' => 'ID',
+        'SKU' => 'SKU',
         'name' => 'Producto',
         'regular_price' => 'Precio',
         'sale_price' => 'Percio rebaja',
@@ -126,6 +127,7 @@ class AdminProductComponent extends Component
         $data['categories'] = Category::all();
         $data['products'] = Product::orderBy($this->orderBy, $this->sort)
             ->orWhere('id', 'LIKE', $keyWord)
+            ->orWhere('SKU', 'LIKE', $keyWord)
             ->orWhere('name', 'LIKE', $keyWord)
             ->orWhere('regular_price', 'LIKE', $keyWord)
             ->orWhere('sale_price', 'LIKE', $keyWord)
@@ -154,6 +156,9 @@ class AdminProductComponent extends Component
 
     public function openModal()
     {
+
+        $this->SKU = 'KH-' .date('y'). str_pad(Product::next(), 4, '0', STR_PAD_LEFT);
+
         $this->frame = 'create';
         $this->emit('showModal');
     }
