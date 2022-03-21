@@ -1,5 +1,5 @@
-<div wire:ignore.self class="modal fade" id="addModal" role="dialog"
-     aria-labelledby="addModal" aria-hidden="true" data-backdrop="static">
+<div wire:ignore.self class="modal fade" id="showModal" role="dialog"
+     aria-labelledby="showModal" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -27,7 +27,7 @@
                         <div class="" wire:ignore>
                             <label>Descripción corta</label>
                             <textarea placeholder="Descripción corta" wire:model="short_description"
-                                      class="form-control short_description"></textarea>
+                                      class="form-control short_description" ></textarea>
                         </div>
                         @error('short_description') <span
                             class="error text-danger font-italic mt-1">{!! $message !!}</span> @enderror
@@ -117,7 +117,26 @@
                         @if($image)
                             <img src="{{ $image->temporaryUrl() }}"
                                  class="list-thumbnail mt-2 border-0 shadow-sm"
-                                 alt="" style="width: 240px !important;">
+                                 alt="" style="width: 240px !important; height: 240px !important;">
+                        @endif
+                    </div>
+
+                    <div class="form-group">
+                        <label>Galeria de imagenes</label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input form-control" wire:model="images"
+                                   accept="image/jpeg, image/png" multiple>
+                            <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                        </div>
+                        <div wire:loading wire:target="image">Cargando...</div>
+                        @error('images') <span
+                            class="error text-danger font-italic mt-1">{!! $message !!}</span><br> @enderror
+                        @if($images)
+                            @foreach($images as $image)
+                                <img src="{{ $image->temporaryUrl() }}"
+                                     class="list-thumbnail mt-2 border-0 shadow-sm"
+                                     alt="" style="width: 80px !important; height: 80px !important;">
+                            @endforeach
                         @endif
                     </div>
 

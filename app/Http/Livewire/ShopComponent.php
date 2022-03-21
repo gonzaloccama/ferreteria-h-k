@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Sale;
 use App\Models\SettingSite;
+use Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Cart;
@@ -50,6 +51,11 @@ class ShopComponent extends Component
         $data['categories'] = Category::all();
         $data['lproducts'] = Product::orderBy('created_at', 'DESC')->get()->take(5);
         $data['sale'] = Sale::find(1);
+
+        if (Auth::check()) {
+            Cart::instance('cart')->store(Auth::user()->email);
+            Cart::instance('wishlist')->store(Auth::user()->email);
+        }
 
         return view('livewire.shop-component', $data)->layout('layouts.frontend');
     }

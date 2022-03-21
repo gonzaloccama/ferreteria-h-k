@@ -42,15 +42,15 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            window.livewire.on('alertSave', (mssg) => {
-                notificationSwal(`¡${mssg}!`, 'rgba(8,129,120,0.9)');
+            window.livewire.on('notification', (mssg) => {
+                notificationSwal(`¡${mssg[0]}!`, 'rgba(0,113,172,0.5)');
             });
 
-            window.livewire.on('showModalView', () => {
+            window.livewire.on('showModal', () => {
                 $('#viewModal').modal('show');
             });
 
-            window.livewire.on('closeModalView', () => {
+            window.livewire.on('closeModal', () => {
                 $('#viewModal').modal('hide');
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop.fade.show').remove();
@@ -60,9 +60,5 @@
                 deleteSwal();
             });
         });
-
-
-
-
     </script>
 @endpush

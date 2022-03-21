@@ -133,7 +133,7 @@ class AdminBrandComponent extends Component
         $brand->save();
 
         $this->emit('closeModal');
-        $this->emit('addAlert');
+        $this->emit('notification', ['Marca de producto añadida exitosamente']);
         $this->cleanError();
     }
 
@@ -187,7 +187,7 @@ class AdminBrandComponent extends Component
             $brand->save();
 
             $this->emit('closeModal');
-            $this->emit('editAlert');
+            $this->emit('notification', ['Marca de producto actualizada exitosamente']);
             $this->cleanError();
         }
 

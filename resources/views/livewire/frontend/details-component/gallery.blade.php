@@ -2,26 +2,36 @@
     <div class="detail-gallery">
         <span class="zoom-icon"><i class="fi-rs-search"></i></span>
         <!-- MAIN SLIDES -->
+        <?php
+        $gallery = json_decode($product->images);
+        ?>
         <div class="product-image-slider">
 
             <figure class="border-radius-10">
                 <img src="{{ asset('assets/images/products/').'/'. $product->image }}"
-                     alt="product image">
+                     alt="product image" style="width: 860px">
             </figure>
-
-            <figure class="border-radius-10">
-                <img src="{{ asset('assets/images/products/1627864043.jpg') }}"
-                     alt="product image">
-            </figure>
-
+            @if(filled($gallery))
+                @foreach($gallery as $glr)
+                    <figure class="border-radius-10">
+                        <img src="{{ asset('assets/images/products/gallery/').'/'.$glr }}"
+                             alt="product image" style="width: 860px">
+                    </figure>
+                @endforeach
+            @endif
         </div>
         <!-- THUMBNAILS -->
         <div class="slider-nav-thumbnails pl-15 pr-15">
             <div><img src="{{ asset('assets/images/products/').'/'. $product->image }}"
                       alt="product image"></div>
-            <div><img src="{{ asset('assets/images/products/1627864043.jpg') }}"
-                      alt="product image"></div>
-
+            @if(filled($gallery))
+                @foreach($gallery as $glr)
+                    <div>
+                        <img src="{{ asset('assets/images/products/gallery/').'/'.$glr }}"
+                             alt="product image">
+                    </div>
+                @endforeach
+            @endif
         </div>
     </div>
     <!-- End Gallery -->

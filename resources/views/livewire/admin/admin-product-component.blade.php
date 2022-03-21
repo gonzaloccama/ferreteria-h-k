@@ -11,10 +11,8 @@
         <div class="separator mb-5"></div>
     </div>
 
-    @if($modeUpdate == 'create')
-        @include('livewire.admin.product.create');
-    @elseif($modeUpdate == 'update')
-        @include('livewire.admin.product.update');
+    @if($frame)
+        @include('livewire.admin.product.' . $frame);
     @endif
 
     <div class="col-md-12 row list disable-text-selection" data-check-all="checkAll">
@@ -22,7 +20,7 @@
             <div class="col-xl-3 col-lg-4 col-12 col-sm-6 mb-4">
                 <div class="card">
                     <div class="position-relative">
-                        <a href="Pages.Product.Detail.html">
+                        <a href="{{ route('product.details', ['slug' => $product->slug]) }}">
                             <img class="card-img-top" src="{{ asset('assets/images/products/').'/'.$product->image }}"
                                  alt="Card image cap">
                         </a>
@@ -118,16 +116,11 @@
 
 
     <script type="text/javascript">
-        // var category_id = $('.category_id');
-        // $(document).ready(function () {
-        //
-        //     // loadTinyMce('textarea.short_description', 'short_description');
-        //     // loadTinyMce('textarea.description', 'description');
-        // });
 
-        document.addEventListener('livewire:load', function (event) {
-            @this.
-            on('refreshF', function () {
+        $(document).ready(function () {
+
+            window.livewire.on('refresh', () => {
+                activeSelect2('#parent', 'parent');
 
                 let tooltip_ = $('[data-toggle="tooltip"]');
 
@@ -135,84 +128,39 @@
                 tooltip_.tooltip('hide');
                 tooltip_.tooltip();
 
-                // $('.category_id').select2();
-
                 activeSelect2('.category_id', 'category_id');
-
-                // category_id.select2('destroy');
-                // category_id.select2();
-
-                // category_id.select2('destroy');
-                // category_id.removeClass('select2-single');
-                // category_id.addClass('select2-single');
-                // category_id.select2();
             });
 
-            @this.
-            on('showModalEdit', function () {
-                $('#editModal').modal('show');
-
-                // $('.category_id').select2('destroy');
-                // category_id.select2();
+            window.livewire.on('showModal', () => {
+                $('#showModal').modal('show');
                 activeSelect2('.category_id', 'category_id');
 
                 loadTinyMce('textarea.short_description', 'short_description');
                 loadTinyMce('textarea.description', 'description');
             });
 
-            @this.
-            on('showModalAdd', function () {
-                $('#addModal').modal('show');
-
-                // category_id.select2('destroy');
-
-
-                loadTinyMce('textarea.short_description', 'short_description');
-                loadTinyMce('textarea.description', 'description');
-            });
-
-            @this.
-            on('addAlert', function () {
-                notificationSwal('¡Producto agregada correctamente!');
-            });
-
-            @this.
-            on('editAlert', function () {
-                notificationSwal('¡Producto actualizada exitosamente!', 'success');
-            });
-
-            @this.
-            on('deleteAlert', function () {
-                deleteSwal();
-            });
-
-            @this.
-            on('cleanError', function () {
-                $('.error.text-danger').html('');
-                // $('#formAdd')[0].reset();
-                // tinymce.activeEditor.setContent('').repeat(2);
-            });
-
-            @this.
-            on('closeModalUpdate', function () {
-                // $('#editModal').modal('hide');
+            window.livewire.on('closeModal', () => {
+                $('#showModal').modal('hide');
                 $('body').removeClass('modal-open');
                 $('.modal-backdrop.fade.show').remove();
             });
 
-            @this.
-            on('deleteAlert', function () {
-                deleteSwal();
+            window.livewire.on('notification', (mssg) => {
+                notificationSwal(`¡${mssg[0]}!`, 'rgba(0,113,172,0.5)');
             });
 
-            @this.
-            on('closeModal', function () {
-                // $('#addModal').modal('hide');
-                // $('#formAdd')[0].reset();
-                $('body').removeClass('modal-open');
-                $('.modal-backdrop.fade.show').remove();
+            window.livewire.on('deleteAlert', () => {
+                deleteSwal();
             });
         });
+
+        function activeSelect2(sel, varModel) {
+            $(sel).select2();
+            $(sel).on('change', function (e) {
+                @this.
+                set(varModel, e.target.value);
+            });
+        }
 
         function loadTinyMce(sel, varModel) {
             tinymce.init({
@@ -234,70 +182,5 @@
             });
         }
 
-        function notificationSwal(mssg, stl) {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
-            Toast.fire({
-                icon: stl,
-                title: mssg
-            })
-        }
-
-        function deleteSwal() {
-            const swalWithBootstrapButtons = Swal.mixin({
-                customClass: {
-                    confirmButton: 'btn btn-primary ml-3',
-                    cancelButton: 'btn btn-danger mr-3'
-                },
-                buttonsStyling: false
-            })
-
-            swalWithBootstrapButtons.fire({
-                title: '¿Estas seguro?',
-                text: "¡No podrás revertir esto esta acción!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Si, Eliminarlo!',
-                cancelButtonText: 'No, Cancelar!',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-
-                    Livewire.emit('activeConfirm');
-
-                    swalWithBootstrapButtons.fire(
-                        '¡Eliminado!',
-                        'El registro ha sido eliminado. <i class="far fa-dizzy text-danger"></i>',
-                        'success'
-                    )
-                } else if (
-                    /* Read more about handling dismissals below */
-                    result.dismiss === Swal.DismissReason.cancel
-                ) {
-                    swalWithBootstrapButtons.fire(
-                        '¡Cancelado!',
-                        'Tu registro está a salvo <i class="far fa-smile-beam text-primary"></i>',
-                        'error'
-                    )
-                }
-            })
-        }
-
-        function activeSelect2(sel, varModel) {
-            $(sel).select2();
-            $(sel).on('change', function (e) {
-                @this.
-                set(varModel, e.target.value);
-            });
-        }
     </script>
 @endpush

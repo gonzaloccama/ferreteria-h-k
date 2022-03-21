@@ -31,6 +31,7 @@ class AdminProductComponent extends Component
     public $featured;
     public $quantity;
     public $image;
+    public $images;
     public $category_id;
 
     public $limit;
@@ -38,13 +39,15 @@ class AdminProductComponent extends Component
     public $sort;
     public $keyWord;
 
-    public $modeUpdate;
+    public $frame;
 
     public $deleteId;
 
     public $product_id;
     public $image_edit;
     public $newimage;
+    public $images_edit;
+    public $newimages;
 
 
     public $headers = [
@@ -113,7 +116,7 @@ class AdminProductComponent extends Component
         $this->sale_price = 0;
         $this->video_url = '';
 
-        $this->modeUpdate = false;
+        $this->frame = null;
     }
 
     public function render()
@@ -133,7 +136,7 @@ class AdminProductComponent extends Component
 
         $data['_title'] = 'Productos';
 
-        $this->emit('refreshF');
+        $this->emit('refresh');
 
         return view('livewire.admin.admin-product-component', $data)->layout('layouts.admin');
     }
@@ -151,9 +154,8 @@ class AdminProductComponent extends Component
 
     public function openModal()
     {
-        $this->modeUpdate = 'create';
-        $this->emit('showModalAdd');
-        $this->emit('cleanError');
+        $this->frame = 'create';
+        $this->emit('showModal');
     }
 
     public function store()
@@ -164,6 +166,17 @@ class AdminProductComponent extends Component
 
         $imageName = Carbon::now()->timestamp . '.' . $this->image->extension();
         $this->image->storeAs('products', $imageName);
+
+        $imagesName = [];
+
+        if ($this->images) {
+            foreach ($this->images as $key => $image) {
+                $imgName = Carbon::now()->timestamp . $key . '.' . $image->extension();
+                $image->storeAs('products/gallery/', $imgName);
+
+                $imagesName[] = $imgName;
+            }
+        }
 
         $product->name = $this->name;
         $product->slug = $this->slug;
@@ -177,18 +190,20 @@ class AdminProductComponent extends Component
         $product->featured = $this->featured ? $this->featured : 0;
         $product->quantity = $this->quantity;
         $product->image = $imageName;
+        $product->images = json_encode($imagesName);
         $product->category_id = $this->category_id;
+
 
         $product->save();
 
         $this->emit('closeModal');
-        $this->emit('addAlert');
+        $this->emit('notification', ['Un producto agregado exitosamente']);
         $this->cleanError();
     }
 
     public function edit($id)
     {
-        $this->modeUpdate = 'update';
+        $this->frame = 'update';
 
         $this->product_id = $id;
         $product = Product::where('id', $this->product_id)->first();
@@ -205,11 +220,11 @@ class AdminProductComponent extends Component
         $this->featured = $product->featured;
         $this->quantity = $product->quantity;
         $this->image_edit = $product->image;
+        $this->images_edit = json_decode($product->images);
         $this->category_id = $product->category_id;
         $this->product_id = $product->id;
 
-        $this->emit('showModalEdit');
-        $this->emit('cleanError');
+        $this->emit('showModal');
     }
 
     public function updateProduct()
@@ -224,6 +239,7 @@ class AdminProductComponent extends Component
             'SKU' => 'required',
             'stock_status' => 'required',
             'newimage' => 'nullable|mimes:jpeg,jpg,png|max:1024',
+//            'newimages' => 'nullable|mimes:jpg,jpeg,png|max:1024',
             'quantity' => 'required|numeric',
             'category_id' => 'required',
         ]);
@@ -235,11 +251,22 @@ class AdminProductComponent extends Component
             if ($this->newimage) {
                 $imageName = Carbon::now()->timestamp . '.' . $this->newimage->extension();
                 $this->newimage->storeAs('products', $imageName);
-            }
-
-            if (isset($imageName) && !empty($imageName)) {
                 $this->deleteImage('./assets/images/products/', $product->image);
             }
+
+            $imagesName = [];
+
+            if ($this->newimages) {
+                foreach ($this->newimages as $key => $image) {
+                    $imgName = Carbon::now()->timestamp . $key . '.' . $image->extension();
+                    $image->storeAs('products/gallery/', $imgName);
+                    $imagesName[] = $imgName;
+                }
+                foreach ($this->images_edit as $reimage) {
+                    $this->deleteImage('./assets/images/products/gallery/', $reimage);
+                }
+            }
+
 
             $product->name = $this->name;
             $product->slug = $this->slug;
@@ -253,12 +280,13 @@ class AdminProductComponent extends Component
             $product->featured = $this->featured;
             $product->quantity = $this->quantity;
             $product->image = (isset($imageName) && !empty($imageName)) ? $imageName : $product->image;
+            $product->images = (isset($imagesName) && !empty($imagesName)) ? json_encode($imagesName) : $product->images;
             $product->category_id = $this->category_id;
 
             $product->save();
 
             $this->emit('closeModal');
-            $this->emit('editAlert');
+            $this->emit('notification', ['El producto fue actualizada exitosamente']);
             $this->cleanError();
         }
 
@@ -287,7 +315,18 @@ class AdminProductComponent extends Component
     public function deleteProduct()
     {
         $product = Product::find($this->deleteId);
-        $product->delete();
+        if ($product->delete()) {
+            $this->deleteImage('./assets/images/products/', $product->image);
+
+            if (filled(json_decode($product->images))) {
+                foreach (json_decode($product->images) as $img) {
+                    if ($img) {
+                        $this->deleteImage('./assets/images/products/gallery/', $img);
+                    }
+                }
+            }
+
+        }
     }
 
     public function deleteConfirm($id)
@@ -299,13 +338,14 @@ class AdminProductComponent extends Component
     public function cleanError()
     {
         $this->resetInput();
-        $this->modeUpdate = false;
+        $this->frame = null;
     }
 
     private function resetInput()
     {
         $this->name = null;
         $this->slug = null;
+        $this->video_url = null;
         $this->short_description = null;
         $this->description = null;
         $this->description = '';
@@ -316,16 +356,18 @@ class AdminProductComponent extends Component
         $this->featured = 0;
         $this->quantity = null;
         $this->image = null;
+        $this->images = null;
         $this->newimage = null;
         $this->category_id = null;
 
+        $this->resetErrorBag();
+        $this->resetValidation();
     }
 
-    public function deleteImage($route, $name_file)
+    public function deleteImage($path, $name_file)
     {
         File::delete([
-            public_path($route . '/' . $name_file),
+            public_path($path . '/' . $name_file),
         ]);
-
     }
 }

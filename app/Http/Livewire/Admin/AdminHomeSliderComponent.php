@@ -30,7 +30,7 @@ class AdminHomeSliderComponent extends Component
     public $sort;
     public $limit;
     public $keyWord;
-    public $modeUpdate;
+    public $frame;
 
     public $deleteId;
 
@@ -85,7 +85,7 @@ class AdminHomeSliderComponent extends Component
         $this->orderBy = 'created_at';
         $this->sort = 'DESC';
         $this->keyWord = '';
-        $this->modeUpdate = false;
+        $this->frame = null;
 
         $this->status = 0;
     }
@@ -112,7 +112,7 @@ class AdminHomeSliderComponent extends Component
 
         $data['_title'] = 'Home Sliders';
 
-        $this->emit('refreshF');
+        $this->emit('refresh');
 
         return view('livewire.admin.admin-home-slider-component', $data)->layout('layouts.admin');
     }
@@ -130,9 +130,8 @@ class AdminHomeSliderComponent extends Component
 
     public function openModal()
     {
-        $this->modeUpdate = 'create';
-        $this->emit('showModalAdd');
-        $this->emit('cleanError');
+        $this->frame = 'create';
+        $this->emit('showModal');
     }
 
     public function store()
@@ -154,13 +153,13 @@ class AdminHomeSliderComponent extends Component
         $homeSlider->save();
 
         $this->emit('closeModal');
-        $this->emit('addAlert');
+        $this->emit('notification', ['Slider agregado exitosamente']);
         $this->cleanError();
     }
 
     public function edit($id)
     {
-        $this->modeUpdate = 'update';
+        $this->frame = 'update';
 
         $this->slider_id = $id;
         $slider = HomeSlider::where('id', $this->slider_id)->first();
@@ -173,8 +172,7 @@ class AdminHomeSliderComponent extends Component
         $this->image_edit = $slider->image;
         $this->slider_id = $slider->id;
 
-        $this->emit('showModalEdit');
-        $this->emit('cleanError');
+        $this->emit('showModal');
     }
 
     public function updateSlider()
@@ -213,7 +211,7 @@ class AdminHomeSliderComponent extends Component
             $homeSlider->save();
 
             $this->emit('closeModal');
-            $this->emit('editAlert');
+            $this->emit('notification', ['Slider actualizado exitosamente']);
             $this->cleanError();
         }
 
@@ -237,7 +235,7 @@ class AdminHomeSliderComponent extends Component
     public function cleanError()
     {
         $this->resetInput();
-        $this->modeUpdate = false;
+        $this->frame = null;
     }
 
     private function resetInput()
@@ -249,6 +247,9 @@ class AdminHomeSliderComponent extends Component
         $this->image = null;
         $this->newimage = null;
         $this->status = 0;
+
+        $this->resetErrorBag();
+        $this->resetValidation();
     }
 
     public function deleteConfirm($id)

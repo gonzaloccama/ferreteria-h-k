@@ -122,51 +122,13 @@
                 Livewire.emit('toRefresh')
             });
 
-            window.livewire.on('alertSave', () => {
-                notificationSwal('¡Configuración actualizada exitosamente!', 'success');
+            window.livewire.on('notification', (mssg) => {
+                notificationSwal(`¡${mssg[0]}!`, 'rgba(0,113,172,0.5)');
             });
 
             // loadTinyMce('textarea.mission', 'mission');
             // loadTinyMce('textarea.vision', 'vision');
         });
-
-
-        // function loadTinyMce(sel, varModel) {
-        //     tinymce.init({
-        //         selector: sel,
-        //         skin: "oxide-dark",
-        //         content_css: "dark",
-        //         // height: (window.innerHeight - 480),
-        //         forced_root_block: false,
-        //         setup: function (editor) {
-        //             editor.on('init change', function () {
-        //                 // editor.setContent(value);
-        //                 editor.save();
-        //             });
-        //             editor.on('change', function (e) {
-        //             @this.set(varModel, editor.getContent());
-        //             });
-        //         },
-        //     });
-        // }
-
-        function notificationSwal(mssg, stl) {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
-            Toast.fire({
-                icon: stl,
-                title: mssg
-            })
-        }
 
     </script>
 @endpush

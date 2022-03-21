@@ -11,18 +11,18 @@
             'delete' => 'Eliminar',
         ];
 
-//        $customs = [ // custom action table
-//            'txt' => 'Estado', //static
-//            'actions' => [ //editable
-//                'delivered' => 'updateOrderStatus',
-//                'completed' => 'updateOrderStatus',
-//                'canceled' => 'updateOrderStatus',
-//            ],
-//            'inputs' => [ //static
-//                'one' => 'id',
-//                'two' => 'status',
-//            ],
-//        ];
+        //        $customs = [ // custom action table
+        //            'txt' => 'Estado', //static
+        //            'actions' => [ //editable
+        //                'delivered' => 'updateOrderStatus',
+        //                'completed' => 'updateOrderStatus',
+        //                'canceled' => 'updateOrderStatus',
+        //            ],
+        //            'inputs' => [ //static
+        //                'one' => 'id',
+        //                'two' => 'status',
+        //            ],
+        //        ];
         ?>
 
         @include('livewire.widgets.admin.title-page')
@@ -42,8 +42,9 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+
             window.livewire.on('notification', (mssg) => {
-                notificationSwal(`¡${mssg}!`, 'rgba(8,129,120,0.9)');
+                notificationSwal(`¡${mssg[0]}!`, 'rgba(0,113,172,0.5)');
             });
 
             window.livewire.on('showModalView', () => {

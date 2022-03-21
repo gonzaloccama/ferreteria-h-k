@@ -1,5 +1,5 @@
-<div wire:ignore.self class="modal fade" id="editModal" role="dialog"
-     aria-labelledby="editModal" aria-hidden="true" data-backdrop="static">
+<div wire:ignore.self class="modal fade" id="showModal" role="dialog"
+     aria-labelledby="showModal" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -14,13 +14,15 @@
                         <label>Nombre</label>
                         <input type="text" placeholder="Nombre del producto" wire:model="name"
                                wire:keyup="generateSlug" class="form-control input-md">
-                        @error('name') <span class="error text-danger font-italic mt-1">{!! $message !!}</span> @enderror
+                        @error('name') <span
+                            class="error text-danger font-italic mt-1">{!! $message !!}</span> @enderror
                     </div>
 
                     <div class="form-group">
                         <label>Slug</label>
                         <input type="text" placeholder="Slug" wire:model="slug" class="form-control input-md">
-                        @error('slug') <span class="error text-danger font-italic mt-1">{!! $message !!}</span> @enderror
+                        @error('slug') <span
+                            class="error text-danger font-italic mt-1">{!! $message !!}</span> @enderror
                     </div>
 
                     <div class="form-group">
@@ -123,6 +125,34 @@
                         @endif
 
 
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Galeria de Imagenes</label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input form-control" wire:model="newimages"
+                                   accept="image/jpeg, image/png" multiple>
+                            <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                        </div>
+                        <div wire:loading wire:target="image">Cargando...</div>
+                        @error('newimages') <span
+                            class="error text-danger font-italic mt-1">{!! $message !!}</span><br> @enderror
+                        @if($newimages)
+                            @foreach($newimages as $image)
+                                <img src="{{ $image->temporaryUrl() }}"
+                                     class="list-thumbnail mt-2 border-0 shadow-sm"
+                                     alt="" style="width: 80px !important; height: 80px !important;">
+                            @endforeach
+                        @else
+                            @if(filled($images_edit))
+                                @foreach($images_edit as $img)
+                                    <img src="{{ asset('assets/images/products/gallery') . '/' . $img }}"
+                                         class="list-thumbnail mt-2 border-0 shadow-sm" alt=""
+                                         style="width: 80px !important; height: 80px !important;">
+                                @endforeach
+                            @endif
+                        @endif
                     </div>
 
                     <div class="form-group">

@@ -11,7 +11,7 @@ class AdminCategoryComponent extends Component
 {
     use WithPagination;
 
-    protected $listeners = ['activeConfirm' => 'deleteCategory'];
+    protected $listeners = ['activeConfirm' => 'deleteItem'];
 
     public $name;
     public $slug;
@@ -24,6 +24,8 @@ class AdminCategoryComponent extends Component
     public $keyWord;
 
     public $deleteId;
+
+    public $frame = null;
 
     public $headers = [
         'id' => 'ID',
@@ -80,9 +82,14 @@ class AdminCategoryComponent extends Component
         $data['_title'] = 'Categorías';
 
         $this->emit('refreshF');
-        $this->emit('refreshDropdown');
 
         return view('livewire.admin.admin-category-component', $data)->layout('layouts.admin');
+    }
+
+    public function openModal()
+    {
+        $this->frame = 'create';
+        $this->emit('showModal');
     }
 
     public function store()
@@ -96,12 +103,14 @@ class AdminCategoryComponent extends Component
         ]);
 
         $this->emit('closeModal');
-        $this->emit('addAlert');
+        $this->emit('notification', 'La categoría de creó exitosamente');
         $this->cleanError();
     }
 
     public function edit($id)
     {
+        $this->frame = 'update';
+
         $this->category_id = $id;
         $category = Category::where('id', $this->category_id)->first();
 
@@ -127,8 +136,8 @@ class AdminCategoryComponent extends Component
                 'slug' => $this->slug,
                 'parent' => $this->parent,
             ]);
-            $this->emit('closeModalUpdate');
-            $this->emit('editAlert');
+            $this->emit('closeModal');
+            $this->emit('notification', ['La categoría se actualizó exitosamente']);
 
             $this->cleanError();
         }
@@ -157,7 +166,7 @@ class AdminCategoryComponent extends Component
         $this->sort = $sort;
     }
 
-    public function deleteCategory()
+    public function deleteItem()
     {
         $category = Category::find($this->deleteId);
         $category->delete();
@@ -172,8 +181,9 @@ class AdminCategoryComponent extends Component
 
     public function cleanError()
     {
+        $this->frame = null;
         $this->resetInput();
-        $this->emit('cleanError');
+        $this->emit('closeModal');
     }
 
     private function resetInput()
@@ -181,5 +191,8 @@ class AdminCategoryComponent extends Component
         $this->name = null;
         $this->slug = null;
         $this->parent = null;
+
+        $this->resetErrorBag();
+        $this->resetValidation();
     }
 }

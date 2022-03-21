@@ -88,7 +88,8 @@
                                             <p>agregar de la tienda</p>
                                             <button type="button" class="btn-close " data-bs-dismiss="alert"
                                                     aria-label="Close"></button>
-                                            <a href="{{ route('shop') }}" class="btn btn-primary mt-20 mb-20">Ir a la Tienda</a>
+                                            <a href="{{ route('shop') }}" class="btn btn-primary mt-20 mb-20">Ir a la
+                                                Tienda</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -210,13 +211,12 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <a href="#" class="btn "                                   wire:click.prevent="checkout">
+                                <a href="#" class="btn " wire:click.prevent="checkout">
                                     <i class="fi-rs-box-alt mr-10"></i> Proceder a pagar
                                 </a>
+
                                 <a href="#" class="btn "
-                                   wire:click.prevent="show_modal"
-                                    {{--                                   data-bs-toggle="modal" data-bs-target="#askInformation"--}}
-                                >
+                                   wire:click.prevent="show_modal">
                                     <i class="fi-rs-box-alt mr-10"></i>
                                     Solicitar compra</a>
                             </div>

@@ -31,10 +31,8 @@ class AdminSaleComponent extends Component
         $sale->sale_date = $this->sale_date;
         $sale->status = $this->status;
 
-//        dd($this);
-
         $sale->save();
 
-        $this->emit('alertSuccess');
+        $this->emit('notification', ['Productos en promoción habilitada']);
     }
 }

@@ -38,6 +38,12 @@
 
     <script type="text/javascript">
 
+        $(document).ready(function () {
+            window.livewire.on('notification', (mssg) => {
+                notificationSwal(`¡${mssg[0]}!`, 'rgba(0,113,172,0.5)');
+            });
+        });
+
         document.addEventListener('livewire:load', function (event) {
             @this.
             on('refreshF', function () {
@@ -57,10 +63,6 @@
                 // loadTinyMce('textarea.subtitle', 'subtitle');
             })
 
-            @this.on('addAlert', function () {
-                notificationSwal('¡Home Slider se ha agregado correctamente!');
-            });
-
             //  end add events scripts
 
             //    init edit events scripts
@@ -69,11 +71,6 @@
                 $('#editModal').modal('show');
                 // loadTinyMce('textarea.title', 'title');
                 // loadTinyMce('textarea.subtitle', 'subtitle');
-            });
-
-            @this.
-            on('editAlert', function () {
-                notificationSwal('¡Home Slider actualizada exitosamente!', 'success');
             });
             //    end edit events scripts
 
@@ -113,64 +110,6 @@
         //     });
         // }
 
-
-        function notificationSwal(mssg, stl) {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
-            Toast.fire({
-                icon: stl,
-                title: mssg
-            })
-        }
-
-        function deleteSwal() {
-            const swalWithBootstrapButtons = Swal.mixin({
-                customClass: {
-                    confirmButton: 'btn btn-primary ml-3',
-                    cancelButton: 'btn btn-danger mr-3'
-                },
-                buttonsStyling: false
-            })
-
-            swalWithBootstrapButtons.fire({
-                title: '¿Estas seguro?',
-                text: "¡No podrás revertir esto esta acción!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Si, Eliminarlo!',
-                cancelButtonText: 'No, Cancelar!',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-
-                    Livewire.emit('activeConfirm');
-
-                    swalWithBootstrapButtons.fire(
-                        '¡Eliminado!',
-                        'El registro ha sido eliminado. <i class="far fa-dizzy text-danger"></i>',
-                        'success'
-                    )
-                } else if (
-                    /* Read more about handling dismissals below */
-                    result.dismiss === Swal.DismissReason.cancel
-                ) {
-                    swalWithBootstrapButtons.fire(
-                        '¡Cancelado!',
-                        'Tu registro está a salvo <i class="far fa-smile-beam text-primary"></i>',
-                        'error'
-                    )
-                }
-            })
-        }
 
     </script>
 

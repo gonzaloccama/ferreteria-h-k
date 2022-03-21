@@ -57,8 +57,21 @@
             @if($paymentMode == 'card')
                 @include('livewire.frontend.checkout-component.credit-cart')
             @endif
-            <input type="submit" class="btn btn-fill-out btn-block mt-30" value="Realizar pedido"
-                   wire:click.prevent="placeOrder">
+
+
+            <div wire:loading>
+                <button type="button" class="btn " disabled>
+                    <i class="fas fa-spinner fa-pulse fa-fw"></i>
+                    <span>Procesando...</span>
+                </button>
+            </div>
+            <div wire:loading.remove>
+                <button type="button" class="btn " wire:click.prevent="placeOrder">
+                    <i class="fi-rs-box-alt mr-10"></i> Realizar pedido
+                </button>
+            </div>
+
+
             @if(Session::has('stripe_error'))
                 <div class="alert alert-danger alert-dismissible fade show mt-30" role="alert">
                     <button type="button" class="btn-close " data-bs-dismiss="alert"

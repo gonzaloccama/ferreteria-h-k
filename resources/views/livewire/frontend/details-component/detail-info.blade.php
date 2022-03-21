@@ -9,13 +9,16 @@
             </div>
             <?php
             $avgrating = 0;
-            $averange = 0;
+            $averange = 100;
 
             foreach ($cnt = $product->orderItems->where('rstatus', 1) as $orderItem) {
                 $avgrating += $orderItem->review->rating;
             }
 
-            $averange = ($avgrating / $cnt->count()) * 100 / 5;
+            if ($cnt->count()){
+                $averange = ($avgrating / $cnt->count()) * 100 / 5;
+            }
+
             ?>
             {{--{{ json_encode($cnt) }}--}}
 {{--            <div class="product-rate-cover">--}}
@@ -136,6 +139,7 @@
         </div>
         <ul class="product-meta font-xs color-grey mt-50">
             <li class="mb-5">SKU: <a href="#">{{ $product->SKU }}</a></li>
+            <li class="mb-5 text-uppercase">disponibilidad: <a href="javascript">{{ $product->stock_status }}</a></li>
         </ul>
     </div>
     <!-- Detail Info -->
