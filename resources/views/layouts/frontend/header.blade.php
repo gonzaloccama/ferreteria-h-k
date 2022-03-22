@@ -159,7 +159,7 @@
         </div>
     </div>
 
-    <div class="header-bottom header-bottom-bg-color sticky-bar" style="background-color: var(--st-patricks-blue-94)">
+    <div class="header-bottom header-bottom-bg-color sticky-bar" style="background-color: var(--st-patricks-blue);">
         <div class="container">
             <div class="header-wrap header-space-between position-relative">
                 <div class="logo logo-width-1 d-block d-lg-none">
@@ -195,7 +195,7 @@
                                         </a>
                                         @if(count($menu->children))
                                             <ul class="sub-menu"
-                                                style="background-color: var(--st-patricks-blue-94); border-radius: 0">
+                                                style="background-color: var(--st-patricks-blue); border-radius: 0; margin-top: 2px;">
                                                 @foreach($menu->children as $smenu)
                                                     <li>
                                                         <a class="text-white"

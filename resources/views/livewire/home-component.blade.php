@@ -149,12 +149,12 @@
 
                 <div class="col-12">
                     <div class="banner-bg wow fadeIn animated img-banner"
-                         style="background-image: url('{{ asset('assets/images/digital-electronic-banner.jpg') }}');">
+                         style="background-image: url('{{ asset('assets/images/banner-1.jpg') }}');">
                         <div class="banner-content" style="position: relative">
-                            <h5 class="text-white mb-15">Shop Today’s Deals</h5>
-                            <h2 class="fw-600 text-white">Happy <span class="text-brand text-white">Mother's Day</span>.
-                                Big Sale Up to 40%
-                            </h2>
+{{--                            <h5 class="text-white mb-15">Shop Today’s Deals</h5>--}}
+{{--                            <h2 class="fw-600 text-white">Happy <span class="text-brand text-white">Mother's Day</span>.--}}
+{{--                                Big Sale Up to 40%--}}
+{{--                            </h2>--}}
                         </div>
                     </div>
                 </div>
@@ -257,12 +257,12 @@
 
                 <div class="col-12">
                     <div class="banner-bg wow fadeIn animated img-banner"
-                         style="background-image: url('{{ asset('assets/images/digital-electronic-banner.jpg') }}');">
+                         style="background-image: url('{{ asset('assets/images/banner-1.jpg') }}');">
                         <div class="banner-content" style="position: relative">
-                            <h5 class="text-white mb-15">Shop Today’s Deals</h5>
-                            <h2 class="fw-600 text-white">Happy <span class="text-brand text-white">Mother's Day</span>.
-                                Big Sale Up to 40%
-                            </h2>
+{{--                            <h5 class="text-white mb-15">Shop Today’s Deals</h5>--}}
+{{--                            <h2 class="fw-600 text-white">Happy <span class="text-brand text-white">Mother's Day</span>.--}}
+{{--                                Big Sale Up to 40%--}}
+{{--                            </h2>--}}
                         </div>
                     </div>
                 </div>

@@ -34,7 +34,8 @@
 
     <a class="navbar-logo" href="{{ route('admin.dashboard') }}">
         <img src="{{ asset("assets/images/logo/logo.png") }}" style="height: 50px; margin-left: -120px" alt="logo">
-        <span style="font-family: 'Roboto Condensed'; font-size: 25px; position: absolute; margin-top: 8px; margin-left: 10px;" >H&K tu obra</span>
+        <span
+            style="font-family: 'Roboto Condensed'; font-size: 25px; position: absolute; margin-top: 8px; margin-left: 10px;">H&K tu obra</span>
     </a>
 
     <div class="navbar-right">
@@ -58,30 +59,21 @@
                         <span>Configurar</span>
                     </a>
 
-                    <a href="#" class="icon-menu-item">
-                        <i class="iconsminds-male-female d-block"></i>
-                        <span>Users</span>
-                    </a>
-
                     <a href="{{ route('home') }}" target="_blank" class="icon-menu-item">
                         <i class="iconsminds-right-1 d-block"></i>
                         <span>Sitio Web</span>
                     </a>
 
                     <a href="#" class="icon-menu-item">
+                        <i class="iconsminds-male-female d-block"></i>
+                        <span>Usuarios</span>
+                    </a>
+
+                    <a href="#" class="icon-menu-item">
                         <i class="iconsminds-bar-chart-4 d-block"></i>
-                        <span>Profits</span>
+                        <span>Productos</span>
                     </a>
 
-                    <a href="#" class="icon-menu-item">
-                        <i class="iconsminds-file d-block"></i>
-                        <span>Surveys</span>
-                    </a>
-
-                    <a href="#" class="icon-menu-item">
-                        <i class="iconsminds-suitcase d-block"></i>
-                        <span>Tasks</span>
-                    </a>
 
                 </div>
             </div>
@@ -94,55 +86,19 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-right mt-3 position-absolute" id="notificationDropdown">
                     <div class="scroll">
-                        <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                            <a href="#">
-                                <img src="{{ asset('assets/admin/img/profiles/l-2.jpg') }}" alt="Notification Image"
-                                     class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle"/>
-                            </a>
-                            <div class="pl-3">
-                                <a href="#">
-                                    <p class="font-weight-medium mb-1">Joisse Kaycee just sent a new comment!</p>
-                                    <p class="text-muted mb-0 text-small">09.04.2018 - 12:45</p>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                            <a href="#">
-                                <img src="{{ asset('assets/admin/img/notifications/1.jpg') }}" alt="Notification Image"
-                                     class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle"/>
-                            </a>
-                            <div class="pl-3">
-                                <a href="#">
-                                    <p class="font-weight-medium mb-1">1 item is out of stock!</p>
-                                    <p class="text-muted mb-0 text-small">09.04.2018 - 12:45</p>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                            <a href="#">
-                                <img src="{{ asset('assets/admin/img/notifications/2.jpg') }}" alt="Notification Image"
-                                     class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle"/>
-                            </a>
-                            <div class="pl-3">
-                                <a href="#">
-                                    <p class="font-weight-medium mb-1">New order received! It is total $147,20.</p>
-                                    <p class="text-muted mb-0 text-small">09.04.2018 - 12:45</p>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="d-flex flex-row mb-3 pb-3 ">
-                            <a href="#">
-                                <img src="{{ asset('assets/admin/img/notifications/3.jpg') }}" alt="Notification Image"
-                                     class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle"/>
-                            </a>
-                            <div class="pl-3">
-                                <a href="#">
-                                    <p class="font-weight-medium mb-1">3 items just added to wish list by a user!
-                                    </p>
-                                    <p class="text-muted mb-0 text-small">09.04.2018 - 12:45</p>
-                                </a>
-                            </div>
-                        </div>
+{{--                        <div class="d-flex flex-row mb-3 pb-3 border-bottom">--}}
+{{--                            <a href="#">--}}
+{{--                                <img src="{{ asset('assets/admin/img/profiles/l-2.jpg') }}" alt="Notification Image"--}}
+{{--                                     class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle"/>--}}
+{{--                            </a>--}}
+{{--                            <div class="pl-3">--}}
+{{--                                <a href="#">--}}
+{{--                                    <p class="font-weight-medium mb-1">Joisse Kaycee just sent a new comment!</p>--}}
+{{--                                    <p class="text-muted mb-0 text-small">09.04.2018 - 12:45</p>--}}
+{{--                                </a>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        --}}
                     </div>
                 </div>
             </div>

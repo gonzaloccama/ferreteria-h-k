@@ -106,28 +106,45 @@
             font-family: 'Rajdhani' !important;
             font-size: 16px !important;
             font-weight: 500 !important;
+            text-transform: uppercase !important;
+            /*padding-left: 20px;*/
+            /*padding-right: 20px;*/
+            /*margin-bottom: 2px;*/
+            /*margin-top: 2px;*/
         }
+
+        .menu-ecommerce a:hover {
+            /*background-color: var(--orange-golden);*/
+            /*border-top: 1px solid #fff;*/
+            /*border-bottom: 1px solid #fff;*/
+        }
+
+        /*.menu-ecommerce a:hover {*/
+        /*    border-top: 1px solid #fff;*/
+        /*    border-bottom: 1px solid #fff;*/
+        /*    height: 10%;*/
+        /*}*/
 
         /*.menu-ecommerce a*/
 
         /*.menu-ecommerce a {*/
         /*    display: block;*/
         /*    !*width: 150px;*!*/
-        /*    line-height: 40px;*/
+        /*    !*line-height: 40px;*!*/
         /*    !*background: orangered;*!*/
         /*    text-align: center;*/
         /*    position: relative;*/
         /*    text-decoration: none;*/
         /*    color: #fff !important;*/
         /*    font-family: 'Rajdhani' !important;*/
-        /*    font-size: 18px !important;*/
+        /*    font-size: 16px !important;*/
         /*    font-weight: 500 !important;*/
         /*    text-transform: uppercase;*/
-        /*    letter-spacing: 2px;*/
+        /*    !*letter-spacing: 2px;*!*/
         /*}*/
 
         /*.menu-ecommerce a:hover{*/
-        /*    color: #cd2020 !important;*/
+        /*    color: var(--orange-golden) !important;*/
         /*}*/
 
         /*.menu-ecommerce a:before,*/
@@ -138,28 +155,28 @@
         /*}*/
 
         /*.menu-ecommerce a:before {*/
-        /*    border-bottom: 0px solid #fff;*/
-        /*    border-left: 2px solid #fff;*/
+        /*    border-bottom: 2px solid #fff;*/
+        /*    border-left: 0px solid #fff;*/
 
         /*    height: 0%;*/
-        /*    left: -10px;*/
+        /*    top: 0;*/
 
         /*}*/
 
         /*.menu-ecommerce a:after {*/
-        /*    border-top: 0px solid #fff;*/
-        /*    border-right: 2px solid #fff;*/
+        /*    border-top: 2px solid #fff;*/
+        /*    border-right: 0px solid #fff;*/
 
         /*    height: 0%;*/
 
-        /*    right: -10px;*/
+        /*    bottom: 0;*/
         /*}*/
 
         /*.menu-ecommerce a:hover:before,*/
         /*.menu-ecommerce a:hover:after {*/
-        /*    border-left-color: #cd2020;*/
-        /*    border-right-color: #cd2020;*/
-        /*    height: calc(80px / 2);*/
+        /*    border-top-color: #cd2020;*/
+        /*    border-bottom-color: #cd2020;*/
+        /*    width: calc(120px / 2);*/
         /*}*/
 
 
