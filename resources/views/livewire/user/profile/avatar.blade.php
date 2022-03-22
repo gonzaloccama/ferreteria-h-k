@@ -16,7 +16,7 @@
             @endif
 
             <label for="image"
-                   style="border-radius: 5%;cursor: pointer;position: absolute; margin-left: 200px; color: white; background-color: #0c3253; width: 23px; height: 23px">
+                   style="border-radius: 5%;cursor: pointer;position: absolute; margin-left: 200px; color: white; background-color: var(--st-patricks-blue); width: 23px; height: 23px">
                 <i class="iconsminds-pen"></i>
             </label>
             <input type="file" id="image" accept="image/jpeg, image/jpg, image/png" hidden wire:model="newimage">

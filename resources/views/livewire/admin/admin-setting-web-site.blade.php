@@ -15,7 +15,7 @@
         <div class="col-12 col-md-3">
             <div class="card mb-4">
                 <div class="card-body">
-                    <img src="{{ asset('assets/images/pages').'/'.$logo_dark }}"
+                    <img src="{{ asset('assets/images/logo').'/'.$logo_dark }}"
                          class="img-fluid border-radius mt-2 border-0 shadow-sm" alt="" width="220">
                     <hr>
                     <div class="text-center"><h6>Ultima actualización:</h6>

@@ -100,7 +100,7 @@ class AdminSettingWebSite extends Component
 
             if ($this->newLogo_dark) {
                 $imageLogo_1 = 'logo.' . $this->newLogo_dark->extension();
-                $this->newLogo_dark->storeAs('pages', $imageLogo_1);
+                $this->newLogo_dark->storeAs('logo', $imageLogo_1);
             }
 
             $setting->name = $this->name;
@@ -241,7 +241,7 @@ class AdminSettingWebSite extends Component
 
             if ($this->newLogo_white) {
                 $imageLogo_2 = 'logo-white.' . $this->newLogo_white->extension();
-                $this->newLogo_white->storeAs('pages', $imageLogo_2);
+                $this->newLogo_white->storeAs('logo', $imageLogo_2);
             }
 
             $setting->abstract = $this->abstract;

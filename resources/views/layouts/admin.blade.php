@@ -30,12 +30,8 @@
             box-shadow: 0 0px 5px 0px rgba(221, 221, 221, 0.31) !important;
         }
 
-<<<<<<< HEAD
         .swal-modal-delete {
-=======
-        .swal-modal-delete{
->>>>>>> d919df688e857e106130ff058414f5f9a0980d52
-            border-radius: 0 !important;
+         border-radius: 0 !important;
             box-shadow: 0 0px 5px 0px rgba(221, 221, 221, 0.31) !important;
             background-color: rgba(255, 255, 255, 0.94) !important;
         }
@@ -100,27 +96,27 @@
         }
 
         .weight-300 {
-            font-weight: 300;
+            font-weight: 300 !important;
         }
 
         .weight-400 {
-            font-weight: 400;
+            font-weight: 400 !important;
         }
 
         .weight-700 {
-            font-weight: 700;
+            font-weight: 700 !important;
         }
 
         .font-18 {
-            font-size: 18px
+            font-size: 18px !important;
         }
 
         .font-14 {
-            font-size: 14px
+            font-size: 14px !important;
         }
 
         .font-15 {
-            font-size: 15px
+            font-size: 15px !important;
         }
 
     </style>

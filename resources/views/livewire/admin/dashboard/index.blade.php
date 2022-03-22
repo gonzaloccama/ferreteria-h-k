@@ -90,7 +90,7 @@ $summaries = [
     </div>
 </div>
 
-<div class="col-xl-12 col-lg-12 mb-4">
+<div class="col-xl-6 col-lg-6 mb-4">
     <div class="card">
         <div class="position-absolute card-top-buttons">
             <button class="btn btn-header-light icon-button">
@@ -137,3 +137,5 @@ $summaries = [
         </div>
     </div>
 </div>
+
+

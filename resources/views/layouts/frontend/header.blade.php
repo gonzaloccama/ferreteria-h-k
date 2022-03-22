@@ -137,7 +137,7 @@
             <div class="header-wrap">
                 <div class="logo logo-width-1">
                     <a href="{{ route('home') }}">
-                        <img src="{{ asset('assets/images/pages/logo.png') }}"
+                        <img src="{{ asset('assets/images/logo/logo.png') }}"
                              alt="logo">
                     </a>
                 </div>
@@ -159,12 +159,12 @@
         </div>
     </div>
 
-    <div class="header-bottom header-bottom-bg-color sticky-bar" style="background-color: rgba(18,42,69,0.98)">
+    <div class="header-bottom header-bottom-bg-color sticky-bar" style="background-color: var(--st-patricks-blue-94)">
         <div class="container">
             <div class="header-wrap header-space-between position-relative">
                 <div class="logo logo-width-1 d-block d-lg-none">
                     <a href="{{ route('home') }}">
-                        <img src="{{ asset('assets/images/pages/logo.png') }}" alt="logo">
+                        <img src="{{ asset('assets/images/logo/logo-white.png') }}" alt="logo">
                     </a>
                 </div>
                 <div class="header-nav d-none d-lg-flex">
@@ -195,7 +195,7 @@
                                         </a>
                                         @if(count($menu->children))
                                             <ul class="sub-menu"
-                                                style="background-color: rgba(18,42,69,0.98); border-radius: 0">
+                                                style="background-color: var(--st-patricks-blue-94); border-radius: 0">
                                                 @foreach($menu->children as $smenu)
                                                     <li>
                                                         <a class="text-white"

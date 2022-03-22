@@ -32,9 +32,9 @@
     </div>
 
 
-    <a class="navbar-logo" href="Dashboard.Default.html">
-        {{--        <span class="logo d-none d-xs-block"></span>--}}
-        {{--        <span class="logo-mobile d-block d-xs-none"></span>--}}
+    <a class="navbar-logo" href="{{ route('admin.dashboard') }}">
+        <img src="{{ asset("assets/images/logo/logo.png") }}" style="height: 50px; margin-left: -120px" alt="logo">
+        <span style="font-family: 'Roboto Condensed'; font-size: 25px; position: absolute; margin-top: 8px; margin-left: 10px;" >H&K tu obra</span>
     </a>
 
     <div class="navbar-right">
@@ -53,9 +53,9 @@
                     <i class="simple-icon-grid"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right mt-3  position-absolute" id="iconMenuDropdown">
-                    <a href="#" class="icon-menu-item">
+                    <a href="{{ route('admin.website') }}" class="icon-menu-item">
                         <i class="iconsminds-equalizer d-block"></i>
-                        <span>Settings</span>
+                        <span>Configurar</span>
                     </a>
 
                     <a href="#" class="icon-menu-item">
@@ -63,9 +63,9 @@
                         <span>Users</span>
                     </a>
 
-                    <a href="#" class="icon-menu-item">
-                        <i class="iconsminds-puzzle d-block"></i>
-                        <span>Components</span>
+                    <a href="{{ route('home') }}" target="_blank" class="icon-menu-item">
+                        <i class="iconsminds-right-1 d-block"></i>
+                        <span>Sitio Web</span>
                     </a>
 
                     <a href="#" class="icon-menu-item">
@@ -172,7 +172,7 @@
                 <a class="dropdown-item" target="_blank" href="{{ route('user.profile') }}">Mi Perfil</a>
                 {{--                <a class="dropdown-item" href="#">Features</a>--}}
                 {{--                <a class="dropdown-item" href="#">History</a>--}}
-                {{--                <a class="dropdown-item" href="#">Support</a>--}}
+                <a class="dropdown-item" target="_blank" href="{{ route('user.password') }}">Cambiar Contraseña</a>
                 <a class="dropdown-item" href="{{ route('logout') }}"
                    onclick="event.preventDefault(); document.getElementById('logout-form').submit()">
                     Cerrar sesión

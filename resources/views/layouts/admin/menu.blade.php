@@ -14,8 +14,8 @@
                         $children[] = $child->route;
                     }
                     ?>
-                    <li class="{{ in_array(Route::currentRouteName(), $children)  ? 'active' : '' }} text-center">
-                        <a href="#{{ $menu->route }}">
+                    <li class="{{ in_array(Route::currentRouteName(), $children) || Route::currentRouteName() == $menu->route  ? 'active' : '' }} text-center">
+                        <a href="{{ (int)$menu->is_route ? route($menu->route) : '#'.$menu->route }}">
                             <i class="{{ $menu->menu_icon }}"></i> {{ $menu->name }}
                         </a>
                     </li>

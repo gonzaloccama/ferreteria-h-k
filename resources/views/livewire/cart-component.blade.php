@@ -148,6 +148,7 @@
                                     </div>
                                 </div>
                             </form>
+                            {{--
                             <div class="mb-30 mt-50">
                                 <div class="heading_s1 mb-3">
                                     <h4>Aplicar cupón</h4>
@@ -170,7 +171,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <div class="border p-md-4 p-30 border-radius cart-totals">
@@ -181,7 +182,7 @@
                                     <table class="table">
                                         <tbody>
                                         <tr>
-                                            <td class="cart_total_label">Cart Subtotal</td>
+                                            <td class="cart_total_label">Subtotal</td>
                                             <td class="cart_total_amount">
                                                 <span
                                                     class="font-lg fw-900 text-brand">S/ {{ Cart::instance('cart')->subtotal() }}</span>
@@ -195,7 +196,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="cart_total_label">Shipping</td>
+                                            <td class="cart_total_label">Envío</td>
                                             <td class="cart_total_amount"><i class="ti-gift mr-5"></i> Envío gratis
                                             </td>
                                         </tr>

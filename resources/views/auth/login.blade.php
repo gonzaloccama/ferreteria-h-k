@@ -37,11 +37,6 @@
                                 <x-jet-validation-errors class="mb-4"/>
                                 <form name="frm-login" method="post" action="{{ route('login') }}">
                                     @csrf
-{{--                                    <fieldset class="form-group">--}}
-{{--                                        <label for="frm-login-uname">EMAIL:</label>--}}
-{{--                                        <input type="text" id="frm-login-uname" name="email" placeholder="Correo"--}}
-{{--                                               :value="old('email')" required autofocus>--}}
-{{--                                    </fieldset>--}}
 
                                     <fieldset class="form-floating mb-3">
                                         <input type="text" class="form-control" id="frm-login-uname" name="email" placeholder="Correo"
@@ -50,19 +45,12 @@
                                         @error('email') <span class="error text-danger fst-italic pl-5 mt-1">{!! $message !!}</span> @enderror
                                     </fieldset>
 
-{{--                                    <fieldset class="form-group">--}}
-{{--                                        <label for="frm-login-pass">CONTRASEÑA:</label>--}}
-{{--                                        <input type="password" id="frm-login-pass" name="password"--}}
-{{--                                               placeholder="Contraseña" required autocomplete="current-password">--}}
-{{--                                    </fieldset>--}}
-
                                     <fieldset class="form-floating mb-3">
                                         <input type="password" class="form-control" id="frm-login-pass" name="password"
                                                placeholder="Contraseña" required autocomplete="current-password">
                                         <label for="frm-login-pass">CONTRASEÑA:</label>
                                         @error('password') <span class="error text-danger fst-italic pl-5 mt-1">{!! $message !!}</span> @enderror
                                     </fieldset>
-
 
                                     <fieldset class="login_footer form-group">
                                         <div class="chek-form">
@@ -75,7 +63,6 @@
                                         </div>
                                         <a class="text-muted" href="{{ route('password.request') }}">¿Has olvidado tu contraseña?</a>
                                     </fieldset>
-
 
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-fill-out btn-block hover-up btn-submit"
@@ -94,62 +81,4 @@
         </div>
     </section>
 
-
-    {{--    <!--main area-->--}}
-    {{--    <main id="main" class="main-site left-sidebar">--}}
-
-    {{--        <div class="container">--}}
-
-    {{--            <div class="wrap-breadcrumb">--}}
-    {{--                <ul>--}}
-    {{--                    <li class="item-link"><a href="{{ URL::to('/') }}" class="link">home</a></li>--}}
-    {{--                    <li class="item-link"><span>login</span></li>--}}
-    {{--                </ul>--}}
-    {{--            </div>--}}
-    {{--            <div class="row">--}}
-    {{--                <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12 col-md-offset-3">--}}
-    {{--                    <div class=" main-content-area">--}}
-    {{--                        <div class="wrap-login-item ">--}}
-    {{--                            <div class="login-form form-item form-stl">--}}
-
-    {{--                                <x-jet-validation-errors class="mb-4"/>--}}
-
-    {{--                                <form name="frm-login" method="POST" action="{{ route('login') }}">--}}
-    {{--                                    @csrf--}}
-    {{--                                    <fieldset class="wrap-title">--}}
-    {{--                                        <h3 class="form-title">Log in to your account</h3>--}}
-    {{--                                    </fieldset>--}}
-    {{--                                    <fieldset class="wrap-input">--}}
-    {{--                                        <label for="frm-login-uname">Email Address:</label>--}}
-    {{--                                        <input type="text" id="frm-login-uname" name="email"--}}
-    {{--                                               placeholder="Type your email address"--}}
-    {{--                                               :value="old('email')" required autofocus>--}}
-    {{--                                    </fieldset>--}}
-    {{--                                    <fieldset class="wrap-input">--}}
-    {{--                                        <label for="frm-login-pass">Password:</label>--}}
-    {{--                                        <input type="password" id="frm-login-pass" name="password"--}}
-    {{--                                               placeholder="************" required autocomplete="current-password">--}}
-    {{--                                    </fieldset>--}}
-
-    {{--                                    <fieldset class="wrap-input">--}}
-    {{--                                        <label class="remember-field">--}}
-    {{--                                            <input class="frm-input " name="remember" id="remember" value="forever"--}}
-    {{--                                                   type="checkbox"><span>Remember me</span>--}}
-    {{--                                        </label>--}}
-    {{--                                        <a class="link-function left-position" href="{{ route('password.request') }}"--}}
-    {{--                                           title="Forgotten password?">Forgotten--}}
-    {{--                                            password?</a>--}}
-    {{--                                    </fieldset>--}}
-    {{--                                    <input type="submit" class="btn btn-submit" value="Login" name="submit">--}}
-    {{--                                </form>--}}
-    {{--                            </div>--}}
-    {{--                        </div>--}}
-    {{--                    </div><!--end main products area-->--}}
-    {{--                </div>--}}
-    {{--            </div><!--end row-->--}}
-
-    {{--        </div><!--end container-->--}}
-
-    {{--    </main>--}}
-    {{--    <!--main area-->--}}
 </x-frontend-layout>

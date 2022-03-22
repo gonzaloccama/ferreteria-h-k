@@ -30,7 +30,7 @@
                          class="img-fluid border-radius mt-2 border-0 shadow-sm"
                          alt="" width="220">
                 @else
-                    <img src="{{ asset('assets/images/pages').'/'.$logo_white }}"
+                    <img src="{{ asset('assets/images/logo').'/'.$logo_white }}"
                          class="img-fluid border-radius mt-2 border-0 shadow-sm" alt="" width="220">
                 @endif
             </div>

@@ -180,7 +180,7 @@
         }
 
         .nav-link:hover {
-            color: rgb(18, 42, 69) !important;
+            color: var(--st-patricks-blue) !important;
             background-color: rgba(4, 57, 103, 0.25) !important
         }
 
@@ -195,12 +195,17 @@
 
         .active-1 {
             color: #fff !important;
-            background-color: rgb(18, 42, 69) !important;
+            background-color: var(--st-patricks-blue) !important;
+        }
+
+        .text-theme-1{
+            color: var(--st-patricks-blue);
+            font-family: rajdhani;
         }
 
         .bg-header {
             color: rgba(255, 255, 255, 0.93) !important;
-            background-color: #41506B !important;
+            background-color: var(--charcoal) !important;
             font-weight: 200 !important;
         }
 
@@ -260,8 +265,17 @@
 
         .page-link {
             border-radius: 0 !important;
-            color: #41506B !important;
+            color: var(--charcoal) !important;
         }
+
+        .page-link:hover {
+            color: var(--azure-x-11) !important;
+        }
+
+        .active .page-link {
+            color: var(--azure-x-11) !important;
+        }
+
 
         /*** button extra small ***/
         .btn.btn-extra-sm {
