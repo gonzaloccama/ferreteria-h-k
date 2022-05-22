@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Mail\OrderMail;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Product;
 use App\Models\Shipping;
 use App\Models\Transaction;
 use Auth;
@@ -137,7 +138,7 @@ class CheckoutComponent extends Component
     {
         if (!Auth::check()) {
             return redirect()->route('login');
-        } elseif (session()->get('checkout')['total'] == .0) {
+        } elseif (!session()->get('checkout')) {
             return redirect()->route('product.cart');
         }
     }
@@ -164,7 +165,7 @@ class CheckoutComponent extends Component
             $this->validateFields([]);
         }
 
-//        dd(session()->get('checkout'));
+        $orderId = null;
 
         $order = new Order();
         $order->user_id = auth()->user()->id;
@@ -197,6 +198,8 @@ class CheckoutComponent extends Component
                 $orderItem->quantity = $item->qty;
                 $orderItem->save();
             }
+
+            $orderId = $order->id;
         }
 
         if ($this->is_shipping_different) {
@@ -221,10 +224,20 @@ class CheckoutComponent extends Component
             $shipping->save();
         }
 
+        $_order = Order::find($orderId);
+
         if (in_array($this->paymentMode, ['bankTranfer', 'digitalWallet'])) {
             $this->makeTransaction($order->id, 'pending');
             $this->resetCart();
         } elseif (in_array($this->paymentMode, ['cash', 'checkPayment'])) {
+
+            foreach (Cart::instance('cart')->content() as $item) {
+//                $product = $_order->orderItems()->where('product_id', $item->id)->first()->product;
+                $product = Product::find($item->id);
+                $product->quantity -= $item->qty;
+                $product->save();
+            }
+
             $this->makeTransaction($order->id, 'approved');
             $this->resetCart();
         } elseif ($this->paymentMode == 'card') {
@@ -277,13 +290,21 @@ class CheckoutComponent extends Component
                 ]);
 
                 if ($charge['status'] == 'succeeded') {
+                    foreach (Cart::instance('cart')->content() as $item) {
+                        $product = Product::find($item->id);
+                        $product->quantity -= $item->qty;
+                        $product->save();
+                    }
+
                     $this->makeTransaction($order->id, 'approved');
                     $this->resetCart();
                 } else {
+                    $_order->delete();
                     session()->flash('stripe_error', 'Error en Transacción');
                     $this->frame = 1;
                 }
             } catch (Exception $e) {
+                $_order->delete();
                 session()->flash('stripe_error', $e->getMessage());
                 $this->frame = 1;
             }

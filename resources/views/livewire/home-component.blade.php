@@ -1,11 +1,14 @@
 <div class="">
-        @push('title') {{ $title }} @endpush
+    @push('title')
+        {{ $title }}
+    @endpush
     @php
         $_sale = $sale->status === 1 && $sale->sale_date > Carbon\Carbon::now();
         $witems = Cart::instance('wishlist')->content()->pluck('id');
     @endphp
 
-    <section class="home-slider position-relative mb-30 mt-0 pt-0" style="background-color: var(--st-patricks-blue);" wire:ignore>
+    <section class="home-slider position-relative mb-30 mt-0 pt-0" style="background-color: var(--st-patricks-blue);"
+             wire:ignore>
         <div class="container">
             <div class="home-slide-cover  mt-0">
                 <div class="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1">
@@ -151,10 +154,10 @@
                     <div class="banner-bg wow fadeIn animated img-banner"
                          style="background-image: url('{{ asset('assets/images/banner-1.jpg') }}');">
                         <div class="banner-content" style="position: relative">
-{{--                            <h5 class="text-white mb-15">Shop Today’s Deals</h5>--}}
-{{--                            <h2 class="fw-600 text-white">Happy <span class="text-brand text-white">Mother's Day</span>.--}}
-{{--                                Big Sale Up to 40%--}}
-{{--                            </h2>--}}
+                            {{--                            <h5 class="text-white mb-15">Shop Today’s Deals</h5>--}}
+                            {{--                            <h2 class="fw-600 text-white">Happy <span class="text-brand text-white">Mother's Day</span>.--}}
+                            {{--                                Big Sale Up to 40%--}}
+                            {{--                            </h2>--}}
                         </div>
                     </div>
                 </div>
@@ -259,10 +262,10 @@
                     <div class="banner-bg wow fadeIn animated img-banner"
                          style="background-image: url('{{ asset('assets/images/banner-1.jpg') }}');">
                         <div class="banner-content" style="position: relative">
-{{--                            <h5 class="text-white mb-15">Shop Today’s Deals</h5>--}}
-{{--                            <h2 class="fw-600 text-white">Happy <span class="text-brand text-white">Mother's Day</span>.--}}
-{{--                                Big Sale Up to 40%--}}
-{{--                            </h2>--}}
+                            {{--                            <h5 class="text-white mb-15">Shop Today’s Deals</h5>--}}
+                            {{--                            <h2 class="fw-600 text-white">Happy <span class="text-brand text-white">Mother's Day</span>.--}}
+                            {{--                                Big Sale Up to 40%--}}
+                            {{--                            </h2>--}}
                         </div>
                     </div>
                 </div>
@@ -488,11 +491,11 @@
 
         $(document).ready(function () {
             window.livewire.on('addCart', () => {
-                notificationSwal(`¡Se agregó extosamente al <b class="fst-italic">Carrito de compras</b>!`, 'rgba(8,129,120,0.9)');
+                notificationSwal(`¡Se agregó extosamente al <b class="fst-italic">Carrito de compras</b>!`, 'rgba(8,64,129,0.9)');
             });
 
             window.livewire.on('addWishlist', () => {
-                notificationSwal(`¡Se agregó extosamente <b class="fst-italic">a la Lista de deseos</b>!`, 'rgba(8,129,120,0.9)');
+                notificationSwal(`¡Se agregó extosamente <b class="fst-italic">a la Lista de deseos</b>!`, 'rgba(8,64,129,0.9)');
             });
 
             window.livewire.on('showQuickView', () => {

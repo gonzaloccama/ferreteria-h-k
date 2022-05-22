@@ -113,71 +113,33 @@
             /*margin-top: 2px;*/
         }
 
-        .menu-ecommerce a:hover {
-            /*background-color: var(--orange-golden);*/
-            /*border-top: 1px solid #fff;*/
-            /*border-bottom: 1px solid #fff;*/
-        }
-
         /*.menu-ecommerce a:hover {*/
+        /*    !*background-color: var(--orange-golden);*!*/
+        /*    padding-top: -5px;*/
+        /*    padding-bottom: -5px;*/
         /*    border-top: 1px solid #fff;*/
         /*    border-bottom: 1px solid #fff;*/
-        /*    height: 10%;*/
         /*}*/
 
-        /*.menu-ecommerce a*/
 
-        /*.menu-ecommerce a {*/
-        /*    display: block;*/
-        /*    !*width: 150px;*!*/
-        /*    !*line-height: 40px;*!*/
-        /*    !*background: orangered;*!*/
-        /*    text-align: center;*/
-        /*    position: relative;*/
-        /*    text-decoration: none;*/
-        /*    color: #fff !important;*/
-        /*    font-family: 'Rajdhani' !important;*/
-        /*    font-size: 16px !important;*/
-        /*    font-weight: 500 !important;*/
-        /*    text-transform: uppercase;*/
-        /*    !*letter-spacing: 2px;*!*/
-        /*}*/
 
-        /*.menu-ecommerce a:hover{*/
-        /*    color: var(--orange-golden) !important;*/
-        /*}*/
 
-        /*.menu-ecommerce a:before,*/
-        /*.menu-ecommerce a:after {*/
-        /*    position: absolute;*/
-        /*    content: "";*/
-        /*    transition: all .25s;*/
-        /*}*/
 
-        /*.menu-ecommerce a:before {*/
-        /*    border-bottom: 2px solid #fff;*/
-        /*    border-left: 0px solid #fff;*/
+        .menu-ecommerce li a::after {
+            content: "";
+            display: block !important;
+            margin: auto !important;
+            height: 2px !important;
+            width: 0 !important;
+            top: 5px !important;
+            background: transparent;
+            transition: all 0.3s !important;
+        }
 
-        /*    height: 0%;*/
-        /*    top: 0;*/
-
-        /*}*/
-
-        /*.menu-ecommerce a:after {*/
-        /*    border-top: 2px solid #fff;*/
-        /*    border-right: 0px solid #fff;*/
-
-        /*    height: 0%;*/
-
-        /*    bottom: 0;*/
-        /*}*/
-
-        /*.menu-ecommerce a:hover:before,*/
-        /*.menu-ecommerce a:hover:after {*/
-        /*    border-top-color: #cd2020;*/
-        /*    border-bottom-color: #cd2020;*/
-        /*    width: calc(120px / 2);*/
-        /*}*/
+        .menu-ecommerce li a:hover::after, li > a.active::after {
+            width: 100% !important;
+            background: #ffffff !important;
+        }
 
 
     </style>
@@ -467,7 +429,7 @@ $website = App\Models\SettingSite::find(1);
 <script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.all.min.js') }}"></script>
 
 <script type="text/javascript">
-    function notificationSwal(mssg, stl = 'rgba(8,129,120,0.9)', stts = 'success') {
+    function notificationSwal(mssg, stl = 'rgba(8,64,129,0.9)', stts = 'success') {
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',

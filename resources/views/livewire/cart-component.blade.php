@@ -237,19 +237,19 @@
     <script type="text/javascript">
         $(document).ready(function () {
             window.livewire.on('saveForLater', () => {
-                notificationSwal(`¡Se guardó exitoamente <b class="fst-italic">para mas tarde</b>!`, 'rgba(8,129,120,0.9)');
+                notificationSwal(`¡Se guardó exitoamente <b class="fst-italic">para mas tarde</b>!`, 'rgba(8,64,129,0.9)');
             });
 
             window.livewire.on('deleteCart', () => {
-                notificationSwal(`¡Se eliminó extosamente del <b class="fst-italic">Carrito de compras</b>!`, 'rgba(224,0,33,0.79)');
+                notificationSwal(`¡Se eliminó extosamente del <b class="fst-italic">Carrito de compras</b>!`, 'rgba(224,0,33,0.62)');
             });
 
             window.livewire.on('cleanCart', () => {
-                notificationSwal(`¡Se vació todo el<b class="fst-italic">Carrito de compras</b>!`, 'rgba(224,0,33,0.79)');
+                notificationSwal(`¡Se vació todo el<b class="fst-italic">Carrito de compras</b>!`, 'rgba(224,0,33,0.62)');
             });
 
             window.livewire.on('sendAlert', () => {
-                notificationSwal(`¡Se envió exitosamente <b class="fst-italic">su solicitud de compra</b>!`, 'rgba(8,129,120,0.9)');
+                notificationSwal(`¡Se envió exitosamente <b class="fst-italic">su solicitud de compra</b>!`, 'rgba(8,64,129,0.9)');
             });
 
             window.livewire.on('openModal', () => {

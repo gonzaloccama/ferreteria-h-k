@@ -3,7 +3,8 @@
         <div class="mobile-header-top">
             <div class="mobile-header-logo">
                 <a href="{{ route('home') }}">
-                    <img src="{{ asset('assets/images/logo/logo.png') }}" alt="logo">
+                    <img src="{{ asset('assets/images/logo/logo.png') }}" alt="logo"
+                         style="width: 300px !important;">
                 </a>
             </div>
             <div class="mobile-menu-close close-style-wrap close-style-position-inherit">

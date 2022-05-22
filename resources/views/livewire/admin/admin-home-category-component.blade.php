@@ -16,7 +16,8 @@
                 <form>
                     <div class="form-group row">
                         <label for="selectCategories" class="col-sm-2 col-form-label">Elegir categorias</label>
-                        <div class="col-md-10" wire:ignore>
+
+                        <div class="col-md-10">
                             <select class="form-control select2-single" id="selectCategories"
                                     wire:model="selectCategories" multiple="multiple" data-width="100%">
                                 @foreach($categories as $category)
@@ -59,10 +60,10 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            activeSelect2('#selectCategories', 'selectCategories');
+            initSelect2Multiple('#selectCategories', 'selectCategories');
 
             window.livewire.on('refresh', () => {
-                activeSelect2('#selectCategories', 'selectCategories');
+                initSelect2Multiple('#selectCategories', 'selectCategories');
             });
 
 
@@ -73,11 +74,52 @@
         });
 
         function activeSelect2(sel, varModel) {
-            $(sel).select2();
+            $(sel).select2({
+                theme: "bootstrap",
+                // dir: direction,
+                placeholder: "Seleccione...",
+                maximumSelectionSize: 6,
+                containerCssClass: ":all:",
+                templateResult: formatOption,
+            });
             $(sel).on('change', function (e) {
                 @this.
                 set(varModel, e.target.value);
             });
+
+            function formatOption(option) {
+                var $option = $(
+                    '<strong>' + option.text + '</strong>'
+                );
+                return $option;
+            }
+        }
+
+        function initSelect2Multiple(sel, varModel) {
+            if ($().select2) {
+                $(sel).select2({
+                    theme: "bootstrap",
+                    // dir: direction,
+                    placeholder: "Seleccione...",
+                    maximumSelectionSize: 6,
+                    containerCssClass: ":all:",
+                    "language": {
+                        "noResults": function () {
+                            return "No se han encontrado resultados";
+                        }
+                    },
+                });
+                $(sel).on('change', function (e) {
+                    @this.
+                    set(varModel, $(this).val());
+                });
+            }
+            function formatOption(option) {
+                var $option = $(
+                    '<strong>' + option.text + '</strong>'
+                );
+                return $option;
+            }
         }
     </script>
 @endpush

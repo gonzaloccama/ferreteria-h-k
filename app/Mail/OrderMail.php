@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\Models\Order;
+use App\Models\SettingSite;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -13,6 +14,7 @@ class OrderMail extends Mailable
     use Queueable, SerializesModels;
 
     public $order;
+    public $system;
 
     /**
      * Create a new message instance.
@@ -23,6 +25,7 @@ class OrderMail extends Mailable
     {
         $this->order = new Order();
         $this->order = $order;
+        $this->system = SettingSite::find(1);
     }
 
     /**

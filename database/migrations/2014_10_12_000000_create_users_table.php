@@ -23,6 +23,10 @@ class CreateUsersTable extends Migration
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
             $table->string('utype')->default('USR')->comment('USER for ADMIN');
+
+            $table->string('oauth_id', 64);
+            $table->string('oauth_type', 64);
+
             $table->timestamps();
         });
     }

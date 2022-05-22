@@ -105,8 +105,8 @@ $summaries = [
                     <div class="d-flex flex-row mb-3">
                         <a class="d-block position-relative" href="#">
                             <img
-                                src="{{ asset('assets/images/products/') . '/' . $order->orderItems[0]->product->image }}"
-                                alt="{{ $order->orderItems[0]->product->name }}" class="list-thumbnail border-0"/>
+                                src="{{ asset('assets/images/products/') . '/' . $order->orderItems->first()->product->image }}"
+                                alt="{{ $order->orderItems->first()->product->image }}" class="list-thumbnail border-0"/>
                             <span
                                 class="badge badge-pill badge-theme-2 position-absolute badge-top-right text-uppercase">
                                 {{ $order->status }}

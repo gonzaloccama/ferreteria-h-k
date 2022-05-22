@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\FacebookController;
 use App\Http\Livewire\Admin\AdminAskInformationComponent;
 use App\Http\Livewire\Admin\AdminAttributeComponent;
 use App\Http\Livewire\Admin\AdminBrandComponent;
@@ -12,6 +13,7 @@ use App\Http\Livewire\Admin\AdminOrderComponent;
 use App\Http\Livewire\Admin\AdminProductComponent;
 use App\Http\Livewire\Admin\AdminSaleComponent;
 use App\Http\Livewire\Admin\AdminSettingWebSite;
+use App\Http\Livewire\Admin\AdminUsersComponent;
 use App\Http\Livewire\CartComponent;
 use App\Http\Livewire\CategoryComponent;
 use App\Http\Livewire\CheckoutComponent;
@@ -60,6 +62,9 @@ Route::get('/wishlist', WishlistComponent::class)->name('product.wishlist');
 
 Route::get('/contact-us', ContactComponent::class)->name('contact-us');
 
+Route::get('/auth/facebook/redirect', [FacebookController::class, 'handleFacebookRedirect'])->name('auth.redirect-facebook');
+Route::get('/auth/facebook/callback', [FacebookController::class, 'handleFacebookCallback'])->name('auth.callback-facebook');
+
 //Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //    return view('dashboard');
 //})->name('dashboard');
@@ -97,4 +102,6 @@ Route::middleware(['auth:sanctum', 'verified', 'authadmin'])->group(function () 
     Route::get('/admin/contact', AdminContactComponent::class)->name('admin.contact');
 
     Route::get('/admin/attributes', AdminAttributeComponent::class)->name('admin.attributes');
+
+    Route::get('/admin/users', AdminUsersComponent::class)->name('admin.users');
 });

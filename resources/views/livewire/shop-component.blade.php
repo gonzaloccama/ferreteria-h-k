@@ -139,11 +139,11 @@
 
         $(document).ready(function () {
             window.livewire.on('addCart', () => {
-                notificationSwal(`¡Se agregó extosamente al <span class="fst-italic">Carrito de compras</span>!`, 'rgba(8,129,120,0.9)');
+                notificationSwal(`¡Se agregó extosamente al <span class="fst-italic">Carrito de compras</span>!`, 'rgba(8,64,129,0.9)');
             });
 
             window.livewire.on('addWishlist', () => {
-                notificationSwal(`¡Se agregó extosamente <span class="fst-italic">a la Lista de deseos</span>!`, 'rgba(8,129,120,0.9)');
+                notificationSwal(`¡Se agregó extosamente <span class="fst-italic">a la Lista de deseos</span>!`, 'rgba(8,64,129,0.9)');
             });
 
             $('.more_categories').on('click', function () {

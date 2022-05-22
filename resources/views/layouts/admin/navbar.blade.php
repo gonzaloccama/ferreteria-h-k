@@ -34,9 +34,9 @@
 
     <a class="navbar-logo" href="{{ route('admin.dashboard') }}">
         <img src="{{ asset("assets/images/logo/logo.png") }}" style="height: 50px; margin-left: -120px" alt="logo">
-        <span
-            style="font-family: 'Roboto Condensed'; font-size: 25px; position: absolute; margin-top: 8px; margin-left: 10px;">H&K tu obra</span>
-    </a>
+{{--        <span--}}
+{{--            style="font-size: 25px; position: absolute; margin-top: 8px; margin-left: 10px;">H&K tu obra</span>--}}
+{{--    </a>--}}
 
     <div class="navbar-right">
         <div class="header-icons d-inline-block align-middle">

@@ -20,13 +20,13 @@
                             @foreach($socials as $key => $social)
                                 @if(isset($social) && !empty($social))
                                     @if($key != 'whatsapp')
-                                        <a href="{{ $social }}">
+                                        <a href="{{ $social }}" target="_blank">
                                             <img
                                                 src="{{ asset('assets/frontend/imgs/theme/icons').'/icons-' . $key . '.svg' }}"
                                                 alt="{{ $key }}">
                                         </a>
                                     @else
-                                        <a href="https://api.whatsapp.com/send?phone={{ $social }}">
+                                        <a href="https://api.whatsapp.com/send?phone={{ $social }}" target="_blank">
                                             <img
                                                 src="{{ asset('assets/frontend/imgs/theme/icons').'/icons-' . $key . '.svg' }}"
                                                 alt="{{ $key }}">
@@ -82,7 +82,7 @@
                                         </li>
                                     @else
                                         <li>
-                                            <a class="language-dropdown-active w-75" href="#"> <i
+                                            <a class="language-dropdown-active" href="#"> <i
                                                     class="fi-rs-user"></i>
                                                 {{ Auth::user()->name }}
                                                 <i class="fi-rs-angle-small-down"></i>
@@ -138,7 +138,7 @@
                 <div class="logo logo-width-1">
                     <a href="{{ route('home') }}">
                         <img src="{{ asset('assets/images/logo/logo.png') }}"
-                             alt="logo">
+                             alt="logo" style="width: 300px !important;">
                     </a>
                 </div>
                 <div class="header-right">
@@ -182,10 +182,10 @@
                             $query->orderBy('order');
                         })->where('type', 'page')->where('parent', 0)->get();
                         ?>
-                        <nav>
+                        <nav class="menu-ecommerce">
                             <ul>
                                 @foreach($menus as $menu)
-                                    <li class="menu-ecommerce">
+                                    <li>
                                         <a href="{{ $menu->is_route == '1' ? route($menu->route) : 'javascript:;' }}"
                                            class="{{ $menu->is_route == '1' ? route($menu->route) === url()->current()? 'active':'' : '' }}">
                                             {{ $menu->name }}
@@ -198,7 +198,8 @@
                                                 style="background-color: var(--st-patricks-blue); border-radius: 0; margin-top: 2px;">
                                                 @foreach($menu->children as $smenu)
                                                     <li>
-                                                        <a class="text-white"
+                                                        <a class="text-white
+                                                        {{ $smenu->is_route == '1' ? route($smenu->route) === url()->current()? 'active':'' : '' }}"
                                                            href="{{ route($smenu->route) }}">{{ $smenu->name }}</a>
                                                     </li>
                                                 @endforeach

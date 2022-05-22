@@ -59,13 +59,13 @@
             @endif
 
 
-            <div wire:loading>
+            <div wire:loading wire:target="placeOrder">
                 <button type="button" class="btn " disabled>
                     <i class="fas fa-spinner fa-pulse fa-fw"></i>
                     <span>Procesando...</span>
                 </button>
             </div>
-            <div wire:loading.remove>
+            <div wire:loading.remove wire:target="placeOrder">
                 <button type="button" class="btn " wire:click.prevent="placeOrder">
                     <i class="fi-rs-box-alt mr-10"></i> Realizar pedido
                 </button>

@@ -25,6 +25,10 @@
 
     <style>
 
+        .table-hover tbody tr:hover {
+            color: #585858;
+        }
+
         .swal-modal {
             border-radius: 0 !important;
             box-shadow: 0 0px 5px 0px rgba(221, 221, 221, 0.31) !important;
