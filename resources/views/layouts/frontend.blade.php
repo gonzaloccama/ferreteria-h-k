@@ -12,7 +12,7 @@
     <meta property="og:url" content="">
     <meta property="og:image" content="">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/frontend/imgs/theme/favicon.svg') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/logo/favicon.png') }}">
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('assets/admin/font/iconsmind-s/css/iconsminds.css') }}"/>
     <link rel="stylesheet" href="{{ asset('assets/admin/font/simple-line-icons/css/simple-line-icons.css') }}"/>
@@ -122,8 +122,16 @@
         /*}*/
 
 
+        .icon-user {
+            border: 1px solid var(--st-patricks-blue);
+            padding: 5px 5px 2px 5px;
+            border-radius: 25px;
+            box-shadow: 0 0 1px 0 var(--st-patricks-blue);
+        }
 
-
+        .mini-cart-icon svg {
+            fill: #fff !important;
+        }
 
         .menu-ecommerce li a::after {
             content: "";
@@ -177,7 +185,7 @@
             background-color: var(--st-patricks-blue) !important;
         }
 
-        .text-theme-1{
+        .text-theme-1 {
             color: var(--st-patricks-blue);
             font-family: rajdhani;
         }

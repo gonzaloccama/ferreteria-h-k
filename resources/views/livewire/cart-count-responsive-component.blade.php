@@ -1,12 +1,12 @@
 <div class="header-action-icon-2">
-    <a class="mini-cart-icon" href="javascript:;">
+    <a class="mini-cart-icon" href="{{ route('product.cart') }}">
         <img alt="cart"
-             src="{{ asset('assets/frontend/imgs/theme/icons/icon-cart.svg') }}">
-        <span class="pro-count blue">
+             src="{{ asset('assets/frontend/imgs/theme/icons/icon-cart-res.svg') }}">
+        <span class="pro-count" style="background: var(--bittersweet);">
             {{ Cart::instance('cart')->count() > 0 ? Cart::instance('cart')->count() : 0 }}
         </span>
     </a>
-    <div class="cart-dropdown-wrap cart-dropdown-hm2">
+    <div class="cart-dropdown-wrap cart-dropdown-hm2" style="z-index: 9999;">
         @if(Cart::instance('cart')->count() > 0)
             <ul>
                 @foreach(Cart::instance('cart')->content() as $item)

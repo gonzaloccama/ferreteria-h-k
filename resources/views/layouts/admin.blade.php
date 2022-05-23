@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>@stack('title') | Admin - Ferrotools</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/logo/favicon.png') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="{{ asset('assets/admin/fontawesome/css/all.css') }}"/>
 

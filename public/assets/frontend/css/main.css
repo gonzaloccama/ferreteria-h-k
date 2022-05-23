@@ -6162,9 +6162,14 @@ h6.post-title {
     background-color: #333;
 }
 
+.burger-icon.burger-icon-black > span::before,
+.burger-icon.burger-icon-black > span::after {
+    background-color: #1a1a1a;
+}
+
 .burger-icon.burger-icon-white > span::before,
 .burger-icon.burger-icon-white > span::after {
-    background-color: #1a1a1a;
+    background-color: #cccccc;
 }
 
 .body-overlay-1 {

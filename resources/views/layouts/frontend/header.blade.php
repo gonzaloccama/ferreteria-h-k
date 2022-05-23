@@ -58,11 +58,12 @@
                                 @auth
                                     @if(Auth::user()->utype === 'ADM')
                                         <li>
-                                            <a class="language-dropdown-active" href="#"> <i class="fi-rs-user"></i>
+                                            <a class="language-dropdown-active" href="#" style="color: var(--st-patricks-blue)">
+                                                <i class="fi-rs-user icon-user"></i>
                                                 {{ Auth::user()->name }}
                                                 <i class="fi-rs-angle-small-down"></i>
                                             </a>
-                                            <ul class="language-dropdown">
+                                            <ul class="language-dropdown shadow">
                                                 <li class="row">
                                                     <a href="{{ route('admin.dashboard') }}">
                                                         <i class="fi-rs-dashboard"></i>
@@ -82,12 +83,12 @@
                                         </li>
                                     @else
                                         <li>
-                                            <a class="language-dropdown-active" href="#"> <i
-                                                    class="fi-rs-user"></i>
+                                            <a class="language-dropdown-active" href="#" style="color: var(--st-patricks-blue)">
+                                                <i class="fi-rs-user icon-user"></i>
                                                 {{ Auth::user()->name }}
                                                 <i class="fi-rs-angle-small-down"></i>
                                             </a>
-                                            <ul class="language-dropdown">
+                                            <ul class="language-dropdown shadow">
                                                 <li>
                                                     <a href="{{ route('user.dashboard') }}">
                                                         <i class="fi-rs-dashboard"></i>
@@ -106,17 +107,19 @@
                                     @endif
                                 @else
                                     <li>
-                                        <a class="language-dropdown-active" href="#"> <i class="fi-rs-user"></i> Usuario
+                                        <a class="language-dropdown-active" href="#" style="color: var(--st-patricks-blue)">
+                                            <i class="fi-rs-user icon-user"></i>
+                                            Usuario
                                             <i
                                                 class="fi-rs-angle-small-down"></i></a>
-                                        <ul class="language-dropdown">
+                                        <ul class="language-dropdown shadow">
                                             <li>
                                                 <a href="{{ route('login') }}">
                                                     <i class="fi-rs-sign-out"></i>
                                                     Login
                                                 </a>
                                                 <a href="{{ route('register') }}">
-                                                    <i class="fi-rs-user-add"></i>
+                                                    <i class="fi-rs-user-add" ></i>
                                                     Registar
                                                 </a>
                                             </li>
@@ -218,7 +221,7 @@
 
                 <div class="header-action-right d-block d-lg-none">
                     <div class="header-action-2">
-                        @livewire('wishlist-count-component')
+                        @livewire('wishlist-count-responsive-component')
 
                         @livewire('cart-count-responsive-component')
 

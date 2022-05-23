@@ -25,6 +25,7 @@ class CreateSettingSitesTable extends Migration
             $table->integer('postal_code');
             $table->string('logo_dark')->nullable();
             $table->string('logo_white')->nullable();
+            $table->string('favicon')->nullable();
             $table->text('media_social')->nullable();
             $table->text('banner_top')->nullable();
             $table->text('mission')->nullable();
