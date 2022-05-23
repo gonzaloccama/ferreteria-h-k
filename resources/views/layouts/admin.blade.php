@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>@stack('title') | Admin - Ferrotools</title>
+
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/logo/favicon.png') }}">
+
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="{{ asset('assets/admin/fontawesome/css/all.css') }}"/>
 
@@ -122,6 +124,44 @@
 
         .font-15 {
             font-size: 15px !important;
+        }
+
+        /*** CKeditor 5 ***/
+
+        .ck.ck-editor__main .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-focused.ck-editor__editable_inline::-webkit-scrollbar-track,
+        .ck.ck-editor__main .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-blurred.ck-editor__editable_inline::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            background-color: #b0b0b0;
+            border-radius: 10px;
+        }
+
+        .ck.ck-editor__main .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-focused.ck-editor__editable_inline::-webkit-scrollbar,
+        .ck.ck-editor__main .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-blurred.ck-editor__editable_inline::-webkit-scrollbar {
+            border-radius: 10px;
+            width: 5px;
+            height: 5px;
+            background-color: #b0b0b0;
+        }
+
+        .ck.ck-editor__main .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-focused.ck-editor__editable_inline::-webkit-scrollbar-thumb,
+        .ck.ck-editor__main .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-blurred.ck-editor__editable_inline::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: #53575a;
+        }
+
+        .ck.ck-editor__main,
+        .ck.ck-editor__main .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-focused.ck-editor__editable_inline,
+        .ck.ck-editor__main .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-blurred.ck-editor__editable_inline {
+            min-height: 120px !important;
+            max-height: 200px !important;
+        }
+
+        .ck.ck-button.ck-off {
+            color: #737373 !important;
+        }
+
+        .ck.ck-button.ck-off:hover {
+            color: #1D477A !important;
         }
 
     </style>

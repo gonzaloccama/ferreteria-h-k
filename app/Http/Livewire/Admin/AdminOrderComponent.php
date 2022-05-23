@@ -28,6 +28,8 @@ class AdminOrderComponent extends Component
 
     public $order;
 
+
+
     public $headers = [
         'id' => 'ID',
         'fullname' => 'Nombres',
@@ -35,6 +37,8 @@ class AdminOrderComponent extends Component
         'email' => 'Correo',
         'total' => 'Total',
         'status' => 'Estado',
+        'mode' => 'Pago',
+        'tstatus' => 'Est. pago',
         'created_at' => 'Recibido',
         'not' => '',
     ];
@@ -52,7 +56,7 @@ class AdminOrderComponent extends Component
 
     public function render()
     {
-        $rFormat = array_diff(array_keys($this->headers), array('not', 'fullname', 'created_at'));
+        $rFormat = array_diff(array_keys($this->headers), array('not', 'fullname', 'created_at', 'mode', 'tstatus'));
         $findIn = [];
         $table = 'orders';
 
@@ -68,7 +72,8 @@ class AdminOrderComponent extends Component
                 $query->orWhere(DB::raw("CONCAT(firstname, ' ', lastname)"), 'LIKE', '%' . $this->keyWord . '%');
             })
             ->select($table . '.*')
-            ->selectRaw('CONCAT(firstname," ",lastname) as fullname')
+            ->selectRaw('CONCAT(firstname," ",lastname) as fullname, transactions.mode, transactions.status as tstatus')
+            ->join('transactions', 'transactions.order_id', '=', $table . '.id')
             ->paginate($this->limit);
 
         $data['_title'] = 'Ordenes';
@@ -113,7 +118,7 @@ class AdminOrderComponent extends Component
                 $order->canceled_date = DB::raw('CURRENT_DATE');
             }
 
-            if ($order->save()){
+            if ($order->save()) {
                 $this->emit('notification', ['Se cambió el estado correctamente']);
             }
         }

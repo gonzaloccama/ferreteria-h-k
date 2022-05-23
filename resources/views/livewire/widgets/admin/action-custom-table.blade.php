@@ -5,16 +5,25 @@
         {{ $customs['txt'] }}
     </button>
     <div class="dropdown-menu">
-        @foreach($customs['actions'] as $key => $action)
-            @if($action)
-                <a class="dropdown-item {{ $key == $result[$customs['inputs']['two']] ? 'text-success' : '' }}"
-                   href="javascript:;"
-                   wire:click.prevent="{{ $action . '(' . $result[$customs['inputs']['one']] . ', "'. $key .'")' }}">
-                    <i class="simple-icon-arrow-right-circle"
-                       style="font-size: 18px; position: absolute;"></i>
-                    <span style="margin-left: 25px;">{{ ucfirst($key) }}</span>
-                </a>
-            @endif
-        @endforeach
+        @if($result->tstatus == 'approved')
+            @foreach($customs['actions'] as $key => $action)
+                @if($action)
+                    <a class="dropdown-item {{ $key == $result[$customs['inputs']['two']] ? 'text-success' : '' }}"
+                       href="javascript:;"
+                       wire:click.prevent="{{ $action . '(' . $result[$customs['inputs']['one']] . ', "'. $key .'")' }}">
+                        <i class="simple-icon-arrow-right-circle"
+                           style="font-size: 18px; position: absolute;"></i>
+                        <span style="margin-left: 25px;">{{ ucfirst($key) }}</span>
+                    </a>
+                @endif
+            @endforeach
+        @else
+            <a href="javascript:;" class=" dropdown-item text-danger">
+                <i class="simple-icon-info"
+                   style="font-size: 18px; position: absolute;"></i>
+                <span style="margin-left: 25px;">Aún no pagado</span>
+            </a>
+        @endif
+
     </div>
 </div>

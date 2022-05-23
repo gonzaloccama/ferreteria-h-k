@@ -28,7 +28,7 @@ class CreateProductsTable extends Migration
             $table->unsignedInteger('quantity')->default(10);
             $table->string('image')->nullable();
             $table->text('images')->nullable();
-            $table->string('brand_id')->nullable();
+            $table->unsignedInteger('brand_id')->nullable();
             $table->bigInteger('category_id')->unsigned()->nullable();
             $table->timestamps();
 

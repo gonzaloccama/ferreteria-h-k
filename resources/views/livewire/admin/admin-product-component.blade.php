@@ -123,7 +123,8 @@
 @push('scripts')
     <script src="{{ asset('assets/admin/js/vendor/jquery.contextMenu.min.js') }}"></script>
     <script src="{{ asset('assets/admin/js/vendor/select2.full.js') }}"></script>
-    <script src="{{ asset('assets/plugins/tinymce/tinymce.js') }}"></script>
+    <script src="{{ asset('assets/plugins/ckeditor5/ckeditor.js') }}"></script>
+    <script src="{{ asset('assets/plugins/ckeditor5/translations/es.js') }}"></script>
     {{--    <script src="https://cdn.tiny.cloud/1/5wluuwcotje5s8xdln9xow6hslx4jcmygiorj4w3smgsuamd/tinymce/5/tinymce.min.js"--}}
     {{--            referrerpolicy="origin"></script>--}}
 
@@ -141,15 +142,17 @@
                 tooltip_.tooltip('hide');
                 tooltip_.tooltip();
 
-                activeSelect2('.category_id', 'category_id');
+                activeSelect2('#category_id', 'category_id');
+                activeSelect2('#stock_status', 'stock_status');
+                activeSelect2('#featured', 'featured');
             });
 
             window.livewire.on('showModal', () => {
                 $('#showModal').modal('show');
                 activeSelect2('.category_id', 'category_id');
 
-                loadTinyMce('textarea.short_description', 'short_description');
-                loadTinyMce('textarea.description', 'description');
+                activeCkeditor('#short_description', 'short_description');
+                activeCkeditor('#description', 'description');
             });
 
             window.livewire.on('closeModal', () => {
@@ -168,32 +171,65 @@
         });
 
         function activeSelect2(sel, varModel) {
-            $(sel).select2();
+            $(sel).select2({
+                theme: "bootstrap",
+                // dir: direction,
+                placeholder: "Seleccione...",
+                maximumSelectionSize: 6,
+                containerCssClass: ":all:",
+                templateResult: formatOption,
+            });
             $(sel).on('change', function (e) {
                 @this.
                 set(varModel, e.target.value);
             });
+
+            function formatOption(option) {
+                var $option = $(
+                    '<strong>' + option.text + '</strong>'
+                );
+                return $option;
+            }
         }
 
-        function loadTinyMce(sel, varModel) {
-            tinymce.init({
-                selector: sel,
-                skin: "oxide-dark",
-                content_css: "dark",
-                // height: (window.innerHeight - 480),
-                forced_root_block: false,
-                setup: function (editor) {
-                    editor.on('init change', function () {
-                        // editor.setContent(value);
-                        editor.save();
+        function activeCkeditor(sel, varModel) {
+            if (typeof ClassicEditor !== "undefined") {
+                ClassicEditor
+                    .create(document.querySelector(sel), {
+                        // The language code is defined in the https://en.wikipedia.org/wiki/ISO_639-1 standard.
+                        language: 'es',
+                    })
+                    .then(editor => {
+                        // editor.setData('');
+                        editor.model.document.on('change:data', () => {
+                            @this.
+                            set(varModel, editor.getData());
+                        });
+                    })
+                    .catch(function (error) {
                     });
-                    editor.on('change', function (e) {
-                        @this.
-                        set(varModel, editor.getContent());
-                    });
-                },
-            });
+            }
         }
+
+        {{--function loadTinyMce(sel, varModel) {--}}
+        {{--    tinymce.init({--}}
+        {{--        selector: sel,--}}
+        {{--        skin: "oxide-dark",--}}
+        {{--        content_css: "dark",--}}
+        {{--        // height: (window.innerHeight - 480),--}}
+        {{--        forced_root_block: false,--}}
+        {{--        setup: function (editor) {--}}
+        {{--            editor.on('init change', function () {--}}
+        {{--                // editor.setContent(value);--}}
+        {{--                editor.save();--}}
+        {{--            });--}}
+        {{--            editor.on('change', function (e) {--}}
+        {{--                @this.--}}
+        {{--                set(varModel, editor.getContent());--}}
+        {{--            });--}}
+        {{--        },--}}
+        {{--    });--}}
+        {{--}--}}
 
     </script>
 @endpush
