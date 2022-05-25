@@ -71,7 +71,7 @@
                             @foreach($orderItems as $orderItem)
                                 <div class="single-comment justify-content-between d-flex">
                                     <div class="user justify-content-between d-flex">
-                                        <div class="thumb text-center">
+                                        <div class="thumb text-center" >
                                             @if(isset($orderItem->order->user->profile->image) && !empty($orderItem->order->user->profile->image))
                                                 <img
                                                     src="{{ asset('assets/images/profile/').'/'.$orderItem->order->user->profile->image }}"

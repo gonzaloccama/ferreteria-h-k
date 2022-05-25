@@ -25,6 +25,7 @@
                         'text' => 'Producto',
                         'required' => 1,
                         'type' => 'text',
+                        'keyup' => 'generateSlug',
                     ];
                     ?>
                     @include('livewire.widgets.admin.form.input-h', $dt)
@@ -234,10 +235,11 @@
                             </div>
                             <div wire:loading wire:target="image">Cargando...</div>
                             @error('image') <span
-                                class="error text-danger font-italic mt-1">{!! $message !!}</span><br> @enderror
+                                class="error text-danger font-italic mt-1">{!! $message !!}</span><br>
+                            @enderror
                             @if($image)
                                 <img src="{{ $image->temporaryUrl() }}"
-                                     class="list-thumbnail mt-2 border-0 shadow-sm" alt="" width="120"
+                                     class="list-thumbnail mt-2 border-0 shadow-sm" alt="" width="120">
                             @endif
                         </div>
                     </div>
@@ -264,20 +266,20 @@
                         </div>
                     </div>
 
-{{--                    <div class="form-group">--}}
-{{--                        <label>Categoria</label>--}}
+                    {{--                    <div class="form-group">--}}
+                    {{--                        <label>Categoria</label>--}}
 
-{{--                        <select placeholder="Category" wire:model="category_id"--}}
-{{--                                data-width="100%" class="form-control select2-single category_id">--}}
-{{--                            <option value="">Select Category</option>--}}
-{{--                            @foreach($categories as $category)--}}
-{{--                                <option value="{{ $category->id }}">{{ $category->name }}</option>--}}
-{{--                            @endforeach--}}
-{{--                        </select>--}}
+                    {{--                        <select placeholder="Category" wire:model="category_id"--}}
+                    {{--                                data-width="100%" class="form-control select2-single category_id">--}}
+                    {{--                            <option value="">Select Category</option>--}}
+                    {{--                            @foreach($categories as $category)--}}
+                    {{--                                <option value="{{ $category->id }}">{{ $category->name }}</option>--}}
+                    {{--                            @endforeach--}}
+                    {{--                        </select>--}}
 
-{{--                        @error('category_id') <span--}}
-{{--                            class="error text-danger font-italic mt-1">{!! $message !!}</span> @enderror--}}
-{{--                    </div>--}}
+                    {{--                        @error('category_id') <span--}}
+                    {{--                            class="error text-danger font-italic mt-1">{!! $message !!}</span> @enderror--}}
+                    {{--                    </div>--}}
 
                     <?php
                     $dt = [
@@ -286,6 +288,17 @@
                         'required' => 1,
                         'object' => 'name',
                         'options' => $categories,
+                    ];
+                    ?>
+                    @include('livewire.widgets.admin.form.select-h', $dt)
+
+                    <?php
+                    $dt = [
+                        'name' => 'brand_id',
+                        'text' => 'Marca',
+                        'required' => 1,
+                        'object' => 'name',
+                        'options' => \App\Models\Brand::all(),
                     ];
                     ?>
                     @include('livewire.widgets.admin.form.select-h', $dt)

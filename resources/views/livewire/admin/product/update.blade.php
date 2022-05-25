@@ -25,6 +25,7 @@
                         'text' => 'Producto',
                         'required' => 1,
                         'type' => 'text',
+                        'keyup' => 'generateSlug',
                     ];
                     ?>
                     @include('livewire.widgets.admin.form.input-h', $dt)
@@ -174,7 +175,7 @@
                         'required' => 1,
                         'object' => 'array',
                         'options' => [
-                            ['id' => 'Instock', 'name' => 'En stock'],
+                            ['id' => 'instock', 'name' => 'En stock'],
                             ['id' => 'outofstock', 'name' => 'Agotado'],
                         ],
                     ];
@@ -298,6 +299,17 @@
                         'required' => 1,
                         'object' => 'name',
                         'options' => $categories,
+                    ];
+                    ?>
+                    @include('livewire.widgets.admin.form.select-h', $dt)
+
+                    <?php
+                    $dt = [
+                        'name' => 'brand_id',
+                        'text' => 'Marca',
+                        'required' => 1,
+                        'object' => 'name',
+                        'options' => \App\Models\Brand::all(),
                     ];
                     ?>
                     @include('livewire.widgets.admin.form.select-h', $dt)

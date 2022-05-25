@@ -3,9 +3,13 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\OrderPayment;
+use App\Models\Transaction;
 use Carbon\Carbon;
 use DB;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
 class AdminOrderComponent extends Component
@@ -13,6 +17,7 @@ class AdminOrderComponent extends Component
     protected $listeners = ['activeConfirm' => 'delete'];
 
     use WithPagination;
+    use WithFileUploads;
 
     public $limit;
     public $orderBy;
@@ -28,7 +33,12 @@ class AdminOrderComponent extends Component
 
     public $order;
 
+    public $drawTransaction;
 
+    public $tStatus;
+    public $opAttachment;
+//    public $opAmount;
+//    public $opNote;
 
     public $headers = [
         'id' => 'ID',
@@ -78,6 +88,8 @@ class AdminOrderComponent extends Component
 
         $data['_title'] = 'Ordenes';
 
+        $this->emit('refresh');
+
         return view('livewire.admin.admin-order-component', $data)->layout('layouts.admin');
     }
 
@@ -116,12 +128,70 @@ class AdminOrderComponent extends Component
                 $order->completed_date = DB::raw('CURRENT_DATE');
             } elseif ($status == 'canceled') {
                 $order->canceled_date = DB::raw('CURRENT_DATE');
+                foreach ($order->orderItems as $item) {
+                    $item->product->quantity += $item->quantity;
+                    $item->product->save();
+                }
             }
 
             if ($order->save()) {
                 $this->emit('notification', ['Se cambió el estado correctamente']);
             }
         }
+    }
+
+    public function updateTransaction($id, $save = null)
+    {
+        $dt = Transaction::find($id);
+
+        if ($save) {
+            try {
+                $dt->status = $this->tStatus;
+                if ($dt->save()) {
+
+                    if ($this->tStatus == 'approved') {
+                        foreach ($dt->order->orderItems as $item) {
+                            $item->product->quantity -= $item->quantity;
+                            $item->product->save();
+                        }
+                    }
+
+                    $orderPay = new OrderPayment();
+
+                    if ($this->opAttachment) {
+                        $imageName = Carbon::now()->timestamp . '.' . $this->opAttachment->extension();
+                        $this->opAttachment->storeAs('vouchers', $imageName);
+                    }
+
+                    $orderPay->transaction_id = $dt->id;
+                    $orderPay->order_id = $dt->order->id;
+                    if ($this->opAttachment) {
+                        $orderPay->attachment = $imageName;
+                    }
+
+                    $orderPay->save();
+
+
+                    $this->emit('notification', ['El estado de transacción actualizada']);
+                    $this->closeTransaction();
+                }
+            }catch (\Exception $e){
+            }
+        } else {
+
+            $this->tStatus = $dt->status;
+            $this->drawTransaction = true;
+        }
+    }
+
+    public function closeTransaction()
+    {
+        $this->drawTransaction = null;
+        $this->tStatus = null;
+        $this->opAttachment = null;
+
+        $this->resetErrorBag();
+        $this->resetValidation();
     }
 
     public function deleteConfirm($id)
@@ -140,6 +210,7 @@ class AdminOrderComponent extends Component
     {
         $this->frame = null;
         $this->cleanItems();
+        $this->closeTransaction();
         $this->emit('closeModal');
     }
 

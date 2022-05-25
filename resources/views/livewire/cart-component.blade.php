@@ -192,12 +192,17 @@
                                             <td class="cart_total_label">IGV</td>
                                             <td class="cart_total_amount">
                                                 <span
-                                                    class="font-lg fw-900 text-brand">S/ {{ Cart::instance('cart')->tax() }}</span>
+                                                    class="font-lg fw-900 text-brand">
+                                                    {{ Cart::instance('cart')->tax() > 0 ? 'S/ ' . Cart::instance('cart')->tax() : 'Incluye' }}
+                                                </span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="cart_total_label">Envío</td>
-                                            <td class="cart_total_amount"><i class="ti-gift mr-5"></i> Envío gratis
+                                            <td class="cart_total_amount">
+                                                <span class="font-lg fw-900 text-brand">
+                                                    <i class="iconsminds-gift-box mr-5"></i> Envío gratis
+                                                </span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -219,7 +224,7 @@
                                 <a href="#" class="btn "
                                    wire:click.prevent="show_modal">
                                     <i class="fi-rs-box-alt mr-10"></i>
-                                    Solicitar compra</a>
+                                    Consultar compra</a>
                             </div>
                         </div>
                     </div>

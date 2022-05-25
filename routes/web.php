@@ -14,6 +14,7 @@ use App\Http\Livewire\Admin\AdminProductComponent;
 use App\Http\Livewire\Admin\AdminSaleComponent;
 use App\Http\Livewire\Admin\AdminSettingWebSite;
 use App\Http\Livewire\Admin\AdminUsersComponent;
+use App\Http\Livewire\BrandComponent;
 use App\Http\Livewire\CartComponent;
 use App\Http\Livewire\CategoryComponent;
 use App\Http\Livewire\CheckoutComponent;
@@ -55,6 +56,8 @@ Route::get('/checkout', CheckoutComponent::class)->name('checkout');
 Route::get('/product/{slug}', DetailsComponent::class)->name('product.details');
 
 Route::get('/product-category/{category_slug}', CategoryComponent::class)->name('product.category');
+
+Route::get('/product-brand', BrandComponent::class)->name('product.brand');
 
 Route::get('/search', SearchComponent::class)->name('product.search');
 

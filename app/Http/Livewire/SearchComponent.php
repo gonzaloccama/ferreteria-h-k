@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Sale;
 use App\Models\SettingSite;
+use Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Cart;
@@ -36,35 +37,29 @@ class SearchComponent extends Component
 
     public function render()
     {
-        if ($this->sorting === 'date') {
-            $data['products'] = Product::where('name', 'like', '%' . $this->search . '%')
-                ->whereBetween('regular_price', [$this->min_price, $this->max_price])
-                ->where('category_id', 'like', '%' . $this->product_cat_id . '%')
-                ->orderBy('created_at', 'DESC')
-                ->paginate($this->page_size);
-        } elseif ($this->sorting === 'price') {
-            $data['products'] = Product::where('name', 'like', '%' . $this->search . '%')
-                ->whereBetween('regular_price', [$this->min_price, $this->max_price])
-                ->where('category_id', 'like', '%' . $this->product_cat_id . '%')
-                ->orderBy('regular_price', 'ASC')
-                ->paginate($this->page_size);
-        } elseif ($this->sorting === 'price-desc') {
-            $data['products'] = Product::where('name', 'like', '%' . $this->search . '%')
-                ->whereBetween('regular_price', [$this->min_price, $this->max_price])
-                ->where('category_id', 'like', '%' . $this->product_cat_id . '%')
-                ->orderBy('regular_price', 'DESC')
-                ->paginate($this->page_size);
-        } else {
-            $data['products'] = Product::where('name', 'like', '%' . $this->search . '%')
-                ->whereBetween('regular_price', [$this->min_price, $this->max_price])
-                ->where('category_id', 'like', '%' . $this->product_cat_id . '%')
-                ->orderBy('name')
-                ->paginate($this->page_size);
-        }
+        $data['products'] = Product::where('name', 'like', '%' . $this->search . '%')
+            ->whereBetween('regular_price', [$this->min_price, $this->max_price])
+            ->where('category_id', 'like', '%' . $this->product_cat_id . '%')
+            ->when($this->sorting === 'date', function ($query) {
+                $query->orderBy('created_at', 'DESC');
+            })->when($this->sorting === 'price', function ($query) {
+                $query->orderBy('regular_price', 'ASC');
+            })->when($this->sorting === 'price-desc', function ($query) {
+                $query->orderBy('regular_price', 'DESC');
+            })->when($this->sorting === 'default', function ($query) {
+                $query->orderBy('name');
+            })
+            ->paginate($this->page_size);
+
 
         $data['categories'] = Category::all();
         $data['lproducts'] = Product::orderBy('created_at', 'DESC')->get()->take(5);
         $data['sale'] = Sale::find(1);
+
+        if (Auth::check()) {
+            Cart::instance('cart')->store(Auth::user()->email);
+            Cart::instance('wishlist')->store(Auth::user()->email);
+        }
 
         $data['title'] = $this->search;
 

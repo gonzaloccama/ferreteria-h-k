@@ -1,4 +1,4 @@
-<div>
+
     @php
         $witems = Cart::instance('wishlist')->content()->pluck('id');
     @endphp
@@ -93,7 +93,7 @@
             </div>
         </div>
     </section>
-</div>
+
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/plugins/video.js/video-js.min.css') }}">

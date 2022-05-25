@@ -145,6 +145,7 @@
                 activeSelect2('#category_id', 'category_id');
                 activeSelect2('#stock_status', 'stock_status');
                 activeSelect2('#featured', 'featured');
+                activeSelect2('#brand_id', 'brand_id');
             });
 
             window.livewire.on('showModal', () => {

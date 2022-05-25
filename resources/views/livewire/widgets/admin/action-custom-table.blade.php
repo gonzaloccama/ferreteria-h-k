@@ -1,5 +1,5 @@
 <div class="btn-group dropleft">
-    <button type="button" class="btn btn-secondary btn-xs dropdown-toggle"
+    <button type="button" class="btn btn-secondary btn-xs dropdown-toggle rounded-0"
             style="border-radius: 0px 15px 15px 0px"
             data-toggle="dropdown" aria-expanded="false">
         {{ $customs['txt'] }}

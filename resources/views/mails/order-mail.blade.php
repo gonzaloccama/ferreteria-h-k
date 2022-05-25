@@ -7,6 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Confirmación de Orden | {{ config('app.name', 'Laravel') }}</title>
     <style>
+        @import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Yantramanav:wght@300;400;500;700;900&display=swap");
+
+        a {
+            text-decoration: none !important;
+        }
 
         .row {
             display: -ms-flexbox;
@@ -80,6 +85,33 @@
             background-color: #fff !important;
         }
 
+        .align-middle {
+            vertical-align: middle !important;
+        }
+
+        .img-thumbnail {
+            padding: 0.25rem;
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 0.25rem;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .box {
+            display: flex !important;
+            align-items: center !important;
+        }
+
+        .box span {
+            padding: 10px !important;
+        }
+
+
+        .rajdhani {
+            font-family: 'Rajdhani' !important;
+        }
+
         /*# sourceMappingURL=bootstrap.min.css.map */
         #invoice {
             padding: 30px;
@@ -99,11 +131,12 @@
         }
 
         .invoice .company-details {
-            text-align: right
+            text-align: right;
+            margin-top: -80px !important;
         }
 
         .invoice .company-details .name {
-            margin-top: 0;
+            margin-top: -10px !important;
             margin-bottom: 0
         }
 
@@ -157,7 +190,7 @@
 
         .invoice table td, .invoice table th {
             padding: 15px;
-            background: #eee;
+            background: #eaeaea;
             border-bottom: 1px solid #fff
         }
 
@@ -171,27 +204,27 @@
             margin: 0;
             font-weight: 400;
             color: #3989c6;
-            font-size: 1.2em
+            font-size: 1.4em
         }
 
         .invoice table .qty, .invoice table .total, .invoice table .unit {
             text-align: right;
-            font-size: 1.2em
+            font-size: 1.3em
         }
 
         .invoice table .no {
-            color: #fff;
-            font-size: 1.6em;
-            background: #3989c6
+            color: #5a5a5a;
+            font-size: 1.3em;
+            background: #eaeaea
         }
 
         .invoice table .unit {
-            background: #ddd
+            background: #eaeaea
         }
 
         .invoice table .total {
-            background: #3989c6;
-            color: #fff
+            background: #eaeaea;
+            color: #5a5a5a
         }
 
         .invoice table tbody tr:last-child td {
@@ -204,7 +237,7 @@
             white-space: nowrap;
             text-align: right;
             padding: 10px 20px;
-            font-size: 1.2em;
+            font-size: 1.4em;
             border-top: 1px solid #aaa
         }
 
@@ -266,13 +299,15 @@
                     <div class="col">
                         <a target="_blank" href="{{ route('home') }}">
                             <img
-                                src="https://imgcorp.com/dominate/home/img/img-logo.png" alt="Ferretols"
-                                data-holder-rendered="true" class="img-fluid mt-0" style="margin-top: -50px"/>
+                                src="{{ asset('assets/images/logo/logo.png') }}" alt="Ferretols"
+                                data-holder-rendered="true" class="img-fluid mt-0"
+                                style="margin-top: -40px; width: 180px !important;"/>
                         </a>
                     </div>
-                    <div class="col company-details pt-4">
+                    <div class="col company-details">
                         <h2 class="name">
-                            <a target="_blank" href="{{ route('home') }}">
+                            <a target="_blank" href="{{ route('home') }}"
+                               style="font-size: 30px !important; font-weight: 300 !important; letter-spacing: -1px">
                                 {{ $system->name }}
                             </a>
                         </h2>
@@ -285,14 +320,17 @@
             <main>
                 <div class="row contacts">
                     <div class="col invoice-to">
-                        <div class="text-gray">FACTURA A:</div>
-                        <h2 class="to">{{ $order->firstname }} {{ $order->lastname }}</h2>
+                        <div class="text-gray" style="color: #8b8b8b; font-size: 20px !important;">Recibo:</div>
+                        <h2 class="to"
+                            style="color: #8b8b8b; font-size: 20px">{{ $order->firstname }} {{ $order->lastname }}</h2>
                         <div class="address">{{ $order->line1 }}, {{ $order->city }}, {{ $order->province }}
                             - {{ $order->region }}</div>
                         <div class="email"><a href="mailto:{{ $order->email }}">{{ $order->email }}</a></div>
                     </div>
                     <div class="col invoice-details">
-                        <h1 class="invoice-id">FACTURA Nro 0004556</h1>
+                        <h1 class="invoice-id" style="font-weight: 400 !important;">
+                            Recibo N° {{ str_pad($order->id, 6, '0', STR_PAD_LEFT) }}
+                        </h1>
                         <div class="date">Fecha de la factura: {{ \Carbon\Carbon::today()->format('d/m/Y') }}</div>
                         {{--                        <div class="date">Due Date: {{ \Carbon\Carbon::today()->format('d/m/Y') }}</div>--}}
                     </div>
@@ -317,45 +355,56 @@
                             <td class="text-left bg-white">
                                 <h3>
                                     <a target="_blank" href="#">
-                                        <img src="{{ asset('assets/images/products').'/'.$item->product->image }}"
-                                             width="100" class="img-fluid"
-                                             alt="{{ $item->product->name }}">
-                                        <span style="font-size: 16px !important;">
-                                            {{ $item->product->name }}
-                                        </span>
+                                        {{--                                        <img src="{{ asset('assets/images/products').'/'.$item->product->image }}"--}}
+                                        {{--                                             width="100" class="img-fluid"--}}
+                                        {{--                                             alt="{{ $item->product->name }}">--}}
+                                        {{--                                        <span style="font-size: 16px !important;">--}}
+                                        {{--                                            {{ $item->product->name }}--}}
+                                        {{--                                        </span>--}}
+
+
+                                        <div class="box">
+                                            <img src="{{ asset('assets/images/products').'/'.$item->product->image }}"
+                                                 style="float: left;" width="50" class="img-fluid img-thumbnail"
+                                                 alt="{{ $item->product->name }}">
+                                            <span>{{ $item->product->name }}</span>
+                                        </div>
+
+
                                     </a>
                                 </h3>
                             </td>
-                            <td class="bg-white">{{ 'S/' . number_format($item->price, 2, '.', ',') }}</td>
-                            <td class="bg-white">x{{ $item->quantity }}</td>
+                            <td class="unit">{{ 'S/' . number_format($item->price, 2, '.', ',') }}</td>
+                            <td class="bg-white" style="text-align: center">x{{ $item->quantity }}</td>
                             <td class="total"
                                 style="font-size: 16px !important;">{{ 'S/' . number_format($item->quantity * $item->price, 2, '.', ',') }}</td>
                         </tr>
                     @endforeach
                     </tbody>
                     <tfoot>
-                    <tr>
+                    <tr style="color: #8b8b8b">
                         <td colspan="2"></td>
                         <td colspan="2">SUBTOTAL</td>
                         <td>S/ {{ number_format($order->subtotal, 2, '.', ',') }}</td>
                     </tr>
-                    {{--                    <tr>--}}
-                    {{--                        <td colspan="2"></td>--}}
-                    {{--                        <td colspan="2">TAX 25%</td>--}}
-                    {{--                        <td>$1,300.00</td>--}}
-                    {{--                    </tr>--}}
-                    <tr>
+                    <tr style="color: #8b8b8b">
                         <td colspan="2"></td>
-                        <td colspan="2">TOTAL</td>
-                        <td>S/ {{ number_format($order->total, 2, '.', ',') }}</td>
+                        <td colspan="2">IGV</td>
+                        <td>{{ $order->tax > 0 ? 'S/ ' . number_format($order->tax, 2, '.', ',') : 'Incluye' }}</td>
+                    </tr>
+                    <tr style="color: #3989c6">
+                        <td colspan="2"></td>
+                        <td colspan="2" style="font-size: 1.6em">TOTAL</td>
+                        <td style="font-size: 1.6em">
+                            S/ {{ number_format($order->total, 2, '.', ',') }}</td>
                     </tr>
                     </tfoot>
                 </table>
-                <div class="thanks">Thank you!</div>
-                <div class="notices">
-                    <div>NOTICE:</div>
-                    <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
-                </div>
+                {{--                <div class="thanks">Thank you!</div>--}}
+                {{--                <div class="notices">--}}
+                {{--                    <div>NOTICE:</div>--}}
+                {{--                    <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>--}}
+                {{--                </div>--}}
             </main>
             {{--            <footer>--}}
             {{--                Invoice was created on a computer and is valid without the signature and seal.--}}

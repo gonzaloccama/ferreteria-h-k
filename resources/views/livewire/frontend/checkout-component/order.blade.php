@@ -40,7 +40,9 @@
                     </tr>
                     <tr>
                         <th>IGV</th>
-                        <td colspan="2" class="product-subtotal"><em>S/ {{ Session::get('checkout')['tax'] }}</em></td>
+                        <td colspan="2" class="product-subtotal"><em>
+                                {{ Session::get('checkout')['tax'] > 0 ? 'S/ ' . Session::get('checkout')['tax'] : 'Incluye'  }}
+                            </em></td>
                     </tr>
                     <tr>
                         <th>Total</th>
@@ -58,6 +60,42 @@
                 @include('livewire.frontend.checkout-component.credit-cart')
             @endif
 
+            @if($paymentMode == 'digitalWallet')
+                <div class="payment_method pt-20">
+                    <div class="mb-25">
+                        <h5>Billetera digital</h5>
+                    </div>
+
+
+                    <div class="card shadow p-30 mb-30">
+                        <span>Yape</span>
+                        <div class="icons">
+                            <img src="{{ asset('assets/images/walllet/yape.png') }}" width="30">
+                        </div>
+<div class="text-center">
+                       <img src="{{ asset('assets/images/walllet/qr.jpeg') }}" alt="" width="170">
+</div>
+                    </div>
+                </div>
+            @endif
+
+            @if($paymentMode == 'bankTranfer')
+                <div class="payment_method pt-20">
+                    <div class="mb-25">
+                        <h5>Transferencia bancaria</h5>
+                    </div>
+
+                    <div class="card shadow p-30 mb-30">
+                        <span>BCP</span>
+                        <div class="icons">
+                            <img src="{{ asset('assets/images/walllet/bcp.png') }}" width="30">
+                        </div>
+
+                        <p><strong>Nro. de Cuenta:</strong> 415789635789314</p>
+                    </div>
+                </div>
+            @endif
+
 
             <div wire:loading wire:target="placeOrder">
                 <button type="button" class="btn " disabled>
@@ -71,14 +109,21 @@
                 </button>
             </div>
 
-
-            @if(Session::has('stripe_error'))
+            @if(Session::has('error'))
                 <div class="alert alert-danger alert-dismissible fade show mt-30" role="alert">
                     <button type="button" class="btn-close " data-bs-dismiss="alert"
                             aria-label="Close"></button>
-                    <strong>Mensaje:</strong> {{ Session::get('stripe_error') }}
+                    <strong>Mensaje:</strong> {{ Session::get('error') }}
                 </div>
             @endif
+            @error('paymentMode')
+            <div class="alert alert-danger alert-dismissible fade show mt-30" role="alert">
+                <button type="button" class="btn-close " data-bs-dismiss="alert"
+                        aria-label="Close"></button>
+                <strong>Mensaje:</strong> Debe seleccionar el metodo de pago.
+            </div>
+            @enderror
+
         </div>
     @endif
 </div>

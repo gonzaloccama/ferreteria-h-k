@@ -201,7 +201,7 @@
                                                 style="background-color: var(--st-patricks-blue); border-radius: 0; margin-top: 2px;">
                                                 @foreach($menu->children as $smenu)
                                                     <li>
-                                                        <a class="text-white
+                                                        <a class="
                                                         {{ $smenu->is_route == '1' ? route($smenu->route) === url()->current()? 'active':'' : '' }}"
                                                            href="{{ route($smenu->route) }}">{{ $smenu->name }}</a>
                                                     </li>

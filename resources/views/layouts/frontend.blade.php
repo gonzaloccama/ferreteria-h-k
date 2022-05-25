@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>@stack('title') | Ferrotools</title>
+    <title>@stack('title') | {{ config('app.name', 'Laravel') }}</title>
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -105,7 +105,7 @@
             color: #e3e3e3 !important;
             font-family: 'Rajdhani' !important;
             font-size: 16px !important;
-            font-weight: 500 !important;
+            font-weight: 550 !important;
             text-transform: uppercase !important;
             /*padding-left: 20px;*/
             /*padding-right: 20px;*/
@@ -121,18 +121,6 @@
         /*    border-bottom: 1px solid #fff;*/
         /*}*/
 
-
-        .icon-user {
-            border: 1px solid var(--st-patricks-blue);
-            padding: 5px 5px 2px 5px;
-            border-radius: 25px;
-            box-shadow: 0 0 1px 0 var(--st-patricks-blue);
-        }
-
-        .mini-cart-icon svg {
-            fill: #fff !important;
-        }
-
         .menu-ecommerce li a::after {
             content: "";
             display: block !important;
@@ -146,10 +134,142 @@
 
         .menu-ecommerce li a:hover::after, li > a.active::after {
             width: 100% !important;
-            background: #ffffff !important;
+            background: #e3e3e3 !important;
         }
 
+        .icon-user {
+            border: 1px solid var(--st-patricks-blue);
+            padding: 5px 5px 2px 5px;
+            border-radius: 25px;
+            box-shadow: 0 0 1px 0 var(--st-patricks-blue);
+        }
 
+        .mini-cart-icon svg {
+            fill: #fff !important;
+        }
+
+        /*** noViSlider ***/
+        .slider.noUi-target.noUi-ltr.noUi-horizontal {
+            /*height: 10px !important;*/
+            border-color: rgba(255, 255, 255, 0) !important;
+            border-radius: 50px !important;
+            background-color: rgba(255, 255, 255, 0) !important;
+            margin: 0 38px 0 3px !important;
+            box-shadow: none !important;
+        }
+
+        /*.noUi-handle.noUi-handle-lower {*/
+        /*    margin-top: -4px !important;*/
+        /*    border: none !important;*/
+        /*    background-color: #1D477A;*/
+        /*    width: 32px !important;*/
+        /*    height: 26px !important;*/
+        /*    box-shadow: 0 0 2px 0 rgba(152, 152, 152, 0.79) !important;*/
+        /*}*/
+
+        /*.noUi-tooltip {*/
+        /*    height: 28px !important;*/
+        /*    color: #1D477A !important;*/
+        /*    font-weight: 700 !important;*/
+        /*}*/
+
+        .noUi-target {
+            height: 15px;
+            border: none;
+            margin: 40px 0 0 0;
+        }
+
+        .noUi-target .noUi-base {
+            background: linear-gradient(117deg, var(--y-in-mn-blue) 0, var(--blue-gray) 100%);
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .noUi-target .noUi-base .noUi-connect {
+            background: var(--st-patricks-blue);
+        }
+
+        .noUi-target .noUi-base .noUi-tooltip {
+            bottom: -35px;
+            color: var(--st-patricks-blue);
+            border: none;
+            outline: none;
+            box-shadow: 0 0 1px 0 var(--y-in-mn-blue);
+            padding: 2px 8px 3px 8px;
+            opacity: 0.82;
+            font-weight: bold;
+            border-radius: 6px;
+        }
+
+        .noUi-handle.noUi-handle-lower {
+            background: var(--st-patricks-blue);
+            border-radius: 20px;
+            width: 30px;
+            height: 30px;
+            outline: none;
+            /*right: 0px;*/
+            top: -8px;
+            cursor: pointer;
+            box-shadow: none;
+            border: 3px solid #ffffff;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .noUi-handle.noUi-handle-lower.noUi-active {
+            -webkit-transform: scale(1.2);
+            -moz-transform: scale(1.2);
+            -o-transform: scale(1.2);
+            -ms-transform: scale(1.2);
+            transform: scale(1.2);
+        }
+
+        .noUi-handle.noUi-handle-lower::before, .noUi-handle.noUi-handle-lower::after {
+            display: none;
+        }
+
+        .noUi-handle.noUi-handle-lower .noUi-touch-area {
+            width: 30px;
+            height: 30px;
+        }
+
+        /****/
+        .noUi-handle.noUi-handle-upper {
+            background: var(--st-patricks-blue);
+            border-radius: 20px;
+            width: 30px;
+            height: 30px;
+            outline: none;
+            /*right: 0px;*/
+            top: -8px;
+            cursor: pointer;
+            box-shadow: none;
+            border: 3px solid #ffffff;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .noUi-handle.noUi-handle-upper.noUi-active {
+            -webkit-transform: scale(1.2);
+            -moz-transform: scale(1.2);
+            -o-transform: scale(1.2);
+            -ms-transform: scale(1.2);
+            transform: scale(1.2);
+        }
+
+        .noUi-handle.noUi-handle-upper::before, .noUi-handle.noUi-handle-upper::after {
+            display: none;
+        }
+
+        .noUi-handle.noUi-handle-upper .noUi-touch-area {
+            width: 30px;
+            height: 30px;
+        }
     </style>
 
     <style>
@@ -408,6 +528,37 @@ $website = App\Models\SettingSite::find(1);
     </div>
 </div>
 <!-- Vendor JS-->
+
+<!-- Messenger Chat Plugin Code -->
+<div id="fb-root" style="margin-bottom: 0px !important;"></div>
+
+<!-- Your Chat Plugin code -->
+<div id="fb-customer-chat" class="fb-customerchat">
+</div>
+
+<script>
+    var chatbox = document.getElementById('fb-customer-chat');
+    chatbox.setAttribute("page_id", "2202093920029853");
+    chatbox.setAttribute("attribution", "biz_inbox");
+</script>
+
+<!-- Your SDK code -->
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            xfbml            : true,
+            version          : 'v13.0'
+        });
+    };
+
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/es_ES/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
 
 @livewireScripts
 

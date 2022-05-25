@@ -34,6 +34,7 @@ class AdminProductComponent extends Component
     public $image;
     public $images;
     public $category_id;
+    public $brand_id;
 
     public $limit;
     public $orderBy;
@@ -196,6 +197,7 @@ class AdminProductComponent extends Component
         $product->image = $imageName;
         $product->images = json_encode($imagesName);
         $product->category_id = $this->category_id;
+        $product->brand_id = $this->brand_id;
 
 
         $product->save();
@@ -226,6 +228,7 @@ class AdminProductComponent extends Component
         $this->image_edit = $product->image;
         $this->images_edit = json_decode($product->images);
         $this->category_id = $product->category_id;
+        $this->brand_id = $product->brand_id;
         $this->product_id = $product->id;
 
         $this->emit('showModal');
@@ -286,6 +289,7 @@ class AdminProductComponent extends Component
             $product->image = (isset($imageName) && !empty($imageName)) ? $imageName : $product->image;
             $product->images = (isset($imagesName) && !empty($imagesName)) ? json_encode($imagesName) : $product->images;
             $product->category_id = $this->category_id;
+            $product->brand_id = $this->brand_id;
 
             $product->save();
 

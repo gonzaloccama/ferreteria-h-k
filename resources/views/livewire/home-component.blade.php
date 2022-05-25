@@ -7,7 +7,7 @@
         $witems = Cart::instance('wishlist')->content()->pluck('id');
     @endphp
 
-    <section class="home-slider position-relative mb-30 mt-0 pt-0" style="background-color: var(--st-patricks-blue);"
+    <section class="home-slider position-relative mt-0 pt-0" style="background-color: var(--st-patricks-blue);"
              wire:ignore>
         <div class="container">
             <div class="home-slide-cover  mt-0">
@@ -20,8 +20,9 @@
                                         <div class="hero-slider-content-2">
                                             <h4 class="animated text-white">{!! $slider->title !!}</h4>
                                             <h3 class="animated fw-900 text-white">{!! $slider->subtitle !!}</h3>
-                                            <h2 class="animated pt-1 pb-1 fw-900 text-7-a">
-                                                S/ {!! $slider->price !!}</h2></h2>
+                                            <h2 class="animated pt-1 pb-1 fw-900 text-7-a"
+                                                style="color: #FFA900 !important;">
+                                                S/ {!! $slider->price !!}</h2>
                                             {{--                                            <p class="animated">Save more with coupons & up to 70% off</p>--}}
                                             <a class="animated btn btn-brush btn-brush-2 pb-4 text-white"
                                                href="{{ URL::to('/').'/'.$slider->link }}"
@@ -140,108 +141,226 @@
         </section>
     @endif
 
-    <section class="banners mb-15 mt-25" wire:ignore>
-        <div class="container">
-            <div class="card">
-                <div class="col-md-12 pl-20 pt-20 pb-15" style="background-color: var(--st-patricks-blue);">
-                    <h3 class="section-title text-white">
-                        <span>RECIEN </span> LLEGADOS
-                    </h3>
-                </div>
+    @if(0)
+        <section class="banners mb-15 mt-25" wire:ignore>
+            <div class="container">
+                <div class="card">
+                    <div class="col-md-12 pl-20 pt-20 pb-15" style="background-color: var(--st-patricks-blue);">
+                        <h3 class="section-title text-white">
+                            <span>RECIEN </span> LLEGADOS
+                        </h3>
+                    </div>
 
 
-                <div class="col-12">
-                    <div class="banner-bg wow fadeIn animated img-banner"
-                         style="background-image: url('{{ asset('assets/images/banner-1.jpg') }}');">
-                        <div class="banner-content" style="position: relative">
-                            {{--                            <h5 class="text-white mb-15">Shop Today’s Deals</h5>--}}
-                            {{--                            <h2 class="fw-600 text-white">Happy <span class="text-brand text-white">Mother's Day</span>.--}}
-                            {{--                                Big Sale Up to 40%--}}
-                            {{--                            </h2>--}}
+                    <div class="col-12">
+                        <div class="banner-bg wow fadeIn animated img-banner"
+                             style="background-image: url('{{ asset('assets/images/banner-1.jpg') }}');">
+                            <div class="banner-content" style="position: relative">
+                                {{--                            <h5 class="text-white mb-15">Shop Today’s Deals</h5>--}}
+                                {{--                            <h2 class="fw-600 text-white">Happy <span class="text-brand text-white">Mother's Day</span>.--}}
+                                {{--                                Big Sale Up to 40%--}}
+                                {{--                            </h2>--}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container wow fadeIn animated pb-10">
+                        <div class="carausel-6-columns-cover position-relative">
+                            <div class="slider-arrow slider-arrow-2 carausel-6-columns-arrow"
+                                 id="carausel-new-columns-2-arrows"></div>
+                            <div class="carausel-new-columns carausel-arrow-center" id="carausel-new-columns-2">
+                                @foreach($lproducts as $product)
+                                    <div class="product-cart-wrap small hover-up">
+                                        <div class="product-img-action-wrap">
+                                            <div class="product-img product-img-zoom">
+                                                <a href="{{ route('product.details', ['slug' => $product->slug]) }}">
+                                                    <img class="default-img"
+                                                         src="{{ asset('assets/images/products/').'/'.$product->image }}"
+                                                         alt="">
+                                                    <img class="hover-img"
+                                                         src="{{ asset('assets/images/products/').'/'.$product->image }}"
+                                                         alt="">
+                                                </a>
+                                            </div>
+                                            <div class="product-action-1">
+                                                <a aria-label="Quick view" class="action-btn small hover-up"
+                                                   data-bs-toggle="modal"
+                                                   data-bs-target="#quickViewModal">
+                                                    <i class="fi-rs-eye"></i></a>
+                                                @if($witems->contains($product->id))
+                                                    <a aria-label="Add To Wishlist"
+                                                       class="action-btn small hover-up product-wish"
+                                                       wire:click.prevent="removeFromWishlist({{$product->id}})"
+                                                       href="javascript:;" tabindex="0">
+                                                        <i class="fi-rs-heart"></i>
+                                                    </a>
+                                                @else
+                                                    <a aria-label="Add To Wishlist"
+                                                       class="action-btn small hover-up"
+                                                       wire:click.prevent="addToWishlist({{$product->id}}, '{{$product->name}}', {{$product->regular_price}})"
+                                                       href="javascript:;" tabindex="0">
+                                                        <i class="fi-rs-heart"></i>
+                                                    </a>
+                                                @endif
+                                                {{--                                            <a aria-label="Compare" class="action-btn small hover-up"--}}
+                                                {{--                                               href="shop-compare.html"--}}
+                                                {{--                                                                                   tabindex="0"><i class="fi-rs-shuffle"></i></a>--}}
+                                            </div>
+                                            <div class="product-action-1 show">
+                                                <a aria-label="Add To Cart" class="action-btn hover-up"
+                                                   wire:click.prevent="store({{$product->id}}, '{{$product->name}}', {{($product->sale_price > 0 && $_sale)?$product->sale_price:$product->regular_price}})"
+                                                   href="javascript:;"><i class="fi-rs-shopping-bag-add"></i></a>
+                                            </div>
+                                            <div class="product-badges product-badges-position product-badges-mrg">
+                                                @if($product->sale_price > 0 && $_sale)
+                                                    <span class="hot bg-danger">En oferta</span>
+                                                @else
+                                                    <span class="new bg-success">Nuevo producto</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="product-content-wrap">
+                                            <div class="product-category">
+                                                <a href="shop-grid-right.html">{{ $product->category->name }}</a>
+                                            </div>
+                                            <h2>
+                                                <a href="{{ route('product.details', ['slug' => $product->slug]) }}">{{ $product->name }}</a>
+                                            </h2>
+                                            <div class="rating-result" title="90%">
+
+                                            </div>
+                                            <div class="product-price">
+                                                @if($product->sale_price > 0 && $_sale)
+                                                    <span>S/ {{ $product->sale_price }}</span>
+                                                    <span class="old-price">S/ {{ $product->regular_price }}</span>
+                                                @else
+                                                    <span>S/ {{ $product->regular_price }}</span>
+                                                @endif
+                                                {{--                                        <span class="old-price">S/ {{ $product->regular_price }}</span>--}}
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <!--End product-cart-wrap-2-->
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="container wow fadeIn animated pb-10">
-                    <div class="carausel-6-columns-cover position-relative">
-                        <div class="slider-arrow slider-arrow-2 carausel-6-columns-arrow"
-                             id="carausel-new-columns-2-arrows"></div>
-                        <div class="carausel-new-columns carausel-arrow-center" id="carausel-new-columns-2">
-                            @foreach($lproducts as $product)
-                                <div class="product-cart-wrap small hover-up">
-                                    <div class="product-img-action-wrap">
-                                        <div class="product-img product-img-zoom">
-                                            <a href="{{ route('product.details', ['slug' => $product->slug]) }}">
-                                                <img class="default-img"
-                                                     src="{{ asset('assets/images/products/').'/'.$product->image }}"
-                                                     alt="">
-                                                <img class="hover-img"
-                                                     src="{{ asset('assets/images/products/').'/'.$product->image }}"
-                                                     alt="">
-                                            </a>
-                                        </div>
-                                        <div class="product-action-1">
-                                            <a aria-label="Quick view" class="action-btn small hover-up"
-                                               data-bs-toggle="modal"
-                                               data-bs-target="#quickViewModal">
-                                                <i class="fi-rs-eye"></i></a>
-                                            @if($witems->contains($product->id))
-                                                <a aria-label="Add To Wishlist"
-                                                   class="action-btn small hover-up product-wish"
-                                                   wire:click.prevent="removeFromWishlist({{$product->id}})"
-                                                   href="javascript:;" tabindex="0">
-                                                    <i class="fi-rs-heart"></i>
-                                                </a>
-                                            @else
-                                                <a aria-label="Add To Wishlist"
-                                                   class="action-btn small hover-up"
-                                                   wire:click.prevent="addToWishlist({{$product->id}}, '{{$product->name}}', {{$product->regular_price}})"
-                                                   href="javascript:;" tabindex="0">
-                                                    <i class="fi-rs-heart"></i>
-                                                </a>
-                                            @endif
-                                            {{--                                            <a aria-label="Compare" class="action-btn small hover-up"--}}
-                                            {{--                                               href="shop-compare.html"--}}
-                                            {{--                                                                                   tabindex="0"><i class="fi-rs-shuffle"></i></a>--}}
-                                        </div>
-                                        <div class="product-action-1 show">
-                                            <a aria-label="Add To Cart" class="action-btn hover-up"
-                                               wire:click.prevent="store({{$product->id}}, '{{$product->name}}', {{($product->sale_price > 0 && $_sale)?$product->sale_price:$product->regular_price}})"
-                                               href="javascript:;"><i class="fi-rs-shopping-bag-add"></i></a>
-                                        </div>
-                                        <div class="product-badges product-badges-position product-badges-mrg">
-                                            @if($product->sale_price > 0 && $_sale)
-                                                <span class="hot bg-danger">En oferta</span>
-                                            @else
-                                                <span class="new bg-success">Nuevo producto</span>
-                                            @endif
-                                        </div>
+            </div>
+        </section>
+    @endif
+
+
+    <section class="bg-grey-9 section-padding">
+        <div class="container">
+            <div class="bestsell-pro card">
+                <div>
+                    <div class="slider-items-products">
+                        <div class="bestsell-block" wire:ignore>
+                            <div class="block-title">
+                                <h2><span>RECIEN </span> LLEGADOS</h2>
+                            </div>
+                            <div class="col-12">
+                                <div class="banner-bg wow fadeIn animated img-banner"
+                                     style="background-image: url('{{ asset('assets/images/banner-1.jpg') }}');">
+                                    <div class="banner-content" style="position: relative">
+                                        {{--                            <h5 class="text-white mb-15">Shop Today’s Deals</h5>--}}
+                                        {{--                            <h2 class="fw-600 text-white">Happy <span class="text-brand text-white">Mother's Day</span>.--}}
+                                        {{--                                Big Sale Up to 40%--}}
+                                        {{--                            </h2>--}}
                                     </div>
-                                    <div class="product-content-wrap">
-                                        <div class="product-category">
-                                            <a href="shop-grid-right.html">{{ $product->category->name }}</a>
-                                        </div>
-                                        <h2>
-                                            <a href="{{ route('product.details', ['slug' => $product->slug]) }}">{{ $product->name }}</a>
-                                        </h2>
-                                        <div class="rating-result" title="90%">
-
-                                        </div>
-                                        <div class="product-price">
-                                            @if($product->sale_price > 0 && $_sale)
-                                                <span>S/ {{ $product->sale_price }}</span>
-                                                <span class="old-price">S/ {{ $product->regular_price }}</span>
-                                            @else
-                                                <span>S/ {{ $product->regular_price }}</span>
-                                            @endif
-                                            {{--                                        <span class="old-price">S/ {{ $product->regular_price }}</span>--}}
-                                        </div>
-
-                                    </div>
-
                                 </div>
+                            </div>
+                            <div class="container wow fadeIn animated pb-10">
+                                <div class="carausel-6-columns-cover position-relative">
+                                    <div class="slider-arrow slider-arrow-2 carausel-6-columns-arrow"
+                                         id="carausel-new-columns-2-arrows"></div>
+                                    <div class="carausel-new-columns carausel-arrow-center pt-20 pb-15"
+                                         id="carausel-new-columns-2">
+                                        @foreach($lproducts as $product)
+                                            <div class="product-cart-wrap small hover-up">
+                                                <div class="product-img-action-wrap">
+                                                    <div class="product-img product-img-zoom">
+                                                        <a href="{{ route('product.details', ['slug' => $product->slug]) }}">
+                                                            <img class="default-img"
+                                                                 src="{{ asset('assets/images/products/').'/'.$product->image }}"
+                                                                 alt="">
+                                                            <img class="hover-img"
+                                                                 src="{{ asset('assets/images/products/').'/'.$product->image }}"
+                                                                 alt="">
+                                                        </a>
+                                                    </div>
+                                                    <div class="product-action-1">
+                                                        <a aria-label="Vista Rápida" class="action-btn small hover-up"
+                                                           data-bs-toggle="modal"
+                                                           data-bs-target="#quickViewModal">
+                                                            <i class="fi-rs-eye"></i></a>
+                                                        @if($witems->contains($product->id))
+                                                            <a aria-label="Lista de Deseos"
+                                                               class="action-btn small hover-up product-wish"
+                                                               wire:click.prevent="removeFromWishlist({{$product->id}})"
+                                                               href="javascript:;" tabindex="0">
+                                                                <i class="fi-rs-heart"></i>
+                                                            </a>
+                                                        @else
+                                                            <a aria-label="Lista de Deseos"
+                                                               class="action-btn small hover-up"
+                                                               wire:click.prevent="addToWishlist({{$product->id}}, '{{$product->name}}', {{$product->regular_price}})"
+                                                               href="javascript:;" tabindex="0">
+                                                                <i class="fi-rs-heart"></i>
+                                                            </a>
+                                                        @endif
+                                                        {{--                                            <a aria-label="Compare" class="action-btn small hover-up"--}}
+                                                        {{--                                               href="shop-compare.html"--}}
+                                                        {{--                                                                                   tabindex="0"><i class="fi-rs-shuffle"></i></a>--}}
+                                                    </div>
+                                                    <div class="product-action-1 show">
+                                                        <a aria-label="Al Carrito" class="action-btn hover-up"
+                                                           wire:click.prevent="store({{$product->id}}, '{{$product->name}}', {{($product->sale_price > 0 && $_sale)?$product->sale_price:$product->regular_price}})"
+                                                           href="javascript:;"><i
+                                                                class="fi-rs-shopping-bag-add"></i></a>
+                                                    </div>
+                                                    <div
+                                                        class="product-badges product-badges-position product-badges-mrg">
+                                                        @if($product->sale_price > 0 && $_sale)
+                                                            <span class="hot bg-danger">En oferta</span>
+                                                        @else
+                                                            <span class="new bg-success">Nuevo producto</span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="product-content-wrap">
+                                                    <div class="product-category">
+                                                        <a href="shop-grid-right.html">{{ $product->category->name }}</a>
+                                                    </div>
+                                                    <h2>
+                                                        <a href="{{ route('product.details', ['slug' => $product->slug]) }}">{{ $product->name }}</a>
+                                                    </h2>
+                                                    <div class="rating-result" title="90%">
 
-                                <!--End product-cart-wrap-2-->
-                            @endforeach
+                                                    </div>
+                                                    <div class="product-price">
+                                                        @if($product->sale_price > 0 && $_sale)
+                                                            <span>S/ {{ $product->sale_price }}</span>
+                                                            <span
+                                                                class="old-price">S/ {{ $product->regular_price }}</span>
+                                                        @else
+                                                            <span>S/ {{ $product->regular_price }}</span>
+                                                        @endif
+                                                        {{--                                        <span class="old-price">S/ {{ $product->regular_price }}</span>--}}
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <!--End product-cart-wrap-2-->
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -250,141 +369,151 @@
     </section>
 
     <section class="bg-grey-9 section-padding" wire:ignore>
-        <div class="container pt-25 pb-25">
-            <div class="card">
-                <div class="col-md-12 pl-20 pt-20 pb-15" style="background-color: var(--st-patricks-blue);">
-                    <h3 class="section-title text-white">
-                        <span>PRODUCTOS  </span> POR CATEGORIAS
-                    </h3>
-                </div>
+        <div class="container pb-25">
+            <div class="bestsell-pro card">
+                <div>
+                    <div class="slider-items-products">
+                        <div class="bestsell-block" wire:ignore>
+                            <div class="block-title">
+                                <h2><span>PRODUCTOS POR </span> CATEGORIAS</h2>
+                            </div>
 
-                <div class="col-12">
-                    <div class="banner-bg wow fadeIn animated img-banner"
-                         style="background-image: url('{{ asset('assets/images/banner-1.jpg') }}');">
-                        <div class="banner-content" style="position: relative">
-                            {{--                            <h5 class="text-white mb-15">Shop Today’s Deals</h5>--}}
-                            {{--                            <h2 class="fw-600 text-white">Happy <span class="text-brand text-white">Mother's Day</span>.--}}
-                            {{--                                Big Sale Up to 40%--}}
-                            {{--                            </h2>--}}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="heading-tab d-flex p-20">
-
-                    <div class="heading-tab-right wow fadeIn animated">
-                        <ul class="nav nav-tabs right no-border" id="myTab-1" role="tablist">
-                            @foreach($categories as $key => $category)
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link {{ ($key == 0)?'active':'' }}" id="nav-tab-{{ $key }}-1"
-                                            data-bs-toggle="tab"
-                                            data-bs-target="#tab-{{ $key }}-1" type="button" role="tab"
-                                            aria-controls="tab-{{ $key }}"
-                                            aria-selected="true">{{ $category->name }}
-                                    </button>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-                <div class="row p-20">
-
-                    <div class="col-lg-12 col-md-12">
-                        <div class="tab-content wow fadeIn animated" id="myTabContent-1">
-                            @foreach($categories as $key => $category)
-                                <div class="tab-pane fade show {{ ($key == 0)?'active':'' }}" id="tab-{{ $key }}-1"
-                                     role="tabpanel"
-                                     aria-labelledby="tab-{{ $key }}-1">
-                                    <div class="carausel-4-columns-cover arrow-center position-relative">
-                                        <div class="slider-arrow slider-arrow-2 carausel-4-columns-arrow"
-                                             id="carausel-4-columns-{{ $key }}-arrows"></div>
-                                        <div class="carausel-4-columns carausel-arrow-center"
-                                             id="carausel-4-columns-{{ $key }}">
-                                            @php
-                                                $c_products =  \App\Models\Product::where('category_id', $category->id)->get()->take($no_of_products);
-                                            @endphp
-                                            @foreach($c_products as $c_product)
-                                                <div class="product-cart-wrap">
-                                                    <div class="product-img-action-wrap">
-                                                        <div class="product-img product-img-zoom">
-                                                            <a href="{{ route('product.details', ['slug' => $c_product->slug]) }}">
-                                                                <img class="default-img"
-                                                                     src="{{ asset('assets/images/products').'/'.$c_product->image }}"
-                                                                     alt="">
-                                                                <img class="hover-img"
-                                                                     src="{{ asset('assets/images/products').'/'.$c_product->image }}"
-                                                                     alt="">
-                                                            </a>
-                                                        </div>
-                                                        <div class="product-action-1">
-                                                            <a aria-label="Quick view" class="action-btn small hover-up"
-                                                               data-bs-toggle="modal" data-bs-target="#quickViewModal">
-                                                                <i class="fi-rs-eye"></i></a>
-                                                            @if($witems->contains($c_product->id))
-                                                                <a aria-label="Add To Wishlist"
-                                                                   class="action-btn small hover-up product-wish"
-                                                                   wire:click.prevent="removeFromWishlist({{$c_product->id}})"
-                                                                   href="javascript:;" tabindex="0">
-                                                                    <i class="fi-rs-heart"></i>
-                                                                </a>
-                                                            @else
-                                                                <a aria-label="Add To Wishlist"
-                                                                   class="action-btn small hover-up"
-                                                                   wire:click.prevent="addToWishlist({{$c_product->id}}, '{{$c_product->name}}', {{$c_product->regular_price}})"
-                                                                   href="javascript:;" tabindex="0">
-                                                                    <i class="fi-rs-heart"></i>
-                                                                </a>
-                                                            @endif
-                                                            {{--                                                    <a aria-label="Compare" class="action-btn small hover-up"--}}
-                                                            {{--                                                       href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>--}}
-                                                        </div>
-                                                        <div class="product-action-1 show">
-                                                            <a aria-label="Add To Cart" class="action-btn hover-up"
-                                                               wire:click.prevent="store({{$c_product->id}}, '{{$c_product->name}}', {{($c_product->sale_price > 0 && $_sale)?$c_product->sale_price:$c_product->regular_price}})"
-                                                               href="shop-cart.html"><i
-                                                                    class="fi-rs-shopping-bag-add"></i></a>
-                                                        </div>
-                                                        <div
-                                                            class="product-badges product-badges-position product-badges-mrg">
-                                                            @if($c_product->sale_price > 0 && $_sale)
-                                                                <span class="hot bg-danger">En oferta</span>
-                                                            @endif
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-content-wrap">
-                                                        <div class="product-category">
-                                                            <a href="shop-grid-right.html">{{ $c_product->category->name }}</a>
-                                                        </div>
-                                                        <h2>
-                                                            <a href="{{ route('product.details', ['slug' => $c_product->slug]) }}">{{ $c_product->name }}</a>
-                                                        </h2>
-                                                        {{--                                                <div class="rating-result" title="90%">--}}
-                                                        {{--                                                    <span>--}}
-                                                        {{--                                                        <span>70%</span>--}}
-                                                        {{--                                                    </span>--}}
-                                                        {{--                                                </div>--}}
-                                                        <div class="product-price">
-                                                            @if($c_product->sale_price > 0 && $_sale)
-                                                                <span>S/ {{ $c_product->sale_price }}</span>
-                                                                <span
-                                                                    class="old-price">S/ {{ $c_product->regular_price }}</span>
-                                                            @else
-                                                                <span>S/ {{ $c_product->regular_price }}</span>
-                                                            @endif
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        </div>
+                            <div class="col-12">
+                                <div class="banner-bg wow fadeIn animated img-banner"
+                                     style="background-image: url('{{ asset('assets/images/banner-1.jpg') }}');">
+                                    <div class="banner-content" style="position: relative">
+                                        {{--                            <h5 class="text-white mb-15">Shop Today’s Deals</h5>--}}
+                                        {{--                            <h2 class="fw-600 text-white">Happy <span class="text-brand text-white">Mother's Day</span>.--}}
+                                        {{--                                Big Sale Up to 40%--}}
+                                        {{--                            </h2>--}}
                                     </div>
                                 </div>
-                            @endforeach
+                            </div>
 
+                            <div class="heading-tab d-flex p-20" style="position: absolute; margin-top: -93px !important;">
+
+                                <div class="heading-tab-right wow fadeIn animated">
+                                    <ul class="nav nav-tabs right no-border" id="myTab-1" role="tablist">
+                                        @foreach($categories as $key => $category)
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link {{ ($key == 0)?'active':'' }}"
+                                                        id="nav-tab-{{ $key }}-1"
+                                                        data-bs-toggle="tab"
+                                                        data-bs-target="#tab-{{ $key }}-1" type="button" role="tab"
+                                                        aria-controls="tab-{{ $key }}"
+                                                        aria-selected="true">{{ $category->name }}
+                                                </button>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row p-20">
+
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="tab-content wow fadeIn animated" id="myTabContent-1">
+                                        @foreach($categories as $key => $category)
+                                            <div class="tab-pane fade show {{ ($key == 0)?'active':'' }}"
+                                                 id="tab-{{ $key }}-1"
+                                                 role="tabpanel"
+                                                 aria-labelledby="tab-{{ $key }}-1">
+                                                <div class="carausel-4-columns-cover arrow-center position-relative">
+                                                    <div class="slider-arrow slider-arrow-2 carausel-4-columns-arrow"
+                                                         id="carausel-4-columns-{{ $key }}-arrows"></div>
+                                                    <div class="carausel-4-columns carausel-arrow-center"
+                                                         id="carausel-4-columns-{{ $key }}">
+                                                        @php
+                                                            $c_products =  \App\Models\Product::where('category_id', $category->id)->get()->take($no_of_products);
+                                                        @endphp
+                                                        @foreach($c_products as $c_product)
+                                                            <div class="product-cart-wrap">
+                                                                <div class="product-img-action-wrap">
+                                                                    <div class="product-img product-img-zoom">
+                                                                        <a href="{{ route('product.details', ['slug' => $c_product->slug]) }}">
+                                                                            <img class="default-img"
+                                                                                 src="{{ asset('assets/images/products').'/'.$c_product->image }}"
+                                                                                 alt="">
+                                                                            <img class="hover-img"
+                                                                                 src="{{ asset('assets/images/products').'/'.$c_product->image }}"
+                                                                                 alt="">
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="product-action-1">
+                                                                        <a aria-label="Vista Rápida"
+                                                                           class="action-btn small hover-up"
+                                                                           data-bs-toggle="modal"
+                                                                           data-bs-target="#quickViewModal">
+                                                                            <i class="fi-rs-eye"></i></a>
+                                                                        @if($witems->contains($c_product->id))
+                                                                            <a aria-label="Lista de Deseos"
+                                                                               class="action-btn small hover-up product-wish"
+                                                                               wire:click.prevent="removeFromWishlist({{$c_product->id}})"
+                                                                               href="javascript:;" tabindex="0">
+                                                                                <i class="fi-rs-heart"></i>
+                                                                            </a>
+                                                                        @else
+                                                                            <a aria-label="Lista de Deseos"
+                                                                               class="action-btn small hover-up"
+                                                                               wire:click.prevent="addToWishlist({{$c_product->id}}, '{{$c_product->name}}', {{$c_product->regular_price}})"
+                                                                               href="javascript:;" tabindex="0">
+                                                                                <i class="fi-rs-heart"></i>
+                                                                            </a>
+                                                                        @endif
+                                                                        {{--                                                    <a aria-label="Compare" class="action-btn small hover-up"--}}
+                                                                        {{--                                                       href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>--}}
+                                                                    </div>
+                                                                    <div class="product-action-1 show">
+                                                                        <a aria-label="Al Carrito"
+                                                                           class="action-btn hover-up"
+                                                                           wire:click.prevent="store({{$c_product->id}}, '{{$c_product->name}}', {{($c_product->sale_price > 0 && $_sale)?$c_product->sale_price:$c_product->regular_price}})"
+                                                                           href="shop-cart.html"><i
+                                                                                class="fi-rs-shopping-bag-add"></i></a>
+                                                                    </div>
+                                                                    <div
+                                                                        class="product-badges product-badges-position product-badges-mrg">
+                                                                        @if($c_product->sale_price > 0 && $_sale)
+                                                                            <span class="hot bg-danger">En oferta</span>
+                                                                        @endif
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="product-content-wrap">
+                                                                    <div class="product-category">
+                                                                        <a href="shop-grid-right.html">{{ $c_product->category->name }}</a>
+                                                                    </div>
+                                                                    <h2>
+                                                                        <a href="{{ route('product.details', ['slug' => $c_product->slug]) }}">{{ $c_product->name }}</a>
+                                                                    </h2>
+                                                                    {{--                                                <div class="rating-result" title="90%">--}}
+                                                                    {{--                                                    <span>--}}
+                                                                    {{--                                                        <span>70%</span>--}}
+                                                                    {{--                                                    </span>--}}
+                                                                    {{--                                                </div>--}}
+                                                                    <div class="product-price">
+                                                                        @if($c_product->sale_price > 0 && $_sale)
+                                                                            <span>S/ {{ $c_product->sale_price }}</span>
+                                                                            <span
+                                                                                class="old-price">S/ {{ $c_product->regular_price }}</span>
+                                                                        @else
+                                                                            <span>S/ {{ $c_product->regular_price }}</span>
+                                                                        @endif
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+
+                                    </div>
+                                    <!--End Col-lg-9-->
+                                </div>
+                            </div>
                         </div>
-                        <!--End Col-lg-9-->
                     </div>
+
                 </div>
             </div>
         </div>
@@ -392,23 +521,31 @@
 
     <section class="section-padding" wire:ignore>
         <div class="container">
-            <div class="card">
-                <div class="col-md-12 pl-20 pt-20 pb-15" style="background-color: var(--st-patricks-blue);">
-                    <h3 class="section-title text-white"><span>MARCAS </span> DESTACADAS
-                    </h3>
-                </div>
-                <div class="container">
-                    <div class="carausel-6-columns-cover position-relative wow fadeIn animated pt-20 mt-60 pb-20">
-                        <div class="slider-arrow slider-arrow-2 carausel-6-columns-arrow"
-                             id="carausel-6-columns-3-arrows"></div>
-                        <div class="carausel-6-columns text-center" id="carausel-6-columns-3">
-                            @foreach($brands as $brand)
-                                <div class="brand-logo">
-                                    <img class="img-grey-hover"
-                                         src="{{ asset('assets/images/brands/').'/'.$brand->image }}"
-                                         alt="">
+            <div class="bestsell-pro card">
+                <div>
+                    <div class="slider-items-products">
+                        <div class="bestsell-block" wire:ignore>
+                            <div class="block-title">
+                                <h2>MARCAS DESTACADAS</h2>
+                            </div>
+
+                            <div
+                                class="carausel-6-columns-cover position-relative wow fadeIn animated pt-20 mt-60 pb-20">
+                                <div class="slider-arrow slider-arrow-2 carausel-6-columns-arrow"
+                                     id="carausel-6-columns-3-arrows"></div>
+                                <div class="carausel-6-columns text-center" id="carausel-6-columns-3">
+                                    @foreach($brands as $brand)
+                                        <div class="brand-logo px-1">
+                                            <a href="{{ route('product.brand') . '?brand=' . $brand->id }}">
+                                                <img class="img-grey-hover"
+                                                     src="{{ asset('assets/images/brands/').'/'.$brand->image }}"
+                                                     alt="">
+                                            </a>
+                                        </div>
+                                    @endforeach
                                 </div>
-                            @endforeach
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -482,6 +619,42 @@
         .slider-page {
             width: 690px;
             height: 492px;
+        }
+    </style>
+
+    <style>
+        .bestsell-pro {
+            margin-top: 60px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px 0 rgb(0 0 0 / 8%);
+            overflow: hidden;
+            position: relative;
+            border-radius: 10px;
+        }
+
+        .bestsell-block {
+            background: #fff;
+        }
+
+        .bestsell-pro .block-title {
+            padding: 0px;
+            background: #e6e8ea;
+            border-bottom: 2px var() solid;
+        }
+
+        .bestsell-pro .block-title h2 {
+            display: inline-block;
+            font-size: 20px;
+            letter-spacing: 0.5px;
+            line-height: 18px;
+            margin: auto;
+            position: relative;
+            padding: 18px 31px 18px 31px;
+            text-transform: uppercase;
+            color: #fff;
+            font-weight: 400;
+            background: #FFA900;
+            font-family: 'Rubik', sans-serif;
         }
     </style>
 @endpush

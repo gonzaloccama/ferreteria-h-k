@@ -33,6 +33,8 @@ class HomeComponent extends Component
         $data['brands'] = Brand::where('status', '1')->get();
 
         if (Auth::check()) {
+            Cart::instance('cart')->store(Auth::user()->email);
+            Cart::instance('wishlist')->store(Auth::user()->email);
             Cart::instance('cart')->restore(Auth::user()->email);
             Cart::instance('wishlist')->restore(Auth::user()->email);
         }

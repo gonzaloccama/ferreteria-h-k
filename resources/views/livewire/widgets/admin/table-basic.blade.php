@@ -50,9 +50,12 @@
                                 <a href="https://api.whatsapp.com/send?phone=51{{ $result[$header] }}"
                                    target="_blank">{{ $result[$header] }}</a>
                             @elseif($header == 'not')
+                                @if(isset($customs) && !empty($customs))
+                                    @include('livewire.widgets.admin.action-custom-table')
+                                @endif
 
                                 <div class="btn-group dropleft">
-                                    <button type="button" class="btn btn-primary btn-xs" data-toggle="dropdown"
+                                    <button type="button" class="btn btn-primary btn-xs rounded-0" data-toggle="dropdown"
                                             aria-haspopup="true" aria-expanded="false">
                                         <i class="simple-icon-settings"
                                            style="font-size: 14px; position: absolute; margin-top: -7px"></i>
@@ -68,9 +71,6 @@
                                     </div>
                                 </div>
 
-                                @if(isset($customs) && !empty($customs))
-                                    @include('livewire.widgets.admin.action-custom-table')
-                                @endif
                             @endif
                         </th>
                     @endforeach

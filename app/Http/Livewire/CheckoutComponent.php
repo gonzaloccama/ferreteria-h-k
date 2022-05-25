@@ -116,7 +116,7 @@ class CheckoutComponent extends Component
     public function mount()
     {
         $this->is_shipping_different = 0;
-        $this->paymentMode = 'cash';
+        $this->paymentMode = null;
 
         $this->country = $this->s_country = 'Perú';
 

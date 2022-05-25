@@ -44,6 +44,27 @@
     </div>
 
 </div>
+
+
+<div class="widget-category mb-30">
+    <h5 class="section-title style-1 mb-30 wow fadeIn animated">MARCAS DE PRODUCTOS</h5>
+
+    <ul class="categories">
+
+        <?php
+            $brands = \App\Models\Brand::paginate(10);
+        ?>
+
+        @foreach($brands as $brand)
+            <li>
+                <a href="{{ route('product.brand') . '?brand=' . $brand->id }}">{{ $brand->name }}</a>
+            </li>
+        @endforeach
+
+    </ul>
+
+</div>
+
 <!-- Product sidebar Widget -->
 <div class="sidebar-widget product-sidebar  mb-30 p-30 bg-grey border-radius-10" wire:ignore>
     <div class="widget-header position-relative mb-20 pb-10">

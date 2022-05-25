@@ -2,31 +2,33 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Product;
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\Sale;
-use App\Models\SettingSite;
 use Auth;
+use Cart;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Cart;
 
-class CategoryComponent extends Component
+class BrandComponent extends Component
 {
     public $sorting;
     public $page_size;
-    public $category_slug;
+    public $brand_id;
 
     use WithPagination;
 
     public $min_price;
     public $max_price;
 
-    public function mount($category_slug)
+    public function mount()
     {
         $this->sorting = "default";
         $this->page_size = 12;
-        $this->category_slug = $category_slug;
+
+        if (isset($_GET['brand']) && !empty($_GET['brand'])){
+            $this->brand_id = $_GET['brand'];
+        }
 
         $this->min_price = 1;
         $this->max_price = 1000;
@@ -34,13 +36,13 @@ class CategoryComponent extends Component
 
     public function render()
     {
-        $category = Category::where('slug', $this->category_slug)->first();
-
-        $category_id = $category->id;
+//        $category = Category::where('slug', $this->category_slug)->first();
+//
+//        $category_id = $category->id;
 //        $data['category_name'] = $category->name;
 
 
-        $data['products'] = Product::where('category_id', $category_id)
+        $data['products'] = Product::where('brand_id', $this->brand_id)
             ->whereBetween('regular_price', [$this->min_price, $this->max_price])
             ->when($this->sorting === 'date', function ($query) {
                 $query->orderBy('created_at', 'DESC');
@@ -53,7 +55,7 @@ class CategoryComponent extends Component
             })
             ->paginate($this->page_size);
 
-        $data['title'] = 'Categorias';
+        $data['title'] = 'Marcas';
 
         $data['categories'] = Category::all();
         $data['sale'] = Sale::find(1);
@@ -64,7 +66,7 @@ class CategoryComponent extends Component
             Cart::instance('wishlist')->store(Auth::user()->email);
         }
 
-        return view('livewire.category-component', $data)->layout('layouts.frontend');
+        return view('livewire.brand-component', $data)->layout('layouts.frontend');
     }
 
     public function store($product_id, $product_name, $product_price)
@@ -103,6 +105,4 @@ class CategoryComponent extends Component
     {
         $this->sorting = $orderBy;
     }
-
 }
-

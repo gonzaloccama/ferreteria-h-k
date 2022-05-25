@@ -256,19 +256,90 @@
         </div>
     @endif
 
+    @if($drawTransaction)
+        <div class="card border shadow mb-3">
+            <div class="card-body">
+                <div class="position-absolute card-top-buttons">
+                    <button class="btn btn-danger icon-button"
+                            wire:click.prevent="closeTransaction">
+                        <i class="simple-icon-close"></i>
+                    </button>
+                </div>
+                <div class="list-item-heading mb-4"><h6 class="text-uppercase">Editar</h6></div>
+                <?php
+                $dt = [
+                    'name' => 'tStatus',
+                    'text' => 'Estado de transacción',
+                    'required' => 1,
+                    'object' => 'array',
+                    'options' => [
+                        ['id' => 'pending', 'name' => 'Pendiente'],
+                        ['id' => 'approved', 'name' => 'Aprobado'],
+                        ['id' => 'declined', 'name' => 'Rechazada'],
+                        ['id' => 'refunded', 'name' => 'Reintegrada'],
+                    ],
+                ];
+                ?>
+                @include('livewire.widgets.admin.form.select-h', $dt)
+
+                <?php
+                $dt = [
+                    'name' => 'opAttachment',
+                    'text' => 'Comprobante',
+                    'required' => 0,
+                    'type' => 'file',
+                ];
+                ?>
+                @include('livewire.widgets.admin.form.input-h', $dt)
+
+                <div class="text-right">
+                    <button class="btn btn-secondary btn-xs"
+                            wire:click.prevent="updateTransaction({{ $order->transaction->id }}, true)">
+                        <i class="iconsminds-save"></i>
+                        Guardar
+                    </button>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div class="card border shadow-none mb-3">
         <div class="card-body">
+            <div class="position-absolute card-top-buttons">
+                <button class="btn btn-secondary icon-button"
+                        wire:click.prevent="updateTransaction({{ $order->transaction->id }})">
+                    <i class="simple-icon-note"></i>
+                </button>
+            </div>
             <div class="list-item-heading mb-4"><h6 class="text-uppercase">Transacción</h6></div>
             <table class="table table-hover responsive">
                 <tbody>
                 <tr>
+                    <?php
+                    $mt = [
+                        'cash' => 'Dinero Efectivo',
+                        'bankTranfer' => 'Transferencia Bancaria',
+                        'digitalWallet' => 'Billetera Digital',
+                        'checkPayment' => 'Cheque',
+                        'card' => 'Tarjeta de Crédito',
+                        'paypal' => 'PayPal'
+                    ];
+                    ?>
                     <th><p class="color-theme-1 text-uppercase">Modo de transacción: </p></th>
-                    <td><h6>{{ $order->transaction->mode }}</h6></td>
+                    <td><h6>{{ $mt[$order->transaction->mode] }}</h6></td>
                 </tr>
 
                 <tr>
+                    <?php
+                    $st = [
+                        'pending' => 'Pendiente',
+                        'approved' => 'Aprobado',
+                        'declined' => 'Rechazada',
+                        'refunded' => 'Reintegrada',
+                    ];
+                    ?>
                     <th><p class="color-theme-1 text-uppercase">Estado: </p></th>
-                    <td><h6>{{ $order->transaction->status }}</h6></td>
+                    <td><h6>{{ $st[$order->transaction->status] }}</h6></td>
                 </tr>
 
                 <tr>

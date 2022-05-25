@@ -32,19 +32,17 @@ class ShopComponent extends Component
 
     public function render()
     {
-        if ($this->sorting === 'date') {
-            $data['products'] = Product::whereBetween('regular_price', [$this->min_price, $this->max_price])
-                ->orderBy('created_at', 'DESC')->paginate($this->page_size);
-        } elseif ($this->sorting === 'price') {
-            $data['products'] = Product::whereBetween('regular_price', [$this->min_price, $this->max_price])
-                ->orderBy('regular_price', 'ASC')->paginate($this->page_size);
-        } elseif ($this->sorting === 'price-desc') {
-            $data['products'] = Product::whereBetween('regular_price', [$this->min_price, $this->max_price])
-                ->orderBy('regular_price', 'DESC')->paginate($this->page_size);
-        } else {
-            $data['products'] = Product::whereBetween('regular_price', [$this->min_price, $this->max_price])
-                ->orderBy('name')->paginate($this->page_size);
-        }
+        $data['products'] = Product::whereBetween('regular_price', [$this->min_price, $this->max_price])
+            ->when($this->sorting === 'date', function ($query) {
+                $query->orderBy('created_at', 'DESC');
+            })->when($this->sorting === 'price', function ($query) {
+                $query->orderBy('regular_price', 'ASC');
+            })->when($this->sorting === 'price-desc', function ($query) {
+                $query->orderBy('regular_price', 'DESC');
+            })->when($this->sorting === 'default', function ($query) {
+                $query->orderBy('name');
+            })
+            ->paginate($this->page_size);
 
         $data['title'] = 'Tienda';
 
@@ -63,7 +61,7 @@ class ShopComponent extends Component
     public function store($product_id, $product_name, $product_price)
     {
         Cart::instance('cart')->add($product_id, $product_name, 1, $product_price)->associate('App\Models\Product');
-        session()->flash('success_message', 'Item added in Cart');
+
         $this->emitTo('cart-count-component', 'refreshComponent');
         $this->emitTo('cart-count-responsive-component', 'refreshComponent');
 //        return redirect()->route('product.cart');
